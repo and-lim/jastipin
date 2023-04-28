@@ -325,8 +325,8 @@ h1.title::after{
 
 
 footer{
-    display: flex;
-    position: relative;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     align-items: center;
     justify-content: center;
