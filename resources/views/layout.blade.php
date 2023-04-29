@@ -13,7 +13,7 @@
   <body>
 
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand ms-lg-5 text-white" href="#">Navbar</a>
+            <a class="navbar-brand ms-lg-5 text-white" href="#">Jastipin</a>
                 <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" style="background-color: white;"></span>
               </button>
@@ -23,31 +23,47 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="item.html">Item</a>
+                     <a class="nav-link" href="/item">Item</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Trip
                     </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Post a Trip</a></li>
+                    <li><a class="dropdown-item" href="@auth / @endauth @guest /login @endguest">Post a Trip</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Search Trip</a></li>
+                    <li><a class="dropdown-item" href="@auth / @endauth @guest /login @endguest">Search Trip</a></li>
                 </ul>
                 </li>
             </ul>
                 <ul class="navbar-nav ms-auto me-lg-5 align-items-center d-flex gap-5 text-white">
+                    @auth
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-user"></i>
+                            <i class="fa fa-user"></i>
+                            {{ auth()->user()->fullname }}
                         </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Account</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    </ul>
+                        
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Account</a></li>
+                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item"><a href="/cart"> <i class="fa fa-cart-plus text-white"></i></a></li>
+                    @endauth
+                    <li class="nav-item"><a href="@auth /cart @endauth @guest /login @endguest"> <i class="fa fa-cart-plus text-white"></i></a></li>
+                    
+                    @guest
                     <li class="nav-item"><a href="/login" class="nav-link">login</a></li>
+                    @endguest
+
+                    @auth
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <li class="nav-item"><button type="submit" id="logout" class="btn btn-link">Logout</button></li>
+
+                    </form>
+                    @endauth 
                 </ul>
             </div>
         
@@ -55,7 +71,7 @@
 
 @yield('mainSection')
    
-    <footer class="position-relative bottom-0 bg-dark py-2 text-white text-center">
+    <footer class="position-fixed bottom-0 bg-dark py-2 text-white text-center">
         <h5>copyright &copy; jastip</h5>
     </footer>
 
