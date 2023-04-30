@@ -71,7 +71,7 @@
 
 @yield('mainSection')
    
-    <footer class="position-fixed bottom-0 bg-dark py-2 text-white text-center">
+    <footer class="position-relative bottom-0 bg-dark py-2 text-white text-center">
         <h5>copyright &copy; jastip</h5>
     </footer>
 
