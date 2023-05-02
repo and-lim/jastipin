@@ -33,3 +33,7 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/item', function () {
     return view('item');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
