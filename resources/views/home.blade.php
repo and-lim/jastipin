@@ -2,271 +2,163 @@
 
 @section('mainSection')
 
-    <section class="hero">  
-        <div class="hero-header py-5">
-            <div class="container mt-2">
-                <div class="row">
-                    <div class="col-lg-6 mx-auto text-center text-lg-center">
-                        <h1 class="text-white mb-4 text-slider-items intro-title text-center">Jastipin</h1>
+        <section class="hero">  
+            <div class="hero-header py-5">
+                <div class="container mt-2">
+                    <div class="row">
+                        <div class="col-lg-6 mx-auto text-center text-lg-center">
+                            <h1 class="text-white mb-4 text-slider-items intro-title text-center">Jastipin</h1>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group mx-auto col-lg-10">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-lg-5">
-                          <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                    <div class="form-group mx-auto col-lg-8">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-lg-5">
+                            <input type="text" class="form-control" placeholder="Departure" aria-label="First name">
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="bg-white" style="height: 5px;"></div>
+                            </div>
+                            <div class="col-lg-5">
+                            <input type="text" class="form-control" placeholder="Destination" aria-label="Last name">
+                            </div>
                         </div>
-                        <div class="col-lg-1">
-                            <div class="bg-white" style="height: 5px;"></div>
+                        <div class="row mt-5 text-center d-flex justify-content-center mx-auto">
+                            <div class="search-form col-lg-9 ">
+                                <i class="fa fa-search"></i>
+                                <input type="text" class="form-control form-input" placeholder="Search anything...">
+                            </div>
                         </div>
-                        <div class="col-lg-5">
-                          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        <div class="search-button d-flex justify-content-center mt-3">
+                            <a href="" class="btn btn-warning text-center mx-auto">Search</a>
                         </div>
-                      </div>
-                      <div class="row mt-3 text-center mx-auto">
-                        <div class="search-form ">
-                            <i class="fa fa-search"></i>
-                            <input type="text" class="form-control form-input" placeholder="Search anything...">
-                          </div>
-                     </div>
-                    <div class="search-button d-flex justify-content-center mt-3">
-                        <a href="" class="btn btn-warning text-center mx-auto">Search</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="line p-2"></div>
-    </section>
+            <div class="line p-2"></div>
+        </section>
     
-    <section class="">
-        <div class="container-xl my-5">
-            <div class="text-title mb-3">
-                <h1 class="text-start title">Popular item</h1>
-            </div>
+        <section class="">
+            <div class="container-xl my-5">
+                <div class="text-title mb-3">
+                    <h1 class="text-start title">Popular item</h1>
+                </div>
 
-            <div class="row mt-3" style="row-gap: 1rem;">
-                <div class="col-lg-3">
-                    <div class="category-card" >
-                        <div class="card-image">
-                            <img src="img/laptop.jpg" alt="" srcset="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Food</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="category-card position-relative" >
-                        <div class="card-image">
-                            <img src="img/laptop.jpg" alt="" srcset="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Electronic</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="category-card" >
-                        <div class="card-image">
-                            <img src="img/laptop.jpg" alt="" srcset="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Skin Care</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="category-card" >
-                        <div class="card-image">
-                            <img src="img/laptop.jpg" alt="" srcset="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Fashion</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="float-end mt-3">
-                <a href="" class="btn btn-outline-warning">
-                    See more
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    
-    <section class="trip-list">
-        <div class="container">
-            <h1 class="title mb-3">Trip</h1>
-            <div class="row ">
-                <div class="col-lg-10">
-                    <div class="travel-list d-flex flex-column gap-2">
-                        <div class="card shadow-sm">
-                            <div class="card-header d-flex align-items-center gap-5">
-                                <h2>Jakarta</h2>
-                                <span>-</span>
-                                <h2>Tokyo</h2>
+                <div class="row mt-3" style="row-gap: 1rem;">
+                    <div class="col-lg-3">
+                        <div class="category-card" >
+                            <div class="card-image">
+                                <img src="img/laptop.jpg" alt="" srcset="">
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                    </div>
-                                <div class="col-lg-9">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                <div class="row g-0">
-                                    <div class="col-lg-2">
-                                        <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                    </div>
-                                </div>
-                                <div class="float-end">
-                                    <a href="" class="btn btn-outline-primary">see details</a>
-                                </div>
-                            </div>
-                            </div>
+                                <h5 class="card-title">Food</h5>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <a href="/trip" class="btn btn-outline-primary">see more Trip</a>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="category-card position-relative" >
+                            <div class="card-image">
+                                <img src="img/laptop.jpg" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Electronic</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="category-card" >
+                            <div class="card-image">
+                                <img src="img/laptop.jpg" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Skin Care</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="category-card" >
+                            <div class="card-image">
+                                <img src="img/laptop.jpg" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Fashion</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="float-end mt-3">
+                    <a href="" class="btn btn-outline-warning">
+                        See more
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     
-    {{-- <section class="favourite">
-                <div class="container my-5">
-                    <div class="col-lg-4 text-start my-5">
-                        <h1 class="fw-700 border-bottom border-dark border-3">Featured Product</h1>
-                    </div>
-                    <div class="swiper pb-3 position-relative">
-                        <div class="swiper-wrapper py-5 px-3 mb-3">
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
+    
+        <section class="trip-list">
+            <div class="container">
+                <h1 class="title mb-3">Trip</h1>
+                <div class="row ">
+                    <div class="col-lg-10">
+                        <div class="travel-list d-flex flex-column gap-2">
+                            <div class="card shadow-sm">
+                                <div class="card-header d-flex align-items-center gap-5">
+                                    <h2>Jakarta</h2>
+                                    <span>-</span>
+                                    <h2>Tokyo</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                        </div>
+                                    <div class="col-lg-9">
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                    <div class="row g-0">
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
                                     </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
+                                    <div class="float-end">
+                                        <a href="" class="btn btn-outline-primary">see details</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="img/laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
-                                    </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="img/laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
-                                    </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-pagination  my-5 "></div>
-                        <div class="swiper-button-prev "></div>
-                        <div class="swiper-button-next "></div>
                     </div>
-          
-                    </div>
-                    
                 </div>
-      </section> --}}
-
-
-<section class="about py-3 my-4">
-    <div class="container">
-        <div class="section-title text-center pt-5"></div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h3 class="text-primary">About us</h3>
-                <p>Jastipin adalah Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit earum repellat ratione, eos quo voluptatem excepturi, voluptate pariatur molestias quasi veniam, sit sapiente consequatur nihil totam sed itaque. Sequi, eum!</p>
+                <a href="/trip" class="btn btn-outline-primary float-end">see more Trip</a>
             </div>
-            <div class="col-lg-5">
-                <div class="img-about position-relative overflow-hidden p-5 pe-0">
-                    <img class="img-fluid" src="img/jastip.jpg" style="width: 450px" alt="">
+        </section>
+    
+        <section class="about py-3 my-5">
+            <div class="container mt-3">
+                <div class="section-title text-center pt-5"></div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3 class="text-primary">About us</h3>
+                        <p>Jastipin adalah Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit earum repellat ratione, eos quo voluptatem excepturi, voluptate pariatur molestias quasi veniam, sit sapiente consequatur nihil totam sed itaque. Sequi, eum!</p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="img-about position-relative overflow-hidden p-5 pe-0">
+                            <img class="img-fluid" src="img/jastip.jpg" style="width: 450px" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
       @endsection
