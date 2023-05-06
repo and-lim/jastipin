@@ -25,13 +25,30 @@
                                 <span>Profile </span>
                             </a>
                         </li> 
-                        <li class="dashboard-nav">
-                            <a class="nav-link d-flex align-items-center" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-item" type="button" role="tab" aria-controls="nav-item" aria-selected="false">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>item</span>
-                            </a>
+                     
+                        <li class="nav-item dashboard-nav dropdown">
+                          <a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                              <i class="fa fa-shopping-cart"></i>
+                              <span>Item</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li class="dashboard-nav">
+                              <a class="nav-link d-flex align-items-center" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-item" type="button" role="tab" aria-controls="nav-item" aria-selected="false">
+                                  <i class="fa fa-tasks"></i>
+                                  <span>item List</span>
+                              </a>
+                             </li>
+                     
+                              <li class="dashboard-nav ">
+                                  <a class="nav-link d-flex align-items-center" id="nav-add-item-tab" data-bs-toggle="tab" data-bs-target="#nav-add-item" type="button" role="tab" aria-controls="nav-add-item" aria-selected="false">
+                                      <i class="fa fa-cart-plus"></i>
+                                      <span>Add a item</span>
+                                  </a>
+                              </li>
+                          </ul>
                         </li>
-                   
+
+                     
                         <li class="nav-item dashboard-nav dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                 <i class="fa fa-map-marker-alt"></i>
@@ -40,13 +57,13 @@
                             <ul class="dropdown-menu">
                                 <li class="dashboard-nav ">
                                     <a class="nav-link d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
-                                        <i class="fa fa-map-marker-alt"></i>
-                                        <span>trip</span>
+                                        <i class="fa fa-tasks"></i>
+                                        <span>Trip List</span>
                                     </a>
                                 </li>
                                 <li class="dashboard-nav ">
                                     <a class="nav-link d-flex align-items-center" id="nav-add-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-add-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
-                                        <i class="fa fa-map-marker-alt"></i>
+                                        <i class="fa fa-plus"></i>
                                         <span>Add a trip</span>
                                     </a>
                                 </li>
@@ -175,6 +192,53 @@
                                 </div>
                               </div>
                         </div>
+
+                        {{-- add item tab --}}
+
+                        <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
+                          <div class="row">
+                            <div class="card p-3 shadow-sm">
+                              <div class="mb-3 form-group row">
+                                 <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
+                                 <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="item-name" >
+                                 </div>
+                               </div>
+                               <div class="mb-3 form-group row">
+                                 <label for="Location" class="col-sm-2 col-form-label">Location</label>
+                                 <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="location">
+                                 </div>
+                               </div>
+    
+                               <div class="mb-3 form-group row">
+                                 <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                                 <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="price" placeholder="Rp">
+                                 </div>
+                               </div>
+    
+                               <div class="mb-3 form-group row">
+                                 <label for="image" class="col-sm-2 col-form-label">Select Image</label>
+                                 <div class="col-sm-10">
+                                   <input type="file" class="form-control" id="image">
+                                   <a href="" class="btn btn-primary mt-2">upload</a>
+                                 </div>
+                               </div>
+    
+                                 <div class="form-group mb-3">
+                                         <label for="" class="form-label">Add some Note</label>
+                                         <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                     </div>
+    
+                               <div class="submit-btn text-center">
+                                 <a href="" class="btn btn-primary">Submit</a>
+                               </div>
+                          
+                           </div>
+                          </div>
+                        </div>
+                        
 
                         {{-- tab trip list --}}
 

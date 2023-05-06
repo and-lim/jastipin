@@ -387,7 +387,7 @@ li.dashboard-nav > a > i{
     justify-content: center !important;
 }
 
-li.dashboard-nav:hover{
+li.dashboard-nav a:hover{
     transition: 0.25s ease;
     transform: translateX(5px);
 }
