@@ -137,121 +137,13 @@
                             </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <a href="/trip" class="btn btn-outline-primary">see more Trip</a>
-                        </div>
                     </div>
                 </div>
             </div>
+            <a href="/trip" class="btn btn-outline-primary float-end">see more Trip</a>
         </div>
     </section>
     
-    {{-- <section class="favourite">
-                <div class="container my-5">
-                    <div class="col-lg-4 text-start my-5">
-                        <h1 class="fw-700 border-bottom border-dark border-3">Featured Product</h1>
-                    </div>
-                    <div class="swiper pb-3 position-relative">
-                        <div class="swiper-wrapper py-5 px-3 mb-3">
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
-                                    </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="img/laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
-                                    </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="swiper-item shadow rounded overflow-hidden">
-                                    <div class="position-relative">
-                                        <img class="img-fluid" src="img/laptop.jpg" alt="">
-                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100</small>
-                                    </div>
-                                    <div class="feature-item p-4 mt-2">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <h5 class="mb-0">Laptop</h5>
-                                            <div class="ps-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex mb-3">
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-city text-primary me-2"></i>Seoul</small>
-                                            <small class="border-end me-3 pe-3"><i class="fa fa-map text-primary me-2"></i>S Korea</small>
-                                        </div>
-                                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                        <div class="d-flex justify-content-between">
-                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Order</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination  my-5 "></div>
-                        <div class="swiper-button-prev "></div>
-                        <div class="swiper-button-next "></div>
-                    </div>
-          
-                    </div>
-                    
-                </div>
-      </section> --}}
-
-
 <section class="about py-3 my-4">
     <div class="container">
         <div class="section-title text-center pt-5"></div>

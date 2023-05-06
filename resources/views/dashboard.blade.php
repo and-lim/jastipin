@@ -31,12 +31,27 @@
                                 <span>item</span>
                             </a>
                         </li>
-                        <li class="dashboard-nav">
-                            <a class="nav-link d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
+                   
+                        <li class="nav-item dashboard-nav dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                 <i class="fa fa-map-marker-alt"></i>
                                 <span>trip</span>
                             </a>
-                        </li>
+                            <ul class="dropdown-menu">
+                                <li class="dashboard-nav ">
+                                    <a class="nav-link d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
+                                        <i class="fa fa-map-marker-alt"></i>
+                                        <span>trip</span>
+                                    </a>
+                                </li>
+                                <li class="dashboard-nav ">
+                                    <a class="nav-link d-flex align-items-center" id="nav-add-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-add-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
+                                        <i class="fa fa-map-marker-alt"></i>
+                                        <span>Add a trip</span>
+                                    </a>
+                                </li>
+                            </ul>
+                          </li>
                         @auth
                         <form action="/logout" method="POST">
                         @csrf
@@ -93,8 +108,8 @@
                         
                          </div>
                         
-                        
-                        
+                        {{-- tab update profile --}}
+        
                         <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                           <div class="card p-3 shadow-sm">
                              <div class="mb-3 form-group row">
@@ -129,126 +144,192 @@
                           </div>
                         </div>
 
+                        {{-- tab item list --}}
+
                         <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="add-item mb-3">
                                     <a href="" class="float-end btn btn-warning">add item</a>
-                                </div>     
-                                <div class="col-lg-4">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <img src="img/laptop.jpg" class="card-img" alt="">
+                                </div>    
+                                <div class="col-lg-12">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                                </div>
+                                                 <div class="col-lg-9">
+                                                    <h1 class="mb-2">Lorem</h1>
+                                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+
+                                                   <div class="float-end d-flex gap-2">
+                                                    <input type="number" style="width: 50px">
+                                                      <a href="" class="btn btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                      </a>
+                                                    </div>
+                                               </div>
                                         </div>
-                                        <div class="product-btm">
-                                          <div class="price">
-                                            <a href="#" class="d-block">
-                                              <h4>Laptop</h4>
-                                            </a>
-                                            <div class="mt-3">
-                                              <span class="me-4">$25.00</span>
-                                              <del>$35.00</del>
-                                            </div>
-                                          </div>
-                                          <div class="product-button text-center mt-3">
-                                            <a href="" class="btn btn-warning text-center mx-auto">See detail</a>
-                                          </div>
                                         </div>
-                                      </div>
-                                </div>
-                  
-                                <div class="col-lg-4">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <img src="img/laptop.jpg" class="card-img" alt="">
-                                        </div>
-                                        <div class="product-btm">
-                                          <div class="price">
-                                            <a href="#" class="d-block">
-                                              <h4>Laptop</h4>
-                                            </a>
-                                            <div class="mt-3">
-                                              <span class="me-4">$25.00</span>
-                                              <del>$35.00</del>
-                                            </div>
-                                          </div>
-                                          <div class="product-button text-center mt-3">
-                                            <a href="" class="btn btn-warning text-center mx-auto">See detail</a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                </div>
-                  
-                                <div class="col-lg-4">
-                                  <div class="product">
-                                    <div class="product-img">
-                                        <img src="img/laptop.jpg" class="card-img" alt="">
                                     </div>
-                                    <div class="product-btm">
-                                      <div class="price">
-                                        <a href="#" class="d-block">
-                                          <h4>Laptop</h4>
-                                        </a>
-                                        <div class="mt-3">
-                                          <span class="me-4">$25.00</span>
-                                          <del>$35.00</del>
-                                        </div>
-                                      </div>
-                                      <div class="product-button text-center mt-3">
-                                        <a href="" class="btn btn-warning text-center mx-auto">See detail</a>
-                                      </div>
-                                    </div>
-                                  </div>
                                 </div>
-                       
                               </div>
                         </div>
-                       
+
+                        {{-- tab trip list --}}
+
                         <div class="tab-pane fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
-                            <div class="travel-list d-flex flex-column gap-2">
-                                <div class="add-trip mb-3">
-                                    <a href="" class="float-end btn btn-warning">add trip</a>
-                                </div> 
-                                <div class="card shadow-sm">
-                                    <div class="card-header d-flex align-items-center gap-5">
-                                        <h2>Jakarta</h2>
-                                        <span>-</span>
-                                        <h2>Tokyo</h2>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                            </div>
-                                        <div class="col-lg-9">
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                        <div class="row g-0">
-                                            <div class="col-lg-2">
-                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            </div>
+                            <div class="float-end">
+                                <a href="" id="nav-tab" role="tablist" data-bs-target="#nav-add-trip" class="btn btn-outline-primary">see details</a>
+                            </div>
+                            <div class="card shadow-sm">
+                                <div class="card-header d-flex align-items-center gap-5">
+                                    <h2>Jakarta</h2>
+                                    <span>-</span>
+                                    <h2>Tokyo</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img src="img/laptop.jpg" class="img-fluid" alt="">
                                         </div>
-                                        <div class="float-end">
-                                            <a href="" class="btn btn-outline-primary">see details</a>
+                                    <div class="col-lg-9">
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                    <div class="row g-0">
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
                                         </div>
                                     </div>
-                                    </div>
+                                    <div class="float-end">
+                                        <a href="" class="btn btn-outline-primary">see details</a>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
+                            </div> 
+
+
+                    
                         </div>
 
-                      </div>
+                           {{-- tab add trip --}}
+                           
+                        <div class="tab-pane fade " id="nav-add-trip" role="tabpanel" aria-labelledby="nav-add-trip-tab">
+                            <div class="card p-3 shadow-sm mt-2">            
+                                <div class="form-group mb-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-5">
+                                            <label for="" class="form-label">Location</label>
+                                          <input type="text" class="form-control" placeholder="From" aria-label="Depart">
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <div class="bg-dark mt-4" style="height: 5px;"></div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label for="" class="form-label">Destination</label>
+                                          <input type="text" class="form-control" placeholder="Destination" aria-label="Destination">
+                                        </div>
+                                      </div>
+                                </div>
+    
+                                <div class="form-group mb-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-5">
+                                            <label for="" class="form-label">Start Date</label>
+                                            <input id="startDate" class="form-control" type="date" />
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <div class="bg-dark mt-4" style="height: 5px;"></div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label for="" class="form-label">Arrival Date</label>
+                                             <input id="arrivalDate" class="form-control" type="date" />
+                                        </div>
+                                      </div>
+                                </div>
+    
+                                <div class="form-group ms-4 mb-3">
+                                    <div class="row justify-content-center align-items-center gap-3">
+                                        <label for="" class="form-label">Luggage Size</label>
+                                        <div>
+                                           <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                               <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                             </div>
+                                             <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                               <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                             </div>
+                                             <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                               <label class="form-check-label" for="inlineCheckbox3">3</label>
+                                             </div>
+                                        </div>
+                                    
+                                   </div>
+                                </div>
+    
+                                <div class="form-group mb-3">
+                                    <label for="" class="form-label">Item</label>
+                                    <input type="text" class="form-control" style="width: 50%">
+                                </div>
+    
+                                <div class="form-group mb-3">
+                                    <label for="" class="form-label">Item Category</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="" id="">
+                                        <label class="form-check-label" for="">
+                                            Category
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name=" id="" checked>
+                                        <label class="form-check-label" for="">
+                                          Category
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name=" id="" checked>
+                                        <label class="form-check-label" for="">
+                                          Other
+                                        </label>
+                                        <input type="text" class="form-control" style="width: 50%">
+                                      </div>
+                                </div>
+    
+                                    <div class="form-group row mb-3">
+                                        <div class="col-lg-6">
+                                            <label for="" class="form-label">Item Weight</label>
+                                            <input type="number" style="width: 50px">
+                                            <label for="" class="form-label">Kg</label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="" class="form-label">Item Amount</label>
+                                            <input type="number" style="width: 50px">
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Add some Note</label>
+                                        <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <a href="" class="btn btn-primary">Add Trip</a>
+                                    </div>
+                             </div>
+                        </div>
                 </div>
             </div>
         </div>
