@@ -46,8 +46,23 @@
                         </a>
                         
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Account</a></li>
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                            <li class="dropdown-item mx-auto">
+                                <a class="text-decoration-none ms-2 text-dark d-flex align-items-center gap-2 justify-content-center" href="/dashboard">
+                                <i class="fa fa-columns"></i> 
+                                <span>Dashboard</span>
+                            </a>
+                            </li>
+                            @auth
+                            <form action="/logout" method="POST">
+                            @csrf
+                            <li class="dropdown-item mx-auto">
+                                <button class="btn btn-link text-dark me-2 text-decoration-none d-flex gap-2 align-items-center" type="submit" id="logout">
+                                    <i class="fa fa-power-off"></i>
+                                    <span>Logout</span>
+                                </button>
+                            </li>
+                            </form>
+                            @endauth
                         </ul>
                     </li>
                     @endauth
@@ -57,13 +72,6 @@
                     <li class="nav-item"><a href="/login" class="nav-link">login</a></li>
                     @endguest
 
-                    @auth
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <li class="nav-item"><button type="submit" id="logout" class="btn btn-link">Logout</button></li>
-
-                    </form>
-                    @endauth 
                 </ul>
             </div>
         

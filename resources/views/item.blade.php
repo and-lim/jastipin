@@ -4,30 +4,17 @@
 <section class="hero">  
     <div class="hero-header py-5" style="height: 50vh">
         <div class="container mt-4">
-            <div class="row">
+            <div class="row col-lg-10 mx-auto">
                 <div class="search-title text-center">
                     <h1 class="fw-bold text-white">Search your item</h1>
                 </div>
-            </div>
-            <div class=" form-hero rounded-3 pb-3 col-9 position-relative mt-3">
-                <div class="search mt-3"> 
-                    <div class="row"> 
-                      <div class="col-md-6">
-                         <div class="search-1"> 
-                          <i class='fa fa-search text-dark'></i>
-                           <input type="text" placeholder="Item"> 
-                          </div>
-                         </div> 
-    
-                         <div class="col-md-6"> 
-                            <div class="search-2"> 
-                              <i class='fa fa-map text-dark me-5'></i> 
-                              <input type="text" placeholder="country"> 
-                              <button>Search</button> 
-                            </div> 
-                        </div>
-                    </div>
-                  </div>
+                <div class="search-form ">
+                  <i class="fa fa-search"></i>
+                  <input type="text" class="form-control form-input" placeholder="Search anything...">
+                </div>
+              </div>
+              <div class="search-button d-flex justify-content-center mt-3">
+                <a href="" class="btn btn-warning text-center mx-auto">Search</a>
             </div>
         </div>
     </div>
@@ -58,83 +45,77 @@
                 <div class="product">
                   <div class="product-img">
                       <img src="img/laptop.jpg" class="card-img" alt="">
-                    <div class="p_icon">
-                      <a href="#">
-                        <i class="fa fa-eye"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-heart"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </div>
                   </div>
                   <div class="product-btm">
-                    <a href="#" class="d-block">
-                      <h4>Laptop</h4>
-                    </a>
-                    <div class="mt-3">
-                      <span class="me-4">$25.00</span>
-                      <del>$35.00</del>
+                    <div class="price">
+                      <a href="#" class="d-block">
+                        <h4>Laptop</h4>
+                      </a>
+                      <div class="mt-3">
+                        <span class="me-4">$25.00</span>
+                        <del>$35.00</del>
+                      </div>
+                    </div>
+                    <div class="product-button">
+                      <a href="#" class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                      </a>
+                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-4">
                 <div class="product">
                   <div class="product-img">
                       <img src="img/laptop.jpg" class="card-img" alt="">
-                    <div class="p_icon">
-                      <a href="#">
-                        <i class="fa fa-eye"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-heart"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </div>
                   </div>
                   <div class="product-btm">
-                    <a href="#" class="d-block">
-                      <h4>Laptop</h4>
-                    </a>
-                    <div class="mt-3">
-                      <span class="me-4">$25.00</span>
-                      <del>$35.00</del>
+                    <div class="price">
+                      <a href="#" class="d-block">
+                        <h4>Laptop</h4>
+                      </a>
+                      <div class="mt-3">
+                        <span class="me-4">$25.00</span>
+                        <del>$35.00</del>
+                      </div>
+                    </div>
+                    <div class="product-button">
+                      <a href="#" class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                      </a>
+                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-4">
                 <div class="product">
                   <div class="product-img">
                       <img src="img/laptop.jpg" class="card-img" alt="">
-                    <div class="p_icon">
-                      <a href="#">
-                        <i class="fa fa-eye"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-heart"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </div>
                   </div>
                   <div class="product-btm">
-                    <a href="#" class="d-block">
-                      <h4>Laptop</h4>
-                    </a>
-                    <div class="mt-3">
-                      <span class="me-4">$25.00</span>
-                      <del>$35.00</del>
+                    <div class="price">
+                      <a href="#" class="d-block">
+                        <h4>Laptop</h4>
+                      </a>
+                      <div class="mt-3">
+                        <span class="me-4">$25.00</span>
+                        <del>$35.00</del>
+                      </div>
+                    </div>
+                    <div class="product-button">
+                      <a href="#" class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                      </a>
+                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
                     </div>
                   </div>
                 </div>
               </div>
+     
             </div>
       
         </div>
