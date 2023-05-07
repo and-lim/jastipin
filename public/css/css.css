@@ -64,6 +64,7 @@ ul.navbar-nav{
 
 h1.title,h1.home-title,h1.dashboard-title{
     position: relative;
+    font-weight: bold;
 }
 
 h1.title::after, h1.home-title::after,h1.dashboard-title::after{

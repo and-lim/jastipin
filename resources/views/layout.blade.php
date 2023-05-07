@@ -32,7 +32,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="@auth / @endauth @guest /login @endguest">Post a Trip</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="@auth / @endauth @guest /login @endguest">Search Trip</a></li>
+                    <li><a class="dropdown-item" href="/trip">Search Trip</a></li>
                 </ul>
                 </li>
             </ul>

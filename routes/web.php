@@ -50,3 +50,12 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
+Route::get('/trip', function () {
+    return view('trip');
+});
+
+Route::get('/trip-detail', function () {
+    return view('trip-detail');
+});
+
+

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('mainSection')
-<section class="hero">  
+<section>  
     <div class="hero-header py-5" style="height: 50vh">
         <div class="container mt-4">
             <div class="row col-lg-10 mx-auto">

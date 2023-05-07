@@ -69,6 +69,12 @@
                                 </li>
                             </ul>
                           </li>
+                          <li class="dashboard-nav">
+                            <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                                <i class="fa fa-question-circle"></i>
+                                <span>Request</span>
+                            </a>
+                        </li> 
                         @auth
                         <form action="/logout" method="POST">
                         @csrf
@@ -204,53 +210,53 @@
 
                         <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
                          <h1 class="dashboard-title mb-3">Add item</h1>
-                        <div class="row">
-                            <div class="card p-3 shadow-sm">
-                              <div class="mb-3 form-group row">
-                                 <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
-                                 <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="item-name" >
-                                 </div>
-                               </div>
+                            <div class="row">
+                                <div class="card p-3 shadow-sm">
+                                <div class="mb-3 form-group row">
+                                    <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="item-name" >
+                                    </div>
+                                </div>
 
-                               <div class="mb-3 form-group row">
-                                 <label for="Location" class="col-sm-2 col-form-label">Location</label>
-                                 <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="location">
-                                 </div>
-                               </div>
-    
-                               <div class="mb-3 form-group row">
-                                 <label for="Price" class="col-sm-2 col-form-label">Price</label>
-                                 <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="price" placeholder="Rp">
-                                 </div>
-                               </div>
-    
-                               <div class="mb-3 form-group row">
-                                 <label for="image" class="col-sm-2 col-form-label">Select Image</label>
-                                 <div class="col-sm-10">
-                                   <input type="file" class="form-control" id="image">
-                                   <a href="" class="btn btn-primary mt-2">upload</a>
-                                 </div>
-                               </div>
-                               
-                               <div class="form-group mb-3">
-                                  <label for="" class="form-label">Add Description</label>
-                                  <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
-                               </div>
+                                <div class="mb-3 form-group row">
+                                    <label for="Location" class="col-sm-2 col-form-label">Location</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="location">
+                                    </div>
+                                </div>
+        
+                                <div class="mb-3 form-group row">
+                                    <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="price" placeholder="Rp">
+                                    </div>
+                                </div>
+        
+                                <div class="mb-3 form-group row">
+                                    <label for="image" class="col-sm-2 col-form-label">Select Image</label>
+                                    <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="image">
+                                    <a href="" class="btn btn-primary mt-2">upload</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mb-3">
+                                    <label for="" class="form-label">Add Description</label>
+                                    <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                </div>
 
-                                 <div class="form-group mb-3">
-                                     <label for="" class="form-label">Add some Note</label>
-                                     <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                                 </div>
-    
-                               <div class="submit-btn text-center">
-                                 <a href="" class="btn btn-primary">Submit</a>
-                               </div>
-                          
-                           </div>
-                          </div>
+                                    <div class="form-group mb-3">
+                                        <label for="" class="form-label">Add some Note</label>
+                                        <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                    </div>
+        
+                                <div class="submit-btn text-center">
+                                    <a href="" class="btn btn-primary">Submit</a>
+                                </div>
+                            
+                                </div>
+                            </div>
                         </div>
                         
 
@@ -262,43 +268,42 @@
                               <div class="btn-add-trip mb-3">
                                   <a href="" id="nav-tab" role="tablist" data-bs-target="#nav-add-trip" class="btn btn-primary float-end">see details</a>
                               </div>
-                              <div class="card shadow-sm">
-                                  <div class="card-header d-flex align-items-center gap-5">
-                                      <h2>Jakarta</h2>
-                                      <span>-</span>
-                                      <h2>Tokyo</h2>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="row">
-                                          <div class="col-lg-2">
-                                              <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                          </div>
-                                      <div class="col-lg-9">
-                                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                      <div class="row g-0">
-                                          <div class="col-lg-2">
-                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                          </div>
-                                      </div>
-                                      <div class="float-end">
-                                          <a href="" class="btn btn-outline-primary">see details</a>
-                                      </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                              </div> 
+                              <div class="trip-list d-flex flex-column gap-2">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                                <h5 class="text-center">name</h5>
+                                            </div>
+                                        <div class="col-lg-9">
+                                            <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                        <div class="row g-0">
+                                            <div class="col-lg-2">
+                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="float-end">
+                                            <a href="/trip-detail" class="btn btn-outline-primary">see details</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                           </div>
                         </div>
 
@@ -408,6 +413,33 @@
                                         <a href="" class="btn btn-primary">Add Trip</a>
                                     </div>
                              </div>
+                        </div>
+
+                        <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">'
+                            <h1 class="dashboard-title pb-3 mb-3">Request</h1>
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                        </div>
+                                         <div class="col-lg-9">
+                                            <h1 class="mb-2">Lorem</h1>
+                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+
+                                           <div class="float-end d-flex gap-2">
+                                            <input type="number" style="width: 50px">
+                                            <a href="" class="btn btn-success">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                              <a href="" class="btn btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                              </a>
+                                            </div>
+                                       </div>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                 </div>
             </div>

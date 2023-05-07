@@ -99,19 +99,16 @@
                 <h1 class="title mb-3">Trip</h1>
                 <div class="row ">
                     <div class="col-lg-10">
-                        <div class="travel-list d-flex flex-column gap-2">
+                        <div class="trip-list d-flex flex-column gap-2">
                             <div class="card shadow-sm">
-                                <div class="card-header d-flex align-items-center gap-5">
-                                    <h2>Jakarta</h2>
-                                    <span>-</span>
-                                    <h2>Tokyo</h2>
-                                </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                            <h5 class="text-center">name</h5>
                                         </div>
                                     <div class="col-lg-9">
+                                        <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
                                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
                                     <div class="row g-0">
                                         <div class="col-lg-2">
@@ -131,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div class="float-end">
-                                        <a href="" class="btn btn-outline-primary">see details</a>
+                                        <a href="/trip-detail" class="btn btn-outline-primary">see details</a>
                                     </div>
                                 </div>
                                 </div>

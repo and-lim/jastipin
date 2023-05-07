@@ -15,8 +15,6 @@
                      <div class="col-lg-8">
                         <h1 class="mb-2">Lorem</h1>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-
-                   
                    </div>
                 </div>
                 
@@ -37,8 +35,6 @@
                      <div class="col-lg-8">
                         <h1 class="mb-2">Lorem</h1>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-
-                   
                    </div>
                 </div>
 
