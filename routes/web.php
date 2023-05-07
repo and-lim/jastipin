@@ -37,3 +37,25 @@ Route::get('/item', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::get('/item-detail', function () {
+    return view('item-detail');
+});
+
+Route::get('/checkout', function () {
+    return view('checkout');
+});
+
+Route::get('/cart', function () {
+    return view('cart');
+});
+
+Route::get('/trip', function () {
+    return view('trip');
+});
+
+Route::get('/trip-detail', function () {
+    return view('trip-detail');
+});
+
+

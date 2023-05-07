@@ -39,8 +39,8 @@
     
         <section class="">
             <div class="container-xl my-5">
-                <div class="text-title mb-3">
-                    <h1 class="text-start title">Popular item</h1>
+                <div class="text-title mb-3 pb-3">
+                    <h1 class="text-start home-title">Popular item</h1>
                 </div>
 
                 <div class="row mt-3" style="row-gap: 1rem;">
@@ -86,32 +86,29 @@
                     </div>
                 </div>
                 <div class="float-end mt-3">
-                    <a href="" class="btn btn-outline-warning">
-                        See more
+                    <a href="" class="btn btn-warning">
+                        See more Item
                     </a>
                 </div>
             </div>
         </section>
     
     
-        <section class="trip-list">
-            <div class="container">
+        <section class="trip-list my-3 py-3">
+            <div class="container my-3">
                 <h1 class="title mb-3">Trip</h1>
                 <div class="row ">
                     <div class="col-lg-10">
-                        <div class="travel-list d-flex flex-column gap-2">
+                        <div class="trip-list d-flex flex-column gap-2">
                             <div class="card shadow-sm">
-                                <div class="card-header d-flex align-items-center gap-5">
-                                    <h2>Jakarta</h2>
-                                    <span>-</span>
-                                    <h2>Tokyo</h2>
-                                </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                            <h5 class="text-center">name</h5>
                                         </div>
                                     <div class="col-lg-9">
+                                        <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
                                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
                                     <div class="row g-0">
                                         <div class="col-lg-2">
@@ -131,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div class="float-end">
-                                        <a href="" class="btn btn-outline-primary">see details</a>
+                                        <a href="/trip-detail" class="btn btn-outline-primary">see details</a>
                                     </div>
                                 </div>
                                 </div>
@@ -140,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/trip" class="btn btn-outline-primary float-end">see more Trip</a>
+                <a href="/trip" class="btn btn-primary float-end">See more Trip</a>
             </div>
         </section>
     
