@@ -5,10 +5,10 @@
     <div class="hero-header py-5" style="height: 50vh">
         <div class="container mt-4">
             <div class="row col-lg-10 mx-auto">
-                <div class="search-title text-center">
+                <div class="search-title my-3 text-center">
                     <h1 class="fw-bold text-white">Search your item</h1>
                 </div>
-                <div class="search-form ">
+                <div class="search-form col-lg-9 mx-auto ">
                   <i class="fa fa-search"></i>
                   <input type="text" class="form-control form-input" placeholder="Search anything...">
                 </div>
@@ -60,7 +60,7 @@
                       <a href="#" class="icon">
                         <i class="fa fa-shopping-cart"></i>
                       </a>
-                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
+                      <a href="/item-detail" class="btn btn-warning text-center mx-auto float-end">See detail</a>
                     </div>
                   </div>
                 </div>

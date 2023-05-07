@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="card shadow-sm text-center">
-                                        <h2 class="text-dark fw-bold mt-1 text-decoration-underline">Balance</h2>
+                                        <h2 class="text-dark fw-bold mt-1">Balance</h2>
                                         <div class="card-body mt-0">
                                             <h2 class="text-success">$20</h2>
                                         </div>
@@ -128,17 +128,23 @@
                         {{-- tab update profile --}}
         
                         <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                          <div class="card p-3 shadow-sm">
+                            
+                            <div class="image-profile d-flex flex-column justify-content-center align-items-center my-3">
+                                <img src="img/laptop.jpg" class="" alt="">
+                                <input type="file" class="form-control mt-3" style="width: 300px" id="image">
+                            </div>
+
+                            <div class="card p-3 shadow-sm">
                              <div class="mb-3 form-group row">
-                                <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+                                <label for="name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                  <input type="text" readonly class="form-control" id="name" value="name">
+                                  <input type="text" readonly class="form-control" id="name" >
                                 </div>
                               </div>
                               <div class="mb-3 form-group row">
                                 <label for="Email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                  <input type="text" readonly class="form-control" id="email" value="email">
+                                  <input type="text" readonly class="form-control" id="email">
                                 </div>
                               </div>
                               <div class="mb-3 form-group row">
@@ -148,9 +154,9 @@
                                 </div>
                               </div>
                               <div class="mb-3 form-group row">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                                <label for="address" class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-10">
-                                  <input type="password" class="form-control" id="inputPassword">
+                                    <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
                                 </div>
                               </div>
 
@@ -164,9 +170,10 @@
                         {{-- tab item list --}}
 
                         <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
+                            <h1 class="dashboard-title mb-3">Item List</h1>
                             <div class="row">
                                 <div class="add-item mb-3">
-                                    <a href="" class="float-end btn btn-warning">add item</a>
+                                    <a href="" class="float-end btn btn-primary">add item</a>
                                 </div>    
                                 <div class="col-lg-12">
                                     <div class="card shadow-sm">
@@ -196,7 +203,8 @@
                         {{-- add item tab --}}
 
                         <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
-                          <div class="row">
+                         <h1 class="dashboard-title mb-3">Add item</h1>
+                        <div class="row">
                             <div class="card p-3 shadow-sm">
                               <div class="mb-3 form-group row">
                                  <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
@@ -204,6 +212,7 @@
                                    <input type="text" class="form-control" id="item-name" >
                                  </div>
                                </div>
+
                                <div class="mb-3 form-group row">
                                  <label for="Location" class="col-sm-2 col-form-label">Location</label>
                                  <div class="col-sm-10">
@@ -225,11 +234,16 @@
                                    <a href="" class="btn btn-primary mt-2">upload</a>
                                  </div>
                                </div>
-    
+                               
+                               <div class="form-group mb-3">
+                                  <label for="" class="form-label">Add Description</label>
+                                  <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                               </div>
+
                                  <div class="form-group mb-3">
-                                         <label for="" class="form-label">Add some Note</label>
-                                         <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                                     </div>
+                                     <label for="" class="form-label">Add some Note</label>
+                                     <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                 </div>
     
                                <div class="submit-btn text-center">
                                  <a href="" class="btn btn-primary">Submit</a>
@@ -243,54 +257,55 @@
                         {{-- tab trip list --}}
 
                         <div class="tab-pane fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
-                            <div class="float-end">
-                                <a href="" id="nav-tab" role="tablist" data-bs-target="#nav-add-trip" class="btn btn-outline-primary">see details</a>
-                            </div>
-                            <div class="card shadow-sm">
-                                <div class="card-header d-flex align-items-center gap-5">
-                                    <h2>Jakarta</h2>
-                                    <span>-</span>
-                                    <h2>Tokyo</h2>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                        </div>
-                                    <div class="col-lg-9">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                    <div class="row g-0">
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="float-end">
-                                        <a href="" class="btn btn-outline-primary">see details</a>
-                                    </div>
-                                </div>
-                                </div>
-                                </div>
-                            </div> 
-
-
-                    
+                          <h1 class="dashboard-title mb-3">Trip List</h1>
+                          <div class="d-flex flex-column">
+                              <div class="btn-add-trip mb-3">
+                                  <a href="" id="nav-tab" role="tablist" data-bs-target="#nav-add-trip" class="btn btn-primary float-end">see details</a>
+                              </div>
+                              <div class="card shadow-sm">
+                                  <div class="card-header d-flex align-items-center gap-5">
+                                      <h2>Jakarta</h2>
+                                      <span>-</span>
+                                      <h2>Tokyo</h2>
+                                  </div>
+                                  <div class="card-body">
+                                      <div class="row">
+                                          <div class="col-lg-2">
+                                              <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                          </div>
+                                      <div class="col-lg-9">
+                                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                      <div class="row g-0">
+                                          <div class="col-lg-2">
+                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                          </div>
+                                          <div class="col-lg-2">
+                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                          </div>
+                                          <div class="col-lg-2">
+                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                          </div>
+                                          <div class="col-lg-2">
+                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                          </div>
+                                          <div class="col-lg-2">
+                                              <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="float-end">
+                                          <a href="" class="btn btn-outline-primary">see details</a>
+                                      </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                              </div> 
+                          </div>
                         </div>
 
                            {{-- tab add trip --}}
                            
                         <div class="tab-pane fade " id="nav-add-trip" role="tabpanel" aria-labelledby="nav-add-trip-tab">
+                            <h1 class="dashboard-title mb-3 pb-3">Add Trip</h1>
                             <div class="card p-3 shadow-sm mt-2">            
                                 <div class="form-group mb-3">
                                     <div class="row align-items-center">

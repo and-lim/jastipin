@@ -39,8 +39,8 @@
     
         <section class="">
             <div class="container-xl my-5">
-                <div class="text-title mb-3">
-                    <h1 class="text-start title">Popular item</h1>
+                <div class="text-title mb-3 pb-3">
+                    <h1 class="text-start home-title">Popular item</h1>
                 </div>
 
                 <div class="row mt-3" style="row-gap: 1rem;">
@@ -86,16 +86,16 @@
                     </div>
                 </div>
                 <div class="float-end mt-3">
-                    <a href="" class="btn btn-outline-warning">
-                        See more
+                    <a href="" class="btn btn-warning">
+                        See more Item
                     </a>
                 </div>
             </div>
         </section>
     
     
-        <section class="trip-list">
-            <div class="container">
+        <section class="trip-list my-3 py-3">
+            <div class="container my-3">
                 <h1 class="title mb-3">Trip</h1>
                 <div class="row ">
                     <div class="col-lg-10">
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/trip" class="btn btn-outline-primary float-end">see more Trip</a>
+                <a href="/trip" class="btn btn-primary float-end">See more Trip</a>
             </div>
         </section>
     
