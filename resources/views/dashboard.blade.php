@@ -411,7 +411,68 @@
                                     </div>
                                     <div class="text-center mt-3">
                                         <a href="" class="btn btn-primary">Add Trip</a>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Add Item
+                                          </button>
                                     </div>
+
+                                    {{-- modal item--}}
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Add a item</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="add-item">
+                                                    <div class="mb-3 form-group row">
+                                                        <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
+                                                        <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="item-name" >
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="mb-3 form-group row">
+                                                        <label for="Location" class="col-sm-2 col-form-label">Location</label>
+                                                        <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="location">
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="mb-3 form-group row">
+                                                        <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                                                        <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="price" placeholder="Rp">
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="mb-3 form-group row">
+                                                        <label for="image" class="col-sm-2 col-form-label">Select Image</label>
+                                                        <div class="col-sm-10">
+                                                        <input type="file" class="form-control" id="image">
+                                                        <a href="" class="btn btn-primary mt-2">upload</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group mb-3">
+                                                        <label for="" class="form-label">Add Description</label>
+                                                        <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
+                                                    </div>
+                    
+                                                        <div class="form-group mb-3">
+                                                            <label for="" class="form-label">Add some Note</label>
+                                                            <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                        </div>                
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary">Submit changes</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                              </div>
                         </div>
 

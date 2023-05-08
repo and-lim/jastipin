@@ -47,7 +47,7 @@
                       <img src="img/laptop.jpg" class="card-img" alt="">
                   </div>
                   <div class="product-btm">
-                    <div class="price">
+                    <div class="item-details mb-3">
                       <a href="#" class="d-block">
                         <h4>Laptop</h4>
                       </a>
@@ -72,7 +72,7 @@
                       <img src="img/laptop.jpg" class="card-img" alt="">
                   </div>
                   <div class="product-btm">
-                    <div class="price">
+                    <div class="item-details mb-3">
                       <a href="#" class="d-block">
                         <h4>Laptop</h4>
                       </a>
@@ -97,7 +97,7 @@
                       <img src="img/laptop.jpg" class="card-img" alt="">
                   </div>
                   <div class="product-btm">
-                    <div class="price">
+                    <div class="item-details mb-3">
                       <a href="#" class="d-block">
                         <h4>Laptop</h4>
                       </a>

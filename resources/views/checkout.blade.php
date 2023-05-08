@@ -5,7 +5,7 @@
 <section>
     <div class="checkout-container mx-auto py-5" style="max-width: 1180px">
         <div class="title my-5">
-            <h1 class="fw-bold dashboard-title">Checkout</h1>
+            <h1 class="fw-bold">Checkout</h1>
         </div>
         <div class="card p-3">
             <div class="row">

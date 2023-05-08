@@ -58,4 +58,7 @@ Route::get('/trip-detail', function () {
     return view('trip-detail');
 });
 
+Route::get('/order', function () {
+    return view('order');
+});
 
