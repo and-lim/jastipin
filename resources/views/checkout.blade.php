@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="shipping mt-3 p-3">
+                    <div class="shipping my-3 p-3">
                         <h2 class="text-decoration-underline mb-3">Shipping</h2>
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="radio" name="" id="">
@@ -41,6 +41,38 @@
                               Regular
                             </label>
                           </div>
+                    </div>
+                    
+                    <div class="request">
+                        <h2 class="mb-3">Request
+                            <span class="text-primary" style="font-size: 15px"> &#91Optional&#93</span>
+                        </h2>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Request
+                            </button>
+                    
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Request Item</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="add-item">
+                                                <div class="form-group mb-3">
+                                                    <label for="" class="form-label">Add some Note</label>
+                                                    <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                </div>                
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Request</button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
