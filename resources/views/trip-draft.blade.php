@@ -14,7 +14,7 @@
                     <div class="menu-header text-center mb-3">Menu</div>
                     <ul class="nav flex-column gap-2" id="nav-tab" role="tablist">
                         <li class="dashboard-nav">
-                            <a class="nav-link active d-flex align-items-center" id="nav-dashboard-tab" data-bs-toggle="tab" data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard" aria-selected="true">
+                            <a class="nav-link d-flex align-items-center" id="nav-dashboard-tab" data-bs-toggle="tab" data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard" aria-selected="true">
                                 <i class="fa fa-columns"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -35,7 +35,7 @@
                         </li>
 
                         <li class="dashboard-nav ">
-                            <a class="nav-link d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
+                            <a class="nav-link active d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
                                 <i class="fa fa-map-marker-alt"></i>
                                 <span>Trip</span>
                             </a>
@@ -62,7 +62,7 @@
                 <div class="col-lg-9">
                     <div class="menu-header text-center mb-3">Dashboards</div>   
                     <div class="tab-content" id="nav-tabContent">
-                         <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel" aria-labelledby="nav-dashboard-tab">
+                         <div class="tab-pane fade" id="nav-dashboard" role="tabpanel" aria-labelledby="nav-dashboard-tab">
                             <div class="row mb-3">
                                 <div class="col-lg-12">
                                     <div class="card shadow-sm py-3">
@@ -230,163 +230,187 @@
 
                         {{-- tab trip list --}}
 
-                        <div class="tab-pane fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
-                            <h1 class="dashboard-title mb-3">Trip List</h1>
-                            <ul class="nav nav-pills gap-2 justify-content-end mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class=" active btn btn-primary" id="pills-trip-tab" data-bs-toggle="pill" data-bs-target="#pills-trip" type="button" role="tab" aria-controls="pills-trip" aria-selected="true">Trip List</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="btn btn-success" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-add-trip" type="button" role="tab" aria-controls="pills-add-trip" aria-selected="false">Add Trip</button>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-trip" role="tabpanel" aria-labelledby="pills-trip-tab">
-                                
-                                    <div class="trip-list d-flex flex-column gap-2">
-                                        <h3 class="fw-bold">Draft Trip</h3>
-                                        <div class="card shadow-sm">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-2">
-                                                        <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                                        <h5 class="text-center">name</h5>
-                                                    </div>
-                                                    <div class="col-lg-9">
-                                                        <div class="trip-desc">
-                                                            <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
-                                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                                        </div>
-
-                                                        <div class="float-end">
-                                                            <a href="/trip-draft" class="btn btn-primary">Update Trip</a>
-                                                        </div>
-                                                </div>
+                        <div class="tab-pane show active fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
+                            <div class="draft-trip">
+                                <h3 class="fw-bold mb-3">Draft Trip</h3>
+                                <div class="card mb-3 p-3 shadow-sm mt-2">            
+                                    <div class="form-group mb-3">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-5">
+                                                <label for="" class="form-label">Location</label>
+                                            <input type="text" class="form-control" placeholder="From" aria-label="Depart">
                                             </div>
+                                            <div class="col-lg-1">
+                                                <div class="bg-dark mt-4" style="height: 5px;"></div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <label for="" class="form-label">Destination</label>
+                                            <input type="text" class="form-control" placeholder="Destination" aria-label="Destination">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="ongoing-trip mt-4 d-flex flex-column gap-2">
-                                        <h3 class="fw-bold">Ongoing Trip</h3>
-                                        <div class="card shadow-sm">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-2">
-                                                        <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                                        <h5 class="text-center">name</h5>
-                                                    </div>
-                                                    <div class="col-lg-9">
-                                                        <div class="trip-desc">
-                                                            <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
-                                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                                        </div>
-                                                        <div class="row g-0">
-                                                                <div class="col-lg-2">
-                                                                    <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                                </div>
-                                                                <div class="col-lg-2">
-                                                                    <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                                </div>
-                                                                <div class="col-lg-2">
-                                                                    <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                                </div>
-                                                                <div class="col-lg-2">
-                                                                    <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                                </div>
-                                                                <div class="col-lg-2">
-                                                                    <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                                </div>
-                                                        </div>
-                                                    </div>
+    
+                                    <div class="form-group mb-3">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-5">
+                                                <label for="" class="form-label">Start Date</label>
+                                                <input id="startDate" class="form-control" type="date" />
                                             </div>
+                                            <div class="col-lg-1">
+                                                <div class="bg-dark mt-4" style="height: 5px;"></div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <label for="" class="form-label">Arrival Date</label>
+                                                <input id="arrivalDate" class="form-control" type="date" />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                {{-- add trip tab --}}
-                                <div class="tab-pane fade" id="pills-add-trip" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    <div class="card p-3 shadow-sm mt-2">            
-                                        <div class="form-group mb-3">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-5">
-                                                    <label for="" class="form-label">Location</label>
-                                                <input type="text" class="form-control" placeholder="From" aria-label="Depart">
-                                                </div>
-                                                <div class="col-lg-1">
-                                                    <div class="bg-dark mt-4" style="height: 5px;"></div>
-                                                </div>
-                                                <div class="col-lg-5">
-                                                    <label for="" class="form-label">Destination</label>
-                                                <input type="text" class="form-control" placeholder="Destination" aria-label="Destination">
-                                                </div>
-                                            </div>
-                                        </div>
-            
-                                        <div class="form-group mb-3">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-5">
-                                                    <label for="" class="form-label">Start Date</label>
-                                                    <input id="startDate" class="form-control" type="date" />
-                                                </div>
-                                                <div class="col-lg-1">
-                                                    <div class="bg-dark mt-4" style="height: 5px;"></div>
-                                                </div>
-                                                <div class="col-lg-5">
-                                                    <label for="" class="form-label">Arrival Date</label>
-                                                    <input id="arrivalDate" class="form-control" type="date" />
-                                                </div>
-                                            </div>
-                                        </div>
-            
-                                        <div class="form-group ms-4 mb-3">
-                                            <div class="row">
-                                                <div class="col-lg-6">                                  
-                                                    <label for="" class="form-label">Luggage Size</label>
-                                                    <div>
+    
+                                    <div class="form-group ms-4 mb-3">
+                                        <div class="row">
+                                            <div class="col-lg-6">                                  
+                                                <label for="" class="form-label">Luggage Size</label>
+                                                <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                                    </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                                        <label class="form-check-label" for="inlineCheckbox1">1</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                                        <label class="form-check-label" for="inlineCheckbox2">2</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                                        <label class="form-check-label" for="inlineCheckbox3">3</label>
-                                                        </div>
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                                    <label class="form-check-label" for="inlineCheckbox3">3</label>
                                                     </div>
                                                 </div>
-        
-                                                <div class="col-lg-6">                                  
-                                                    <label for="" class="form-label">Luggage Weight</label>
-                                                    <div>
+                                            </div>
+    
+                                            <div class="col-lg-6">                                  
+                                                <label for="" class="form-label">Luggage Weight</label>
+                                                <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                                    </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                                        <label class="form-check-label" for="inlineCheckbox1">1</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                                        <label class="form-check-label" for="inlineCheckbox2">2</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                                        <label class="form-check-label" for="inlineCheckbox3">3</label>
-                                                        </div>
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                                    <label class="form-check-label" for="inlineCheckbox3">3</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-            
-                                        <div class="text-center mt-3">
-                                            <a href="" class="btn btn-primary">Make Trip</a>
+                                    </div>
+    
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <a href="" class="btn btn-primary">Update Trip</a>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Add Item
+                                        </button>
+                                    </div>
+    
+                                    {{-- modal item--}}
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add a item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="add-item">
+                                                    <div class="mb-3 form-group">
+                                                        <label for="Item" class="form-label">Item Name</label>
+                                                        <div class="col-sm-5">
+                                                        <input type="text" class="form-control" id="item-name" >
+                                                        </div>
+                                                    </div>
+    
+                                                    <div class="form-group mb-3">
+                                                        <label for="" class="form-label">Category</label>
+                                                        <div class="col-sm-5">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Open this select menu</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="mb-3 form-group">
+                                                        <label for="image" class="col-form-label">Select Image</label>
+                                                        <div class="col-sm-8">
+                                                        <input type="file" class="form-control" id="image">
+                                                        <a href="" class="btn btn-primary mt-2">upload</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group mb-3 row">
+                                                        <div class="col-lg-6">
+                                                            <label for="" class="form-label">Item weight</label>
+                                                            <input type="number" style="width: 30px" name="" id=""> kg
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label for="" class="form-label">Item Amount</label>
+                                                            <input type="number" style="width: 30px" name="" id="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 form-group ">
+                                                        <label for="Price" class="form-label">Item Price</label>
+                                                        <div class="col-sm-5">
+                                                        <input type="text" class="form-control" id="price" placeholder="Rp">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3 form-group ">
+                                                        <label for="Price" class="form-label">Item Display Price</label>
+                                                        <div class="col-sm-5">
+                                                        <input type="text" class="form-control" id="price" placeholder="Rp">
+                                                        </div>
+                                                    </div>        
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Add Item</button>
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                         
+                            {{-- item --}}
+                            <div class="item-trip">
+                                <div class="card p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-4">
+                                            <img src="img/laptop.jpg" style="width: 200px" alt="" srcset="">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <p>Item Name</p>
+                                            <p>Item Category</p>
+                                            <p>Item Weight</p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <p>Item Name</p>
+                                            <p>Item Category</p>
+                                            <p>Item Weight</p>
+                                        </div>
+                                        <div class="col-lg-1 d-flex align-items-center">
+                                            <button class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                         
                         </div>
 
 

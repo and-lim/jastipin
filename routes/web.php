@@ -58,7 +58,13 @@ Route::get('/trip-detail', function () {
     return view('trip-detail');
 });
 
+Route::get('/trip-draft', function () {
+    return view('trip-draft');
+});
+
+
 Route::get('/order', function () {
     return view('order');
 });
+
 
