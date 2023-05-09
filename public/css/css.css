@@ -156,8 +156,8 @@ h1.dashboard-title::after{
     border:none;
 }
 
-a.btn{
-    font-weight: bold;
+button,a.btn{
+    font-weight: bold !important;
 }
 
 .trip-list{

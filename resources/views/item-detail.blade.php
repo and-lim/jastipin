@@ -4,7 +4,7 @@
 <section class="mt-5">
 
     <div class="container py-5 my-5">
-        <h1 class="dashboard-title mb-3">Details</h1>
+        <h1 class="mb-3">Details</h1>
         <div class="card shadow p-3">
             <div class="row gap-5 justify-content-center">
                 <div class="col-lg-3">

@@ -35,6 +35,9 @@
                     <li><a class="dropdown-item" href="/trip">Search Trip</a></li>
                 </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/order">Order</a>
+               </li>
             </ul>
                 <ul class="navbar-nav ms-auto me-lg-5 align-items-center d-flex gap-5 text-white">
                     @auth
