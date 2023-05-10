@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::post('/addTrip', [TripController::class, 'makeTrip']);
+
 Route::get('/', function () {
     return view('home');
 });
@@ -34,9 +37,14 @@ Route::get('/item', function () {
     return view('item');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [TripController::class, 'viewDashboard']);
+Route::get('/trip-draft/{id}', [TripController::class, 'editTrip']);
+Route::post('/trip-draft', [TripController::class, 'updateTrip']);
+
+
+// Route::get('/trip-draft', function () {
+//     return view('trip-draft');
+// });
 
 Route::get('/item-detail', function () {
     return view('item-detail');
@@ -58,9 +66,7 @@ Route::get('/trip-detail', function () {
     return view('trip-detail');
 });
 
-Route::get('/trip-draft', function () {
-    return view('trip-draft');
-});
+
 
 
 Route::get('/order', function () {
