@@ -13,7 +13,7 @@
             <div class="col-lg-3">
                 <div class="menu-header text-center mb-3">Menu</div>
                 <ul class="nav flex-column gap-2" id="nav-tab" role="tablist">
-                    <li class="dashboard-nav">
+                    {{-- <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-dashboard-tab" data-bs-toggle="tab" data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard" aria-selected="true">
                             <i class="fa fa-columns"></i>
                             <span>Dashboard</span>
@@ -32,15 +32,15 @@
                             <i class="fa fa-shopping-cart"></i>
                             <span>Item</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="dashboard-nav ">
                         <a class="nav-link active d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
                             <i class="fa fa-map-marker-alt"></i>
-                            <span>Trip</span>
+                            <span>Trip Draft</span>
                         </a>
                     </li>
-                    <li class="dashboard-nav">
+                    {{-- <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
                             <i class="fa fa-question-circle"></i>
                             <span>Request</span>
@@ -56,13 +56,13 @@
                             </button>
                         </li>
                     </form>
-                    @endauth
+                    @endauth --}}
                 </ul>
             </div>
             <div class="col-lg-9">
                 <div class="menu-header text-center mb-3">Dashboards</div>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade" id="nav-dashboard" role="tabpanel" aria-labelledby="nav-dashboard-tab">
+                    {{-- <div class="tab-pane fade" id="nav-dashboard" role="tabpanel" aria-labelledby="nav-dashboard-tab">
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <div class="card shadow-sm py-3">
@@ -100,11 +100,11 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> --}}
 
                     {{-- tab update profile --}}
 
-                    <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    {{-- <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
                         <div class="image-profile d-flex flex-column justify-content-center align-items-center my-3">
                             <img src="img/laptop.jpg" class="" alt="">
@@ -142,11 +142,11 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- tab item list --}}
 
-                    <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
+                    {{-- <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
                         <h1 class="dashboard-title mb-3">Item List</h1>
                         <div class="row">
                             <div class="col-lg-12">
@@ -172,11 +172,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- add item tab --}}
 
-                    <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
+                    {{-- <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
                         <h1 class="dashboard-title mb-3">Add item</h1>
                         <div class="row">
                             <div class="card p-3 shadow-sm">
@@ -225,7 +225,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     {{-- tab trip list --}}
@@ -233,7 +233,16 @@
 
                     <div class="tab-pane show active fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
                         <div class="draft-trip">
-                            <h3 class="fw-bold mb-3">Draft Trip</h3>
+                            <div class="row">
+                                <h3 class="fw-bold mb-3">Draft Trip</h3>
+                                <div>
+                                    <a href="/dashboard" class="btn btn-warning p-1 float-end">
+                                        <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>  
+                                            Back to Dashboard   
+                                        </h6>
+                                    </a>
+                                </div>
+                            </div>
                             <form action="/trip-draft" method="POST">
                                 @csrf
                                 <div class="card mb-3 p-3 shadow-sm mt-2">
@@ -401,34 +410,6 @@
                         </div>
                     </div>
 
-                </div>
-
-
-                <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">'
-                    <h1 class="dashboard-title pb-3 mb-3">Request</h1>
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                </div>
-                                <div class="col-lg-9">
-                                    <h1 class="mb-2">Lorem</h1>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-
-                                    <div class="float-end d-flex gap-2">
-                                        <input type="number" style="width: 50px">
-                                        <a href="" class="btn btn-success">
-                                            <i class="fa fa-check"></i>
-                                        </a>
-                                        <a href="" class="btn btn-danger">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
