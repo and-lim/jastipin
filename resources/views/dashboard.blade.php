@@ -371,6 +371,8 @@
                                                             <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
                                                         </div>
                                                     </div>
+
+                                                  <a href="/ongoing-trip" class="btn btn-outline-primary float-end"> See Detail</a>
                                                 </div>
                                             </div>
                                         </div>

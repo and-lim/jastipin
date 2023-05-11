@@ -43,7 +43,9 @@ Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
 
-
+Route::get('/ongoing-trip', function () {
+    return view('ongoing-trip-detail');
+});
 // Route::get('/trip-draft', function () {
 //     return view('trip-draft');
 // });
