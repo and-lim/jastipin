@@ -313,72 +313,77 @@
 
                             {{-- modal item--}}
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add a item</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="add-item">
-                                                <div class="mb-3 form-group">
-                                                    <label for="Item" class="form-label">Item Name</label>
-                                                    <div class="col-sm-5">
-                                                        <input type="text" name="" class="form-control" id="item-name">
+                                <form action="/addItem" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add a item</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="add-item">
+                                                    <div class="mb-3 form-group">
+                                                        <label for="Item" class="form-label">Item Name</label>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" name="item_name" class="form-control" id="item-name" required>
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <label for="" class="form-label">Category</label>
-                                                    <div class="col-sm-5">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Open this select menu</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
+    
+                                                    <div class="form-group mb-3">
+                                                        <label for="category" class="form-label">Category</label>
+                                                        <div class="col-sm-5">
+                                                            <select class="form-select" name="item_category" aria-label="Default select example">
+                                                                <option value="food_beverage" selected>Food & Beverage</option>
+                                                                <option value="fashion">Fashion</option>
+                                                                <option value="electronic">Electronic Gadget</option>
+                                                                <option value="accessories">Accessories</option>
+                                                                <option value="other">Other</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="mb-3 form-group">
-                                                    <label for="image" class="col-form-label">Select Image</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="file" class="form-control" id="image">
-                                                        <a href="" class="btn btn-primary mt-2">upload</a>
+    
+                                                    <div class="mb-3 form-group">
+                                                        <label for="image" class="col-form-label">Select Image</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="file" name="item_image" class="form-control" id="image">
+                                                            <a href="" class="btn btn-primary mt-2">upload</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="form-group mb-3 row">
-                                                    <div class="col-lg-6">
-                                                        <label for="" class="form-label">Item weight</label>
-                                                        <input type="number" style="width: 30px" name="" id=""> kg
+    
+                                                    <div class="form-group mb-3 row">
+                                                        <div class="col-lg-6">
+                                                            <label for="item_weight" class="form-label">Item weight</label>
+                                                            <input type="number" style="width: 30px" name="item_weight" id="item_weight"> kg
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label for="item_stock" class="form-label">Item Stock</label>
+                                                            <input type="number" style="width: 30px" name="item_stock" id="item_stock">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <label for="" class="form-label">Item Amount</label>
-                                                        <input type="number" style="width: 30px" name="" id="">
+                                                    <div class="mb-3 form-group ">
+                                                        <label for="Price" class="form-label">Item Price</label>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" name="item_price" class="form-control" id="price" placeholder="Rp">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="mb-3 form-group ">
-                                                    <label for="Price" class="form-label">Item Price</label>
-                                                    <div class="col-sm-5">
-                                                        <input type="text" class="form-control" id="price" placeholder="Rp">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 form-group ">
-                                                    <label for="Price" class="form-label">Item Display Price</label>
-                                                    <div class="col-sm-5">
-                                                        <input type="text" class="form-control" id="price" placeholder="Rp">
+    
+                                                    <div class="mb-3 form-group ">
+                                                        <label for="Price" class="form-label">Item Display Price</label>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" name="item_display_price" class="form-control" id="price" placeholder="Rp">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Add Item</button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <input type="hidden" name="trip_id" value="{{ $edit_trip -> id }}">
+                                                <button type="submit"  class="btn btn-primary">Add Item</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
 
@@ -386,28 +391,34 @@
 
                     {{-- item --}}
                     <div class="item-trip">
+                        @foreach ($added_item as $item)
                         <div class="card p-3">
                             <div class="row align-items-center">
                                 <div class="col-lg-4">
-                                    <img src="img/laptop.jpg" style="width: 200px" alt="" srcset="">
+                                    <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 200px" alt="" srcset="">
                                 </div>
                                 <div class="col-lg-3">
-                                    <p>Item Name</p>
-                                    <p>Item Category</p>
-                                    <p>Item Weight</p>
+                                    <p>{{ $item->item_name }}</p>
+                                    <p>{{ $item->item_category }}</p>
+                                    <p>Rp {{ $item->item_price }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <p>Item Name</p>
-                                    <p>Item Category</p>
-                                    <p>Item Weight</p>
+                                    <p>{{ $item->item_weight }} Kg</p>
+                                    <p>{{ $item ->item_stock }} Pc/s</p>
+                                    <p>Rp {{ $item->item_display_price }}</p>
                                 </div>
                                 <div class="col-lg-1 d-flex align-items-center">
-                                    <button class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <form action="/removeItem" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <button class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
 
                 </div>
