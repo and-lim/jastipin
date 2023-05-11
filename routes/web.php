@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\TripController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +23,9 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::post('/addTrip', [TripController::class, 'makeTrip']);
+Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
+Route::post('/addItem', [DashboardController::class, 'addItem']);
+Route::post('/removeItem', [DashboardController::class, 'removeItem']);
 
 Route::get('/', function () {
     return view('home');
@@ -37,9 +39,9 @@ Route::get('/item', function () {
     return view('item');
 });
 
-Route::get('/dashboard', [TripController::class, 'viewDashboard']);
-Route::get('/trip-draft/{id}', [TripController::class, 'editTrip']);
-Route::post('/trip-draft', [TripController::class, 'updateTrip']);
+Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
+Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
+Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
 
 
 // Route::get('/trip-draft', function () {
