@@ -70,6 +70,11 @@ Route::get('/trip-detail', function () {
     return view('trip-detail');
 });
 
+Route::get('/traveler', function () {
+    return view('traveler-profile');
+});
+
+
 
 
 

@@ -46,6 +46,18 @@
                             <span>Request</span>
                         </a>
                     </li>
+                    <li class="dashboard-nav">
+                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                            <i class="fa fa-dollar-sign"></i>
+                            <span>Transaction</span>
+                        </a>
+                    </li>
+                    <li class="dashboard-nav">
+                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                            <i class="fa fa-truck"></i>
+                            <span>Shipment</span>
+                        </a>
+                    </li>
                     @auth
                     <form action="/logout" method="POST">
                         @csrf
@@ -451,7 +463,7 @@
                     </div>
 
 
-                    <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">'
+                    <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">
                         <h1 class="dashboard-title pb-3 mb-3">Request</h1>
                         <div class="card shadow-sm">
                             <div class="card-body">
