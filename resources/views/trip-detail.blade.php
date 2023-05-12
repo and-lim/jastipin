@@ -2,55 +2,79 @@
 
 @section('mainSection')
 <section>
-    <div class="checkout-container mx-auto py-5" style="max-width: 1180px">
-        <div class="title my-5">
-            <h1 class="fw-bold">Trip Details</h1>
+    <div class="container mx-auto py-5">
+        <div class="row mb-3">
+            <div class="title mt-5 mb-3">
+                <h1 class="fw-bold">Trip Details</h1>
+            </div>
+            <div class="back-btn">
+                <a href="/trip" class="btn btn-warning float-end py-0 px-3">
+                    <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>  
+                        Back
+                    </h6>
+                </a>
+            </div>
         </div>
+  
         <div class="card p-3">
             <div class="row">
-                <div class="col-lg-8">
-                        <div class="d-flex align-items-center gap-3 my-3">
+                <div class="col-lg-12">
+                        <div class="row align-items-center gap-3 my-3">
+                            <div class="col-lg-3">
                                 <img src="img/laptop.jpg" class="checkout-image" alt="" srcset="">
+                            </div>
+                            <div class="col-lg-7">
                                 <div class="item-details">
-                                    <h3>tes</h3>
+                                   <div class="destination d-flex gap-3 mb-3 align-items-center">
+                                        <h3 class="fw-bold">Jakarta</h3>
+                                        <span class="bg-primary" style="width: 15px; height: 2px;"></span>
+                                        <h3 class="fw-bold">Jakarta</h3>
+                                   </div>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet sed laboriosam mollitia tenetur enim. Voluptate, placeat sint error fugit voluptatum veritatis ratione et enim dicta hic rem ex numquam tempora.</p>
                                 </div>
+                            </div>
                         </div>
                        
-                        <div class="trip-item my-3">
+                        <div class="trip-item my-5">
                             <h3 class="fw-bold">Item</h3>
                             <div class="card my-3 p-3">
-                                <div class="row gap-3 p-1 align-items-center ">
+                                <div class="row p-1 ">
                                     <div class="col-lg-2">
                                         <img src="img/laptop.jpg" class="img-fluid" alt="">
                                     </div>
-                                    <div class="col-lg-7">
-                                        <h3 class="mb-2">Lorem</h3>
-                                        <p>Lorem ipsum, .</p>
+                                    <div class="col-lg-6 ms-lg-5">
+                                        <div class="item-name mb-3">
+                                            <h4 class="fw-bold text-primary">Item Name</h4>
+                                            <p>Laptop</p>
+                                        </div>
+
+                                        <div class="item-price mb-3">
+                                            <h4 class="fw-bold text-primary">Item price</h4>
+                                            <p>$190</p>
+                                        </div>
+
+                                        <div class="item-weight mb-3">
+                                            <h4 class="fw-bold text-primary">Item weight</h4>
+                                            <p>1KG</p>
+                                        </div>
+
+                                        <div class="item-description mb-3">
+                                            <h4 class="fw-bold text-primary">Item Description</h4>
+                                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis, similique fugit? Architecto enim nostrum minima quam recusandae cumque sapiente vero magni. Ut laborum id autem et eos dolorum placeat inventore.</p>
+                                        </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <a href="#" class="">
-                                        <i class="fa fa-shopping-cart fa-2x"></i>
-                                    </a>
+                                <div class="col-lg-2 me-lg-5 position-absolute" style="top: 45%; right: 0;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="form-group">
+                                            <label for="" class="form-label">Amount</label>
+                                            <input type="number" style="width: 50px">
+                                        </div>
+                                        <a href="#" class="mt-lg-4">
+                                            <i class="fa fa-shopping-cart fa-2x"></i>
+                                        </a>
+                                    </div>
                                 </div>
                                 </div>            
-                            </div>
-
-                            <div class="card my-3 p-3">
-                                <div class="row gap-3 p-1 align-items-center ">
-                                    <div class="col-lg-2">
-                                        <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <h3 class="mb-2">Lorem</h3>
-                                        <p>Lorem ipsum, .</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="#" class="">
-                                        <i class="fa fa-shopping-cart fa-2x"></i>
-                                    </a>
-                                </div>
-                                </div>
                             </div>
                         </div>
                  
@@ -142,7 +166,7 @@
                         </div>
                 </div>
 
-                
+{{--                 
                 <div class="col-lg-4">
                         <div class="card gap-3 shadow mt-5 p-3">
                             <div class="card d-block shadow p-3">
@@ -186,7 +210,7 @@
                             </div>
                             <a href="" class="btn btn-success">add to cart</a>
                         </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

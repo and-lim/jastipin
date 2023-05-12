@@ -150,7 +150,7 @@
                             </div>
 
                             <div class="submit-btn text-center">
-                                <a href="" class="btn btn-primary">Submit</a>
+                                <a href="" class="btn btn-primary">Update</a>
                             </div>
 
                         </div>
@@ -325,7 +325,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-trip" role="tabpanel" aria-labelledby="pills-trip-tab">
 
-                                <div class="trip-list d-flex flex-column gap-2">
+                                <div class="trip-list">
                                     <h3 class="fw-bold">Draft Trip</h3>
                                     @foreach($draft_trip as $dt)
                                     
@@ -352,41 +352,48 @@
                                     @endforeach
                                 </div>
 
-                                <div class="ongoing-trip mt-4 d-flex flex-column gap-2">
+                                <div class="ongoing-trip mt-4">
                                     <h3 class="fw-bold">Ongoing Trip</h3>
                                     <div class="card shadow-sm">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-2">
-                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                                    <h5 class="text-center">name</h5>
+                                                <div class="col-lg-3 text-center">
+                                                    <img src="img/laptop.jpg" class="img-fluid" style="width: 200px" alt="">
+                                                    <h3 class="text-center">name</h3>
                                                 </div>
-                                                <div class="col-lg-9">
-                                                    <div class="trip-desc">
-                                                        <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
-                                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                            <div class="col-lg-9">
+                                                <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
+                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                            <div class="row gap-1">
+                                                <div class="col-lg-2 trip-item">
+                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
+                                                    <div class="img-detail d-flex flex-column mt-1">
+                                                        <label for="" class="form-label mb-0">Snack</label>
+                                                        <label for="" class="form-label mb-0">$30</label>
                                                     </div>
-                                                    <div class="row g-0">
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                    </div>
-
-                                                  <a href="/ongoing-trip" class="btn btn-outline-primary float-end"> See Detail</a>
                                                 </div>
+                                                <div class="col-lg-2 trip-item">
+                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
+                                                    <div class="img-detail d-flex flex-column mt-1">
+                                                        <label for="" class="form-label mb-0">Snack</label>
+                                                        <label for="" class="form-label mb-0">$30</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 trip-item">
+                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
+                                                    <div class="img-detail d-flex flex-column mt-1">
+                                                        <label for="" class="form-label mb-0">Snack</label>
+                                                        <label for="" class="form-label mb-0">$30</label>
+                                                    </div>
+                                                </div>
+            
+                                    
                                             </div>
+                                            <div class="float-end">
+                                                <a href="/trip-detail" class="btn btn-outline-primary">see details</a>
+                                            </div>
+                                        </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
