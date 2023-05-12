@@ -14,20 +14,20 @@
                 <div class="tab-content" id="nav-tabContent">
 
                     {{-- tab trip list --}}
-                    <div class="tab-pane show active fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab"> 
-                       <div class="card shadow p-3">
+                    <div class="tab-pane show active fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
+                        <div class="card shadow p-3">
                             <div class="draft-trip">
                                 <div class="row">
                                     <h3 class="fw-bold mb-3">Draft Trip</h3>
                                     <div class="dashboard-btn">
                                         <a href="/dashboard" class="btn btn-warning p-1 float-end">
-                                            <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>  
-                                                Back to Dashboard   
+                                            <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>
+                                                Back to Dashboard
                                             </h6>
                                         </a>
                                     </div>
                                 </div>
-                                
+
                                 <form action="/trip-draft" method="POST">
                                     @csrf
                                     <div class="card border-dark border-2 mb-3 p-3 shadow-sm mt-2">
@@ -64,29 +64,29 @@
                                         </div>
 
                                         <div class="form-group ms-4 mb-3">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <label for="request" class="form-label">Request</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="request_other" id="exampleRadios1" value="1" @if ($edit_trip->request == 1) checked @endif>
-                                                            <label class="form-check-label" for="yes">
-                                                                Yes
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="request_other" id="exampleRadios2" value="0" @if ($edit_trip->request == 0) checked @endif>
-                                                            <label class="form-check-label" for="no">
-                                                                No
-                                                            </label>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <label for="request" class="form-label">Request</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="request_other" id="exampleRadios1" value="1" @if ($edit_trip->request == 1) checked @endif>
+                                                        <label class="form-check-label" for="yes">
+                                                            Yes
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="request_other" id="exampleRadios2" value="0" @if ($edit_trip->request == 0) checked @endif>
+                                                        <label class="form-check-label" for="no">
+                                                            No
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="form-group mb-3">
-                                                <label for="description" class="form-label">Add Description</label>
-                                                <textarea name="description" class="form-control" id="description" cols="30" rows="2">{{ $edit_trip->description }}</textarea>
-                                            </div>
+                                        <div class="form-group mb-3">
+                                            <label for="description" class="form-label">Add Description</label>
+                                            <textarea name="description" class="form-control" id="description" cols="30" rows="2">{{ $edit_trip->description }}</textarea>
+                                        </div>
                                         <div class="d-flex justify-content-between mt-3">
                                             <input type="hidden" name="id" value="{{ $edit_trip->id }}">
                                             <button type="submit" class="btn btn-primary">Update Trip</button>
@@ -114,7 +114,7 @@
                                                                 <input type="text" name="item_name" class="form-control" id="item-name" required>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="form-group mb-3">
                                                             <label for="category" class="form-label">Category</label>
                                                             <div class="col-sm-5">
@@ -127,7 +127,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="form-group mb-3">
                                                             <label for="image" class="col-form-label">Select Image</label>
                                                             <div class="col-sm-8">
@@ -135,7 +135,7 @@
                                                                 <a href="" class="btn btn-primary mt-2">upload</a>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="form-group mb-3 row">
                                                             <div class="col-lg-6">
                                                                 <label for="item_weight" class="form-label">Item weight</label>
@@ -152,26 +152,30 @@
                                                                 <input type="text" name="item_price" class="form-control" id="price" placeholder="Rp">
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="mb-3 form-group ">
                                                             <label for="Price" class="form-label">Item Display Price</label>
                                                             <div class="col-sm-5">
                                                                 <input type="text" name="item_display_price" class="form-control" id="price" placeholder="Rp">
                                                             </div>
                                                         </div>
+                                                        <div class="form-group mb-3">
+                                                            <label for="description" class="form-label">Add Description</label>
+                                                            <textarea name="item_description" class="form-control" id="description" cols="30" rows="2"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     <input type="hidden" name="trip_id" value="{{ $edit_trip -> id }}">
-                                                    <button type="submit"  class="btn btn-primary">Add Item</button>
+                                                    <button type="submit" class="btn btn-primary">Add Item</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        
+
 
                             {{-- item --}}
                             <div class="item-trip">
@@ -193,6 +197,10 @@
                                             <div class="item-desc">
                                                 <label for="" class="form-label text-primary fw-bold">Item Price</label>
                                                 <p>Rp {{ $item->item_price }}</p>
+                                            </div>
+                                            <div class="item-desc mb-3">
+                                                <label for="description" class="form-label text-primary fw-bold">Item Description</label>
+                                                <textarea name="description" class="form-control" id="description" cols="30" rows="2">{{ $item->item_description }}</textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -223,14 +231,18 @@
                                 @endforeach
                             </div>
 
-                            <div class="publish-button mt-3 text-center">
-                                <a href="" class="btn btn-success"> Publish Trip</a>
-                            </div>
+                            <form action="/publishTrip" method="POST">
+                                @csrf
+                                <input type="hidden" name="trip_id" value="{{ $edit_trip->id }}">
+                                <div class="publish-button mt-3 text-center">
+                                    <button type="submit" class="btn btn-success"> Publish Trip</button>
+                                </div>
+                            </form>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 @endsection

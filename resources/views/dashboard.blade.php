@@ -342,20 +342,33 @@
 
                                 <div class="ongoing-trip mt-4 d-flex flex-column gap-2">
                                     <h3 class="fw-bold">Ongoing Trip</h3>
+
+                                    @foreach ($ongoing_trip as $ot)
+
                                     <div class="card shadow-sm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-2">
                                                     <img src="img/laptop.jpg" class="img-fluid" alt="">
-                                                    <h5 class="text-center">name</h5>
+                                                    <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <div class="trip-desc">
-                                                        <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
-                                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
+                                                        <h3 class="text-primary fw-bold">{{ $ot->destination }} - {{ $ot->origin }}</h3>
+                                                        <p>{{ $ot->description }}</p>
                                                     </div>
                                                     <div class="row g-0">
+                                                        @foreach ($item_in_trip as $item)
+
+                                                        @if ($item->trip_id == $ot->id)
+
                                                         <div class="col-lg-2">
+                                                            <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 60px" class="img-fluid" alt="">
+                                                        </div>
+                                                        @endif
+
+                                                        @endforeach
+                                                        <!-- <div class="col-lg-2">
                                                             <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
                                                         </div>
                                                         <div class="col-lg-2">
@@ -366,17 +379,15 @@
                                                         </div>
                                                         <div class="col-lg-2">
                                                             <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
-                                                  <a href="/ongoing-trip" class="btn btn-outline-primary float-end"> See Detail</a>
+                                                  <a href="/trip-detail/{{ $ot->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
 
