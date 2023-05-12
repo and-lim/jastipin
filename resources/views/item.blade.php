@@ -41,80 +41,32 @@
 
           <div class="col-lg-9">
             <div class="row">
+              @foreach ($wtb_item as $wtb)
               <div class="col-lg-4">
                 <div class="product">
                   <div class="product-img">
-                      <img src="img/laptop.jpg" class="card-img" alt="">
+                      <img src="{{ asset('/storage/' .$wtb->wtb_image) }}" class="card-img" alt="">
                   </div>
                   <div class="product-btm">
                     <div class="item-details mb-3">
                       <a href="#" class="d-block">
-                        <h4>Laptop</h4>
+                        <h4>{{ $wtb->wtb_name }}</h4>
                       </a>
                       <div class="mt-3">
-                        <span class="me-4">$25.00</span>
-                        <del>$35.00</del>
+                        <span class="me-4">Rp {{ $wtb->wtb_price }}</span>
+                        <!-- <del>$35.00</del> -->
+                      </div>
+                      <div class="mt-3">
+                        <span class="me-4">Quantity: {{ $wtb->wtb_amount }} Pc/s</span>
                       </div>
                     </div>
                     <div class="product-button">
-                      <a href="#" class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                      <a href="/item-detail" class="btn btn-warning text-center mx-auto float-end">See detail</a>
+                      <a href="/item-detail/{{ $wtb->id }}" class="btn btn-warning text-center mx-auto float-end">See detail</a>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="col-lg-4">
-                <div class="product">
-                  <div class="product-img">
-                      <img src="img/laptop.jpg" class="card-img" alt="">
-                  </div>
-                  <div class="product-btm">
-                    <div class="item-details mb-3">
-                      <a href="#" class="d-block">
-                        <h4>Laptop</h4>
-                      </a>
-                      <div class="mt-3">
-                        <span class="me-4">$25.00</span>
-                        <del>$35.00</del>
-                      </div>
-                    </div>
-                    <div class="product-button">
-                      <a href="#" class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4">
-                <div class="product">
-                  <div class="product-img">
-                      <img src="img/laptop.jpg" class="card-img" alt="">
-                  </div>
-                  <div class="product-btm">
-                    <div class="item-details mb-3">
-                      <a href="#" class="d-block">
-                        <h4>Laptop</h4>
-                      </a>
-                      <div class="mt-3">
-                        <span class="me-4">$25.00</span>
-                        <del>$35.00</del>
-                      </div>
-                    </div>
-                    <div class="product-button">
-                      <a href="#" class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                      <a href="" class="btn btn-warning text-center mx-auto float-end">See detail</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              @endforeach
             </div>
         </div>
         </div>

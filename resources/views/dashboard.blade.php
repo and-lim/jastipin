@@ -148,7 +148,7 @@
 
                     <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
                     <div class="row g-0">
-                        <h1 class="dashboard-title mb-3">Item List</h1>
+                        <h1 class="dashboard-title mb-3">Want To Buy Item List</h1>
                         <div class=" mb-3">
                           <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -157,143 +157,107 @@
                                 
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
+                                <form action="/addWtbItem" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+    
+                                        <div class="modal-body">
+                                            <div class="add-item-form">
+                                                <div class="mb-3 form-group row">
+                                                    <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="wtb_name" class="form-control" id="item-name">
+                                                    </div>
+                                                </div>
+                
+                                                <div class="mb-3 form-group row">
+                                                    <label for="Location" class="col-sm-2 col-form-label">Location</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="wtb_location" class="form-control" id="location">
+                                                    </div>
+                                                </div>
+                
+                                                <div class="mb-3 form-group row">
+                                                    <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="wtb_price" class="form-control" id="price" placeholder="Rp">
+                                                    </div>
+                                                </div>
+                
+                                                <div class="mb-3 form-group row">
+                                                    <label for="image" class="col-sm-2 col-form-label">Select Image</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="file" name="wtb_image" class="form-control" id="image">
+                                                    </div>
+                                                </div>
 
-                                    <div class="modal-body">
-                                        <div class="add-item-form">
-                                            <div class="mb-3 form-group row">
-                                                <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="item-name">
+                                                <div class="mb-3 form-group row">
+                                                    <label for="wtb_weight" class="col-sm-2 col-form-label">Item Weight</label>
+                                                    <input type="number" name="wtb_weight" style="width: 50px">
+                                                    <p>Kg</p>
                                                 </div>
-                                            </div>
-            
-                                            <div class="mb-3 form-group row">
-                                                <label for="Location" class="col-sm-2 col-form-label">Location</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="location">
+
+                                                <div class="mb-3 form-group row">
+                                                    <label for="wtb_amount" class="col-sm-2 col-form-label">Item Amount</label>
+                                                    <input type="number" name="wtb_amount" style="width: 50px">
+                                                    <p>Pc/s</p>
                                                 </div>
-                                            </div>
-            
-                                            <div class="mb-3 form-group row">
-                                                <label for="Price" class="col-sm-2 col-form-label">Price</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="price" placeholder="Rp">
+                                                
+                                                <div class="form-group mb-3">
+                                                    <label for="wtb_description" class="form-label">Add Description</label>
+                                                    <textarea name="wtb_description" class="form-control" id="wtb_description" cols="30" rows="2"></textarea>
                                                 </div>
-                                            </div>
-            
-                                            <div class="mb-3 form-group row">
-                                                <label for="image" class="col-sm-2 col-form-label">Select Image</label>
-                                                <div class="col-sm-10">
-                                                    <input type="file" class="form-control" id="image">
-                                                    <a href="" class="btn btn-primary mt-2">upload</a>
-                                                </div>
-                                            </div>
-            
-                                            <div class="form-group mb-3">
-                                                <label for="" class="form-label">Add Description</label>
-                                                <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
-                                            </div>
-            
-                                            <div class="form-group mb-3">
-                                                <label for="" class="form-label">Add some Note</label>
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add Item</button>
+                                        </div>
+                                     </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add Item</button>
-                                    </div>
-                                 </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                    @foreach ($wtb_item as $wtb)
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                                <img src="{{ asset('/storage/' .$wtb->wtb_image) }}" class="img-fluid" alt="">
                                             </div>
                                             <div class="col-lg-9">
-                                                <h1 class="mb-2">Lorem</h1>
-                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-
+                                                <h1 class="mb-2">{{ $wtb->wtb_name }}</h1>
+                                                <p>{{ $wtb->wtb_price }}</p>
+                                                <p>{{ $wtb->wtb_location }}</p>
+                                                <p>{{ $wtb->wtb_description }}</p>
                                                 <div class="float-end d-flex gap-2">
-                                                    <input type="number" style="width: 50px">
-                                                    <a href="" class="btn btn-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    <p>Quantity: </p>
+                                                    <p>{{ $wtb->wtb_amount }}</p>
+                                                    <form action="/removeWtbItem" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $wtb->id }}">
+                                                        <button class="btn btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
 
                         
-                    </div>
-
-                    {{-- add item tab --}}
-
-                    <div class="tab-pane fade" id="nav-add-item" role="tabpanel" aria-labelledby="nav-add-item-tab">
-                        <h1 class="dashboard-title mb-3">Add item</h1>
-                        <div class="row">
-                            <div class="card p-3 shadow-sm">
-                                <div class="mb-3 form-group row">
-                                    <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="item-name">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 form-group row">
-                                    <label for="Location" class="col-sm-2 col-form-label">Location</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="location">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 form-group row">
-                                    <label for="Price" class="col-sm-2 col-form-label">Price</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="price" placeholder="Rp">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 form-group row">
-                                    <label for="image" class="col-sm-2 col-form-label">Select Image</label>
-                                    <div class="col-sm-10">
-                                        <input type="file" class="form-control" id="image">
-                                        <a href="" class="btn btn-primary mt-2">upload</a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="" class="form-label">Add Description</label>
-                                    <textarea name="" class="form-control" id="" cols="30" rows="2"></textarea>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label for="" class="form-label">Add some Note</label>
-                                    <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                                </div>
-
-                                <div class="submit-btn text-center">
-                                    <a href="" class="btn btn-primary">Submit</a>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
 
 
