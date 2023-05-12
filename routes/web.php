@@ -51,10 +51,8 @@ Route::get('/item', function () {
 
 Route::get('/ongoing-trip', function () {
     return view('ongoing-trip-detail');
+    // return view('trip');
 });
-// Route::get('/trip-draft', function () {
-//     return view('trip-draft');
-// });
 
 Route::get('/item-detail', function () {
     return view('item-detail');
