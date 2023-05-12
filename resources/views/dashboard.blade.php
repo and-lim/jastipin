@@ -352,50 +352,54 @@
                                     @endforeach
                                 </div>
 
-                                <div class="ongoing-trip mt-4">
+                                <div class="ongoing-trip mt-4 d-flex flex-column gap-2">
                                     <h3 class="fw-bold">Ongoing Trip</h3>
+
+                                    @foreach ($ongoing_trip as $ot)
+
                                     <div class="card shadow-sm">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-3 text-center">
-                                                    <img src="img/laptop.jpg" class="img-fluid" style="width: 200px" alt="">
-                                                    <h3 class="text-center">name</h3>
+                                                <div class="col-lg-2">
+                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                                    <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
-                                            <div class="col-lg-9">
-                                                <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                            <div class="row gap-1">
-                                                <div class="col-lg-2 trip-item">
-                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
-                                                    <div class="img-detail d-flex flex-column mt-1">
-                                                        <label for="" class="form-label mb-0">Snack</label>
-                                                        <label for="" class="form-label mb-0">$30</label>
+                                                <div class="col-lg-9">
+                                                    <div class="trip-desc">
+                                                        <h3 class="text-primary fw-bold">{{ $ot->destination }} - {{ $ot->origin }}</h3>
+                                                        <p>{{ $ot->description }}</p>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-2 trip-item">
-                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
-                                                    <div class="img-detail d-flex flex-column mt-1">
-                                                        <label for="" class="form-label mb-0">Snack</label>
-                                                        <label for="" class="form-label mb-0">$30</label>
+                                                    <div class="row g-0">
+                                                        @foreach ($item_in_trip as $item)
+
+                                                        @if ($item->trip_id == $ot->id)
+
+                                                        <div class="col-lg-2">
+                                                            <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 60px" class="img-fluid" alt="">
+                                                        </div>
+                                                        @endif
+
+                                                        @endforeach
+                                                        <!-- <div class="col-lg-2">
+                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
+                                                        </div> -->
                                                     </div>
+
+                                                  <a href="/trip-detail/{{ $ot->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                                 </div>
-                                                <div class="col-lg-2 trip-item">
-                                                    <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
-                                                    <div class="img-detail d-flex flex-column mt-1">
-                                                        <label for="" class="form-label mb-0">Snack</label>
-                                                        <label for="" class="form-label mb-0">$30</label>
-                                                    </div>
-                                                </div>
-            
-                                    
                                             </div>
-                                            <div class="float-end">
-                                                <a href="/trip-detail" class="btn btn-outline-primary">see details</a>
-                                            </div>
-                                        </div>
-                                        </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -470,7 +474,7 @@
                     </div>
 
 
-                    <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">
+                    <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">'
                         <h1 class="dashboard-title pb-3 mb-3">Request</h1>
                         <div class="card shadow-sm">
                             <div class="card-body">

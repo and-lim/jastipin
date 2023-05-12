@@ -16,7 +16,8 @@ class Item extends Model
         'item_weight',
         'item_stock',
         'item_price',
-        "item_display_price",
+        'item_display_price',
+        'item_description',
         "trip_id"
     ];
 }
