@@ -56,10 +56,8 @@ Route::get('/', function () {
 
 Route::get('/ongoing-trip', function () {
     return view('ongoing-trip-detail');
+    // return view('trip');
 });
-// Route::get('/trip-draft', function () {
-//     return view('trip-draft');
-// });
 
 Route::get('/item-detail', function () {
     return view('item-detail');
@@ -76,6 +74,15 @@ Route::get('/cart', function () {
 // Route::get('/trip', function () {
 //     return view('trip');
 // });
+
+Route::get('/trip-detail', function () {
+    return view('trip-detail');
+});
+
+Route::get('/traveler', function () {
+    return view('traveler-profile');
+});
+
 
 
 

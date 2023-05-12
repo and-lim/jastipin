@@ -274,6 +274,31 @@ button,a.btn{
     bottom: 0px;
 }
 
+@media (max-width:576px) {
+    .trip-item{
+        text-align: center;
+    }
+    img.item-img{
+        width: 50% !important;
+        
+    }
+    .img-detail label{
+        text-align: center;
+    }
+    
+}
+
+small.fa.fa-star{
+    color: rgba(240, 217, 15, 0.726);
+
+}
+
+img.item-img{
+    border: 2px rgb(12, 16, 255) solid;
+    border-radius: 5px;
+    width: 80px !important;
+}
+
 .left-sidebar{
     border: 1px solid black;
 }
