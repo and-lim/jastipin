@@ -7,6 +7,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Start the website
+To run the site locally, do the following steps:
+1. Open XAMPP Control Panel and start Apache and MySQL
+2. In phpmyadmin, create a database named ``laravel``
+3. Open command prompt and run ```composer install```
+4. Run ```copy .env.example .env```
+5. Run ```php artisan key:generate```
+6. Run ```php artisan migrate:fresh --seed```
+7. Run ```php artisan storage:link```
+8. Run ```php artisan serve```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

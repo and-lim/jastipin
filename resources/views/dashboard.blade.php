@@ -46,6 +46,18 @@
                             <span>Request</span>
                         </a>
                     </li>
+                    <li class="dashboard-nav">
+                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                            <i class="fa fa-dollar-sign"></i>
+                            <span>Transaction</span>
+                        </a>
+                    </li>
+                    <li class="dashboard-nav">
+                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                            <i class="fa fa-truck"></i>
+                            <span>Shipment</span>
+                        </a>
+                    </li>
                     @auth
                     <form action="/logout" method="POST">
                         @csrf
@@ -138,7 +150,7 @@
                             </div>
 
                             <div class="submit-btn text-center">
-                                <a href="" class="btn btn-primary">Submit</a>
+                                <a href="" class="btn btn-primary">Update</a>
                             </div>
 
                         </div>
@@ -313,11 +325,11 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-trip" role="tabpanel" aria-labelledby="pills-trip-tab">
 
-                                <div class="trip-list d-flex flex-column gap-2">
+                                <div class="trip-list">
                                     <h3 class="fw-bold">Draft Trip</h3>
                                     @foreach($draft_trip as $dt)
                                     
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -345,25 +357,29 @@
 
                                     @foreach ($ongoing_trip as $ot)
 
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-lg-2">
-                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                            <div class="row gap-3">
+                                                <div class="col-lg-3">
+                                                    <img src="img/laptop.jpg" class="img-fluid"  style="width: 200px" alt="">
                                                     <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
-                                                <div class="col-lg-9">
+                                                <div class="col-lg-8">
                                                     <div class="trip-desc">
                                                         <h3 class="text-primary fw-bold">{{ $ot->destination }} - {{ $ot->origin }}</h3>
                                                         <p>{{ $ot->description }}</p>
                                                     </div>
-                                                    <div class="row g-0">
+                                                    <div class="row gap-1">
                                                         @foreach ($item_in_trip as $item)
 
                                                         @if ($item->trip_id == $ot->id)
 
                                                         <div class="col-lg-2">
-                                                            <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 60px" class="img-fluid" alt="">
+                                                            <img src="{{ asset('/storage/' .$item->item_image) }}"class="item-img" alt="">
+                                                            <div class="img-detail d-flex flex-column mt-1">
+                                                                <label for="" class="form-label mb-0">Snack</label>
+                                                                <label for="" class="form-label mb-0">$30</label>
+                                                            </div>
                                                         </div>
                                                         @endif
 
