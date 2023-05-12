@@ -329,7 +329,7 @@
                                     <h3 class="fw-bold">Draft Trip</h3>
                                     @foreach($draft_trip as $dt)
                                     
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -357,25 +357,29 @@
 
                                     @foreach ($ongoing_trip as $ot)
 
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-lg-2">
-                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                            <div class="row gap-3">
+                                                <div class="col-lg-3">
+                                                    <img src="img/laptop.jpg" class="img-fluid"  style="width: 200px" alt="">
                                                     <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
-                                                <div class="col-lg-9">
+                                                <div class="col-lg-8">
                                                     <div class="trip-desc">
                                                         <h3 class="text-primary fw-bold">{{ $ot->destination }} - {{ $ot->origin }}</h3>
                                                         <p>{{ $ot->description }}</p>
                                                     </div>
-                                                    <div class="row g-0">
+                                                    <div class="row gap-1">
                                                         @foreach ($item_in_trip as $item)
 
                                                         @if ($item->trip_id == $ot->id)
 
                                                         <div class="col-lg-2">
-                                                            <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 60px" class="img-fluid" alt="">
+                                                            <img src="{{ asset('/storage/' .$item->item_image) }}"class="item-img" alt="">
+                                                            <div class="img-detail d-flex flex-column mt-1">
+                                                                <label for="" class="form-label mb-0">Snack</label>
+                                                                <label for="" class="form-label mb-0">$30</label>
+                                                            </div>
                                                         </div>
                                                         @endif
 

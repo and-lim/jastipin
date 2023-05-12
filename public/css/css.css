@@ -293,6 +293,12 @@ small.fa.fa-star{
 
 }
 
+img.item-img{
+    border: 2px rgb(12, 16, 255) solid;
+    border-radius: 5px;
+    width: 80px !important;
+}
+
 .left-sidebar{
     border: 1px solid black;
 }
