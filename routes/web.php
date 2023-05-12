@@ -16,32 +16,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//login register
 Route::get('/login', [PageController::class, 'login']);
 Route::get('/register', [PageController::class, 'register']);
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
+//dashboard
 Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
+Route::post('/publishTrip', [DashboardController::class, 'publishTrip']);
 Route::post('/addItem', [DashboardController::class, 'addItem']);
 Route::post('/removeItem', [DashboardController::class, 'removeItem']);
+Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
+Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
+Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
+
+
+Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout']);
 
 Route::get('/item', function () {
     return view('item');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
-Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
-Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
 
 Route::get('/ongoing-trip', function () {
     return view('ongoing-trip-detail');
@@ -64,10 +70,6 @@ Route::get('/cart', function () {
 
 Route::get('/trip', function () {
     return view('trip');
-});
-
-Route::get('/trip-detail', function () {
-    return view('trip-detail');
 });
 
 

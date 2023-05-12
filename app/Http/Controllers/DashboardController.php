@@ -38,7 +38,12 @@ class DashboardController extends Controller
             ->where('status', 'ongoing')
             ->get();
 
-        return view('dashboard', compact('draft_trip'));
+        $item_in_trip = DB::table('items')
+        ->join('trips', 'items.trip_id', 'trips.id')
+        ->select('items.*')
+        ->where('trips.user_id', auth()->user()->id)
+        ->get();
+        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip'));
     }
 
     function editTrip($id){
@@ -104,6 +109,7 @@ class DashboardController extends Controller
             'item_stock' => $request->item_stock,
             'item_price' => $request->item_price,
             'item_display_price' => $request->item_display_price,
+            'item_description' => $request->item_description,
             'trip_id' => $request->trip_id,
         ]);
         return redirect('/trip-draft/' . $request->trip_id);
@@ -115,6 +121,15 @@ class DashboardController extends Controller
         ->delete();
 
         return back();
+    }
+
+    function publishTrip(Request $request){
+        $publish_trip = DB::table('trips')
+        ->where('id', $request->trip_id)
+        ->update([
+            'status' => 'ongoing' 
+        ]);
+        return redirect('/dashboard');
     }
     
 }
