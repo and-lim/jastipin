@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Item;
+use App\Models\Wtb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,7 +44,14 @@ class DashboardController extends Controller
         ->select('items.*')
         ->where('trips.user_id', auth()->user()->id)
         ->get();
-        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip'));
+
+        $wtb_item = DB::table('wtbs')
+        ->join('users', 'wtbs.user_id', 'users.id')
+        ->select('wtbs.*')
+        ->where('wtb_status', 'published')
+        ->get();
+
+        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item'));
     }
 
     function editTrip($id){
@@ -130,6 +138,37 @@ class DashboardController extends Controller
             'status' => 'ongoing' 
         ]);
         return redirect('/dashboard');
+    }
+
+    function addWtbItem(Request $request){
+
+        $filename = $request->file('wtb_image')->getClientOriginalName();
+        $generate_file = time().'_'.$filename;
+
+        $path = $request->file('wtb_image')->storeAs('public/', $generate_file);
+
+        $add_wtb = Wtb::create([
+            'wtb_name' => $request->wtb_name,
+            'wtb_location' => $request->wtb_location,
+            'wtb_price' => $request->wtb_price,
+            'wtb_amount' => $request->wtb_amount,
+            'wtb_weight' => $request->wtb_weight,
+            'wtb_image' => $generate_file,
+            'wtb_description' => $request->wtb_description,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return redirect('/dashboard');
+    }
+
+    function removeWtbItem(Request $request){
+        $delete_item = DB::table('Wtbs')
+        ->where('id', $request->id)
+        ->update([
+            'wtb_status' => 'deleted'
+        ]);
+
+        return back();
     }
     
 }

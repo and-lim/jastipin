@@ -32,21 +32,26 @@ Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
 Route::post('/publishTrip', [DashboardController::class, 'publishTrip']);
 Route::post('/addItem', [DashboardController::class, 'addItem']);
 Route::post('/removeItem', [DashboardController::class, 'removeItem']);
+Route::post('/addWtbItem', [DashboardController::class, 'addWtbItem']);
+Route::post('/removeWtbItem', [DashboardController::class, 'removeWtbItem']);
 Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
 Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
 
+Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
+Route::get('/item', [PageController::class, 'viewWtbList']);
+Route::get('/item-detail/{id}', [PageController::class, 'viewWtbDetail']);
 
 Route::get('/', function () {
     return view('home');
 });
 
 
-Route::get('/item', function () {
-    return view('item');
-});
+// Route::get('/item', function () {
+//     return view('item');
+// });
 
 
 Route::get('/ongoing-trip', function () {
@@ -66,9 +71,9 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/trip', function () {
-    return view('trip');
-});
+// Route::get('/trip', function () {
+//     return view('trip');
+// });
 
 Route::get('/trip-detail', function () {
     return view('trip-detail');
