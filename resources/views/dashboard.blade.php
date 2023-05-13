@@ -210,14 +210,14 @@
                                                         </div>
 
                                                         <div class="mb-3 form-group row">
-                                                            <label for="wtb_weight" class="col-sm-2 col-form-label">Item Weight</label>
-                                                            <input type="number" name="wtb_weight" style="width: 50px">
+                                                            <label for="wtb_weight" class="col-sm-2 me-lg-3 col-form-label">Item Weight</label>
+                                                            <input type="number" name="wtb_weight" style="width: 70px">
                                                             <p>Kg</p>
                                                         </div>
 
                                                         <div class="mb-3 form-group row">
-                                                            <label for="wtb_amount" class="col-sm-2 col-form-label">Item Amount</label>
-                                                            <input type="number" name="wtb_amount" style="width: 50px">
+                                                            <label for="wtb_amount" class="col-sm-2 me-lg-3 col-form-label">Item Amount</label>
+                                                            <input type="number" name="wtb_amount" style="width: 70px">
                                                             <p>Pc/s</p>
                                                         </div>
 
@@ -243,25 +243,25 @@
 
                         <div class="row">
                             @foreach ($wtb_item as $wtb)
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 my-3">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-2">
+                                        <div class="row gap-3 p-0">
+                                            <div class="col-lg-3">
                                                 <img src="{{ asset('/storage/' .$wtb->wtb_image) }}" class="img-fluid" alt="">
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-8">
                                                 <h1 class="mb-2">{{ $wtb->wtb_name }}</h1>
                                                 <p>{{ $wtb->wtb_price }}</p>
                                                 <p>{{ $wtb->wtb_location }}</p>
                                                 <p>{{ $wtb->wtb_description }}</p>
-                                                <div class="float-end d-flex gap-2">
+                                                <div class="float-end d-flex align-items-center gap-4">
                                                     <p>Quantity: </p>
                                                     <p>{{ $wtb->wtb_amount }}</p>
                                                     <form action="/removeWtbItem" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $wtb->id }}">
-                                                        <button class="btn btn-danger">
+                                                        <button class="btn btn-danger mb-3">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
