@@ -60,9 +60,10 @@
                         <span class="me-4">Quantity: {{ $wtb->wtb_amount }} Pc/s</span>
                       </div>
                     </div>
-                    <div class="product-button">
-                      <a href="/item-detail/{{ $wtb->id }}" class="btn btn-warning text-center mx-auto float-end">See detail</a>
-                    </div>
+                  
+                  </div>
+                  <div class="product-button d-flex justify-content-end p-3">
+                    <a href="/item-detail/{{ $wtb->id }}" class="btn btn-warning">See detail</a>
                   </div>
                 </div>
               </div>
