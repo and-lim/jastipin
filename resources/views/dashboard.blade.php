@@ -159,85 +159,90 @@
                     {{-- tab item list --}}
 
                     <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
-                    <div class="row g-0">
-                        <h1 class="dashboard-title mb-3">Want To Buy Item List</h1>
-                        <div class=" mb-3">
-                          <!-- Button trigger modal -->
+                        <div class="row g-0">
+                            <h1 class="dashboard-title mb-3">Item List</h1>
+                            <div class=" mb-3">
+                                <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Add Item
                                 </button>
-                                
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <form action="/addWtbItem" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="modal-dialog modal-lg">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-    
-                                        <div class="modal-body">
-                                            <div class="add-item-form">
-                                                <div class="mb-3 form-group row">
-                                                    <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="wtb_name" class="form-control" id="item-name">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="mb-3 form-group row">
-                                                    <label for="Location" class="col-sm-2 col-form-label">Location</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="wtb_location" class="form-control" id="location">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="mb-3 form-group row">
-                                                    <label for="Price" class="col-sm-2 col-form-label">Price</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="wtb_price" class="form-control" id="price" placeholder="Rp">
-                                                    </div>
-                                                </div>
-                
-                                                <div class="mb-3 form-group row">
-                                                    <label for="image" class="col-sm-2 col-form-label">Select Image</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" name="wtb_image" class="form-control" id="image">
-                                                    </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <form action="/addWtbItem" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
-                                                <div class="mb-3 form-group row">
-                                                    <label for="wtb_weight" class="col-sm-2 col-form-label">Item Weight</label>
-                                                    <input type="number" name="wtb_weight" style="width: 50px">
-                                                    <p>Kg</p>
-                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="add-item-form">
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="Item" class="col-sm-2 col-form-label">Item Name</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="wtb_name" class="form-control" id="item-name">
+                                                            </div>
+                                                        </div>
 
-                                                <div class="mb-3 form-group row">
-                                                    <label for="wtb_amount" class="col-sm-2 col-form-label">Item Amount</label>
-                                                    <input type="number" name="wtb_amount" style="width: 50px">
-                                                    <p>Pc/s</p>
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="Location" class="col-sm-2 col-form-label">Location</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="wtb_location" class="form-control" id="location">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="wtb_price" class="form-control" id="price" placeholder="Rp">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="image" class="col-sm-2 col-form-label">Select Image</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" name="wtb_image" class="form-control" id="image">
+                                                                <a href="" class="btn btn-primary mt-2">upload</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="wtb_weight" class="col-sm-2 col-form-label">Item Weight</label>
+                                                            <input type="number" name="wtb_weight" style="width: 50px">
+                                                            <p>Kg</p>
+                                                        </div>
+
+                                                        <div class="mb-3 form-group row">
+                                                            <label for="wtb_amount" class="col-sm-2 col-form-label">Item Amount</label>
+                                                            <input type="number" name="wtb_amount" style="width: 50px">
+                                                            <p>Pc/s</p>
+                                                        </div>
+
+                                                        <div class="form-group mb-3">
+                                                            <label for="" class="form-label">Add Description</label>
+                                                            <textarea name="wtb_description" class="form-control" id="" cols="30" rows="2"></textarea>
+                                                        </div>
+
+
+
+                                                    </div>
                                                 </div>
-                                                
-                                                <div class="form-group mb-3">
-                                                    <label for="wtb_description" class="form-label">Add Description</label>
-                                                    <textarea name="wtb_description" class="form-control" id="wtb_description" cols="30" rows="2"></textarea>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Add Item</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Add Item</button>
-                                        </div>
-                                     </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @foreach ($wtb_item as $wtb)
+
                         <div class="row">
+                            @foreach ($wtb_item as $wtb)
                             <div class="col-lg-12">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
@@ -268,9 +273,8 @@
                             </div>
                             @endforeach
                         </div>
-
-                        
                     </div>
+
 
 
                     {{-- tab trip list --}}
@@ -292,7 +296,7 @@
                                 <div class="trip-list">
                                     <h3 class="fw-bold">Draft Trip</h3>
                                     @foreach($draft_trip as $dt)
-                                    
+
                                     <div class="card shadow">
                                         <div class="card-body">
                                             <div class="row">
@@ -325,7 +329,7 @@
                                         <div class="card-body">
                                             <div class="row gap-3">
                                                 <div class="col-lg-3">
-                                                    <img src="img/laptop.jpg" class="img-fluid"  style="width: 200px" alt="">
+                                                    <img src="img/laptop.jpg" class="img-fluid" style="width: 200px" alt="">
                                                     <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -339,7 +343,7 @@
                                                         @if ($item->trip_id == $ot->id)
 
                                                         <div class="col-lg-2">
-                                                            <img src="{{ asset('/storage/' .$item->item_image) }}"class="item-img" alt="">
+                                                            <img src="{{ asset('/storage/' .$item->item_image) }}" class="item-img" alt="">
                                                             <div class="img-detail d-flex flex-column mt-1">
                                                                 <label for="" class="form-label mb-0">Snack</label>
                                                                 <label for="" class="form-label mb-0">$30</label>
@@ -362,7 +366,7 @@
                                                         </div> -->
                                                     </div>
 
-                                                  <a href="/trip-detail/{{ $ot->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
+                                                    <a href="/trip-detail/{{ $ot->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                                 </div>
                                             </div>
                                         </div>
