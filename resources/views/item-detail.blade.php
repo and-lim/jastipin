@@ -13,8 +13,8 @@
                 <div class="col-lg-8">
                     <div class="row">
                          <div class="col-lg-6">
-                              <div class="item-name text-primary">
-                                   <h3 class="fw-bold">Item Name</h3>
+                              <div class="item-name">
+                                   <h3 class="fw-bold text-primary">Item Name</h3>
                                    <h5 class="my-3">{{ $wtb_detail->wtb_name }}</h5>
                               </div>
 
