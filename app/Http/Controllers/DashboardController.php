@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Wtb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -51,9 +52,18 @@ class DashboardController extends Controller
         ->where('wtb_status', 'published')
         ->get();
 
-        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item'));
-    }
+        $user_profile = DB::table('users')
+        ->select('*')
+        ->where('id', auth()->user()->id)
+        ->first();
 
+        $countries = DB::table('countries')
+        ->select('*')
+        ->get();
+
+        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries'));
+    }
+    
     function editTrip($id){
 
         $edit_trip = DB::table('trips')
@@ -169,6 +179,26 @@ class DashboardController extends Controller
         ]);
 
         return back();
+    }
+
+    function updateProfile(Request $request)
+    {
+        $filename = $request->file('avatar')->getClientOriginalName();
+        $generate_file = time().'_'.$filename;
+
+        $path = $request->file('avatar')->storeAs('public/', $generate_file);
+
+        $update_profile = DB::table('users')
+        ->where('id', $request->id )
+        ->update([
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+            'avatar' => $generate_file,
+            'address' => $request->address
+        ]);
+        return redirect('/dashboard');
     }
     
 }

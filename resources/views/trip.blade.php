@@ -45,11 +45,13 @@
                     </div>
                     <div class="category-list mt-3">
                         <input type="checkbox" id="food" name="food" value="food">
-                        <label for=""> Food</label><br></li>
+                        <label for="food"> Food & Beverages</label><br></li>
                         <input type="checkbox" id="food" name="food" value="food">
-                        <label for=""> Food</label><br></li>
+                        <label for="fashion"> Fashion</label><br></li>
                         <input type="checkbox" id="food" name="food" value="food">
-                        <label for=""> Food</label><br></li>
+                        <label for="gadget"> Electronic Gadget</label><br></li>
+                        <input type="checkbox" id="food" name="food" value="food">
+                        <label for="accessories"> Accessories</label><br></li>
                     </div>
                 </aside>
             </div>
@@ -63,7 +65,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-3 text-center">
-                                            <img src="img/laptop.jpg" class="img-fluid" style="width: 200px" alt="">
+                                            <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
                                             <h5 class="text-center">{{ $trip->fullname }}</h5>
                                             <a href="/traveler" class="btn btn-success"> See Profile</a>
                                         </div>

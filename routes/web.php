@@ -28,7 +28,11 @@ Route::get('/welcome', function () {
 });
 
 //dashboard
+Route::post('/updateProfile', [DashboardController::class, 'updateProfile']);
 Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
+Route::controller(DashboardController::class)->group(function(){
+    Route::get('autocomplete', 'autocomplete')->name('autocomplete');
+});
 Route::post('/publishTrip', [DashboardController::class, 'publishTrip']);
 Route::post('/addItem', [DashboardController::class, 'addItem']);
 Route::post('/removeItem', [DashboardController::class, 'removeItem']);
