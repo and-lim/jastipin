@@ -79,7 +79,7 @@
                             <div class="col-lg-12">
                                 <div class="card shadow-sm py-3">
                                     <h1 class="text-dark fw-bold px-3">welcome</h1><br>
-                                    <h3 class="px-3">User</h3>
+                                    <h3 class="px-3">{{ auth()->user()->fullname }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -117,43 +117,53 @@
                     {{-- tab update profile --}}
 
                     <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                        <div class="image-profile d-flex flex-column justify-content-center align-items-center my-3">
-                            <img src="img/laptop.jpg" class="" alt="">
-                            <input type="file" class="form-control mt-3" style="width: 300px" id="image">
-                        </div>
-
-                        <div class="card p-3 shadow-sm">
-                            <div class="mb-3 form-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control" id="name">
-                                </div>
-                            </div>
-                            <div class="mb-3 form-group row">
-                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control" id="email">
-                                </div>
-                            </div>
-                            <div class="mb-3 form-group row">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword">
-                                </div>
-                            </div>
-                            <div class="mb-3 form-group row">
-                                <label for="address" class="col-sm-2 col-form-label">Address</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                                </div>
+                        <form action="/updateProfile" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="image-profile d-flex flex-column justify-content-center align-items-center my-3">
+                                <img src="{{ asset('/storage/' .$user_profile->avatar) }}" class="" alt="">
+                                <input type="file" name="avatar" class="form-control mt-3" style="width: 300px" id="image">
                             </div>
 
-                            <div class="submit-btn text-center">
-                                <a href="" class="btn btn-primary">Update</a>
-                            </div>
+                            <div class="card p-3 shadow-sm">
+                                <div class="mb-3 form-group row">
+                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="fullname" class="form-control" id="name" value="{{ $user_profile->fullname }}">
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-group row">
+                                    <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="email" class="form-control" id="email" value="{{ $user_profile->email }}">
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-group row">
+                                    <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="phone_number" class="form-control" id="email" value="{{ $user_profile->phone_number }}">
+                                    </div>
+                                </div>
+                                <!-- <div class="mb-3 form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="password" class="form-control" id="inputPassword" value="{{ $user_profile->password }}">
+                                    </div>
+                                </div> -->
+                                <div class="mb-3 form-group row">
+                                    <label for="address" class="col-sm-2 col-form-label">Address</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="address" class="form-control" id="" cols="30" rows="5">{{ $user_profile->address }}</textarea>
+                                    </div>
+                                </div>
 
-                        </div>
+                                <input type="hidden" name="id" value="{{ $user_profile->id }}">
+                                <div class="submit-btn text-center">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+
+                            </div>
+                        </form>
+
                     </div>
 
                     {{-- tab item list --}}
@@ -345,8 +355,8 @@
                                                         <div class="col-lg-2">
                                                             <img src="{{ asset('/storage/' .$item->item_image) }}" class="item-img" alt="">
                                                             <div class="img-detail d-flex flex-column mt-1">
-                                                                <label for="" class="form-label mb-0">Snack</label>
-                                                                <label for="" class="form-label mb-0">$30</label>
+                                                                <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
+                                                                <label for="" class="form-label mb-0">Rp {{ $item->item_display_price }}</label>
                                                             </div>
                                                         </div>
                                                         @endif
@@ -384,7 +394,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col-lg-5">
                                                     <label for="destination" class="form-label">Destination</label>
-                                                    <input type="text" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
+                                                    <input type="text" id="country" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div class="bg-dark mt-4" style="height: 5px;"></div>

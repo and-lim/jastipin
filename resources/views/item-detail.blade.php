@@ -52,7 +52,9 @@
 
                     </div>
                    <div class="button d-flex gap-3">
-                        <a href="/checkout" class="btn btn-primary">Checkout</a>
+                    @if (Auth::user()->id != $wtb_detail->user_id)
+                    <a href="/checkout" class="btn btn-primary">Checkout</a>
+                    @endif
                         <a href="/item" class="btn btn-warning">Back</a>
                    </div>
 

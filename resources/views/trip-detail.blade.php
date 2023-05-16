@@ -7,13 +7,13 @@
 
     @endphp -->
     <div class="container mx-auto py-5">
-        <div class="row mb-3">       
+        <div class="row mb-3">
             <div class="title mt-5 mb-3">
                 <h1 class="fw-bold">Trip Details</h1>
             </div>
             <div class="back-btn mb-3">
                 <a href="/trip" class="btn btn-warning float-end py-0 px-3">
-                    <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>  
+                    <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>
                         Back
                     </h6>
                 </a>
@@ -32,7 +32,7 @@
                                     <p>{{ $trips->description }}</p>
                                 </div>
                             </div>
-                        
+
                         </div>
 
                         <div class="trip-item my-3">
@@ -80,7 +80,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                         
+
                                         </form>
                                     </div>
                                     <!-- <div class="col-lg-2">
@@ -94,6 +94,7 @@
                         </div>
 
 
+                        @if (Auth::user()->id != $trips->user_id && $trips->request) 
                         <div class="request mt-3 p-3">
                             <h3 class="fw-bold">Request Item
                                 <span class="text-primary" style="font-size: 15px"> &#91Optional&#93</span>
@@ -175,10 +176,14 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
+                        @if(Auth::user()->id != $trips->user_id)
                         <div class="order-btn">
                             <a href="" class="btn btn-primary mt-3 px-5">Order</a>
                         </div>
+                        @endif
+
                     </div>
 
                     <!-- @if (count($cart)!=0)
@@ -217,7 +222,7 @@
                     @endif -->
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 </section>
 @endsection
