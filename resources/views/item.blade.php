@@ -20,11 +20,10 @@
     </div>
     <div class="line p-2"></div>
 
-    <div class="container-fluid mx-1 mt-5">
-        <p class="text-start">Result</p>
+    <div class="container-fluid mx-1 my-5 py-5">
         <div class="row m-0">
           <div class="col-lg-3">
-                <aside class="left-sidebar p-3 shadow">
+                <aside class="left-sidebar rounded-3 p-3 shadow">
                   <div class="sidebar-title">
                       <h5 class="fw-bold">Category</h5>
                   </div>
@@ -35,6 +34,9 @@
                     <label for=""> Food</label><br></li>   
                     <input type="checkbox" id="food" name="food" value="food">
                     <label for=""> Food</label><br></li>   
+                  </div>
+                  <div class="button text-center">
+                    <button class="btn btn-primary my-2 text-center">Filter</button>
                   </div>
                 </aside>
             </div>

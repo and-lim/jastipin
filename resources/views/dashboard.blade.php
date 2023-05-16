@@ -307,7 +307,7 @@
                                     <h3 class="fw-bold">Draft Trip</h3>
                                     @foreach($draft_trip as $dt)
 
-                                    <div class="card shadow">
+                                    <div class="card shadow mb-3">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -352,7 +352,7 @@
 
                                                         @if ($item->trip_id == $ot->id)
 
-                                                        <div class="col-lg-2">
+                                                        <div class="col-lg-3">
                                                             <img src="{{ asset('/storage/' .$item->item_image) }}" class="item-img" alt="">
                                                             <div class="img-detail d-flex flex-column mt-1">
                                                                 <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
@@ -362,18 +362,6 @@
                                                         @endif
 
                                                         @endforeach
-                                                        <!-- <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-2">
-                                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                                        </div> -->
                                                     </div>
 
                                                     <a href="/trip-detail/{{ $ot->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
@@ -392,16 +380,34 @@
                                     <div class="card p-3 shadow-sm mt-2">
                                         <div class="form-group mb-3">
                                             <div class="row align-items-center">
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-5 d-flex flex-column">
                                                     <label for="destination" class="form-label">Destination</label>
-                                                    <input type="text" id="country" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
+                                                    <div class="dropdown-datalist">
+                                                        <input list="datalistOptions" id="exampleDataList" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
+                                                    </div>
+                                                    <datalist id="datalistOptions">
+                                                      <option value="San Francisco">
+                                                      <option value="New York">
+                                                      <option value="Seattle">
+                                                      <option value="Los Angeles">
+                                                      <option value="Chicago">
+                                                    </datalist>
                                                 </div>
                                                 <div class="col-lg-1">
-                                                    <div class="bg-dark mt-4" style="height: 5px;"></div>
+                                                    <div class="bg-dark mt-4 d-lg-block d-none" style="height: 5px;"></div>
                                                 </div>
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
-                                                    <input type="text" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
+                                                    <div class="dropdown-datalist">
+                                                        <input list="datalistOptions" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
+                                                    </div>
+                                                    <datalist id="datalistOptions">
+                                                        <option value="San Francisco">
+                                                        <option value="New York">
+                                                        <option value="Seattle">
+                                                        <option value="Los Angeles">
+                                                        <option value="Chicago">
+                                                      </datalist>
                                                 </div>
                                             </div>
                                         </div>

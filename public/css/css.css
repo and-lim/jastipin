@@ -164,6 +164,39 @@ button,a.btn{
     color: black;
 }
 
+
+.dropdown-datalist {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-datalist::before {
+    position: absolute;
+    content: " \2193";
+    top: 0px;
+    font-size: 25px;
+    right: -8px;
+    height: 20px;
+    width: 30px;
+}
+
+@media (max-width:600px) {
+    .dropdown-datalist {
+        display: flex;
+    }
+    .dropdown-datalist input{
+        width: 100% !important;
+    }
+    .dropdown-datalist::before {
+        position: absolute;
+        content: " \2193";
+        top: 0px;
+        font-size: 25px;
+        right: -8px;
+        height: 20px;
+        width: 30px;
+    }
+}
+
 .section-title{
     position: relative;
     text-align: center;
@@ -296,7 +329,8 @@ small.fa.fa-star{
 img.item-img{
     border: 2px rgb(12, 16, 255) solid;
     border-radius: 5px;
-    width: 80px !important;
+    width: 100px !important;
+    max-height: 100%;
 }
 
 .left-sidebar{

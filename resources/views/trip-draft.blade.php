@@ -33,16 +33,34 @@
                                     <div class="card border-dark border-2 mb-3 p-3 shadow-sm mt-2">
                                         <div class="form-group mb-3">
                                             <div class="row align-items-center">
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-5 d-flex flex-column">
                                                     <label for="destination" class="form-label">Destination</label>
-                                                    <input type="text" name="destination" class="form-control" placeholder="From" aria-label="destination" value="{{ $edit_trip->destination }}">
+                                                    <div class="dropdown-datalist">
+                                                        <input list="datalistOptions" id="exampleDataList" name="destination" class="form-control" value="{{ $edit_trip->destination }}" placeholder="Destination" aria-label="destination">
+                                                    </div>
+                                                    <datalist id="datalistOptions">
+                                                      <option value="San Francisco">
+                                                      <option value="New York">
+                                                      <option value="Seattle">
+                                                      <option value="Los Angeles">
+                                                      <option value="Chicago">
+                                                    </datalist>
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div class="bg-dark mt-4" style="height: 5px;"></div>
                                                 </div>
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
-                                                    <input type="text" name="origin" class="form-control" placeholder="origin" aria-label="origin" value="{{ $edit_trip->origin }}">
+                                                    <div class="dropdown-datalist">
+                                                        <input list="datalistOptions" id="exampleDataList" name="origin" class="form-control"  value="{{ $edit_trip->origin }}" placeholder="Origin" aria-label="origin">
+                                                    </div>
+                                                    <datalist id="datalistOptions">
+                                                        <option value="San Francisco">
+                                                        <option value="New York">
+                                                        <option value="Seattle">
+                                                        <option value="Los Angeles">
+                                                        <option value="Chicago">
+                                                      </datalist>
                                                 </div>
                                             </div>
                                         </div>
