@@ -66,13 +66,14 @@
                                         </div>
                                     </div>
 
+                                    @if (Auth::user()->id != $trips->user_id && $trips->request)
                                     <div class="col-lg-2 position-absolute" style="top: 45%; right: 0;">
                                         <form action="/addToCart" method="POST">
                                             @csrf
                                             <div class="d-flex align-items-center gap-3">
+                                                <input type="hidden" name="item_id" value="$item->id">
                                                 <div class="input-number">
                                                     <input type="number" name="item_quantity" style="width: 50px">
-                                                    <input type="hidden" name="item_id" value="$item->id">
                                                 </div>
                                                 <div class="button">
                                                     <button type="submit" class="btn btn-primary">
@@ -83,6 +84,7 @@
 
                                         </form>
                                     </div>
+                                    @endif
                                     <!-- <div class="col-lg-2">
                                             <button onclick=" {{ array_push($cart, $item) }} " class="">
                                                 <i class="fa fa-shopping-cart fa-2x"></i>
@@ -94,7 +96,7 @@
                         </div>
 
 
-                        @if (Auth::user()->id != $trips->user_id && $trips->request) 
+                        @if (Auth::user()->id != $trips->user_id && $trips->request)
                         <div class="request mt-3 p-3">
                             <h3 class="fw-bold">Request Item
                                 <span class="text-primary" style="font-size: 15px"> &#91Optional&#93</span>
@@ -109,69 +111,64 @@
                                             <h2 class="modal-title">Request</h2>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <div class="form-category">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <select class="form-select">
-                                                                <option selected>Category</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <select class="form-select">
-                                                                <option selected>Brand</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form">
-                                                        <div class="form-check mt-3">
-                                                            <input class="form-check-input" type="radio" name="" id="">
-                                                            <label class="form-check-label" for="">
-                                                                Food
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form-check mt-2">
-                                                            <input class="form-check-input" type="radio" name="" id="" checked>
-                                                            <label class="form-check-label" for="">
-                                                                Electronic
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name=" id="" checked>
-                                                            <label class=" form-check-label" for="">
-                                                            Other
-                                                            </label>
-                                                            <input type="text" class="form-control" style="width: 50%">
+                                        <form action="/addRequestItem" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <div class="form-category">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <label for="brand" class="form-label">Item Name</label>
+                                                                <input type="text" name="request_name" class="form-control " style="width: 50%">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label for="category" class="form-label">Category</label>
+                                                                <div class="col-lg-6">
+                                                                    <select class="form-select" name="request_category" aria-label="Default select example">
+                                                                        <option value="food_beverage" selected>Food & Beverage</option>
+                                                                        <option value="fashion">Fashion</option>
+                                                                        <option value="electronic">Electronic Gadget</option>
+                                                                        <option value="accessories">Accessories</option>
+                                                                        <option value="other">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label for="brand" class="form-label">Brand</label>
+                                                                <input type="text" name="request_brand" class="form-control " style="width: 50%">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-request my-3">
-                                                    <label for="" class="form-label">Request</label>
-                                                    <textarea name="" class="form-control" id="" cols="20" rows="5"></textarea>
-                                                </div>
-                                                <div class="form-price my-3">
-                                                    <label for="" class="form-label">Input your Desired Price</label>
-                                                    <input type="text" class="form-control " style="width: 50%">
-                                                </div>
-                                                <div class="quantity d-flex flex-column">
-                                                    <label for="" class="form-label">Quantity</label>
-                                                    <input type="number" style="width: 50px">
+                                                    <div class="form-group mb-3">
+                                                            <label for="image" class="col-form-label">Select Image</label>
+                                                            <div class="col-sm-8">
+                                                                <input type="file" name="request_image" class="form-control" id="image">
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-request my-3">
+                                                        <label for="description" class="form-label">Description</label>
+                                                        <textarea name="request_description" class="form-control" id="" cols="20" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="form-price my-3">
+                                                        <label for="" class="form-label">Input your Desired Price</label>
+                                                        <input type="text" name="request_price" class="form-control" style="width: 50%">
+                                                    </div>
+                                                    <div class="quantity d-flex flex-column">
+                                                        <label for="quantity" class="form-label">Quantity</label>
+                                                        <input type="number" name="request_quantity" style="width: 50px">
+                                                    </div>
+                                                    <div class="quantity d-flex flex-column">
+                                                        <label for="weight" class="form-label">Weight</label>
+                                                        <input type="number" name="request_weight" style="width: 50px">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
+                                            <div class="modal-footer">
+                                                <input type="hidden" name="trip_id" value="{{ $trips->id }}">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
