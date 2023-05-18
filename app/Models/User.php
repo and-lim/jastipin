@@ -23,6 +23,7 @@ class User extends Authenticatable
         'phone_number',
         'avatar',
         'address',
+        'balance',
         'is_admin',
         'password',
     ];

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,6 @@ Route::get('/welcome', function () {
 //dashboard
 Route::post('/updateProfile', [DashboardController::class, 'updateProfile']);
 Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
-Route::controller(DashboardController::class)->group(function(){
-    Route::get('autocomplete', 'autocomplete')->name('autocomplete');
-});
 Route::post('/publishTrip', [DashboardController::class, 'publishTrip']);
 Route::post('/addItem', [DashboardController::class, 'addItem']);
 Route::post('/removeItem', [DashboardController::class, 'removeItem']);
@@ -43,10 +41,18 @@ Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
 
+//trip
 Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
+Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
+
+
 Route::get('/item', [PageController::class, 'viewWtbList']);
 Route::get('/item-detail/{id}', [PageController::class, 'viewWtbDetail']);
+
+
+//cart
+Route::get('/cart', [TransactionController::class, 'viewCart']);
 
 Route::get('/', function () {
     return view('home');
@@ -71,9 +77,9 @@ Route::get('/checkout', function () {
     return view('checkout');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+// Route::get('/cart', function () {
+//     return view('cart');
+// });
 
 // Route::get('/trip', function () {
 //     return view('trip');

@@ -199,9 +199,16 @@
 
                                                         <div class="mb-3 form-group row">
                                                             <label for="Location" class="col-sm-2 col-form-label">Location</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="wtb_location" class="form-control" id="location">
+                                                            <div class="dropdown-datalist">
+                                                                <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control" aria-label="origin">
                                                             </div>
+                                                            <datalist id="datalistOptions">
+                                                                @foreach ($countries as $country)
+
+                                                                <option value="{{ $country->name }}">
+
+                                                                    @endforeach
+                                                            </datalist>
                                                         </div>
 
                                                         <div class="mb-3 form-group row">
@@ -386,11 +393,11 @@
                                                         <input list="datalistOptions" id="exampleDataList" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
                                                     </div>
                                                     <datalist id="datalistOptions">
-                                                      <option value="San Francisco">
-                                                      <option value="New York">
-                                                      <option value="Seattle">
-                                                      <option value="Los Angeles">
-                                                      <option value="Chicago">
+                                                        @foreach ($countries as $country)
+
+                                                        <option value="{{ $country->name }}">
+
+                                                            @endforeach
                                                     </datalist>
                                                 </div>
                                                 <div class="col-lg-1">
@@ -402,12 +409,12 @@
                                                         <input list="datalistOptions" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
                                                     </div>
                                                     <datalist id="datalistOptions">
-                                                        <option value="San Francisco">
-                                                        <option value="New York">
-                                                        <option value="Seattle">
-                                                        <option value="Los Angeles">
-                                                        <option value="Chicago">
-                                                      </datalist>
+                                                        @foreach ($countries as $country)
+
+                                                        <option value="{{ $country->name }}">
+
+                                                            @endforeach
+                                                    </datalist>
                                                 </div>
                                             </div>
                                         </div>

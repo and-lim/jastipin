@@ -86,7 +86,7 @@
                                                 @endif
                                                 @endforeach
                                             </div>
-                                            <a href="/trip-detail/{{ $item->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
+                                            <a href="/trip-detail/{{ $trip->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                         </div>
                                     </div>
                                 </div>
