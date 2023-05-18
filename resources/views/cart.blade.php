@@ -48,12 +48,11 @@
                 </div>
 
                 <div class="float-end d-flex gap-2 mb-3">
-                    <input type="number" style="width: 50px">
+                    <input type="number" min="1" max="100" style="width: 50px">
                     <a href="" class="btn btn-danger">
                         <i class="fa fa-trash"></i>
                     </a>
                 </div>
-
             </div>
 
             {{-- details --}}
@@ -73,8 +72,9 @@
                 </div>
             </div>
 
-            <div>
-                <a href="" class="float-end btn btn-warning px-3 fw-bold">Checkout</a>
+            <div class="d-flex justify-content-between">
+                <a href="/trip" class="btn btn-warning px-3 fw-bold">Back to Trip</a>
+                <a href="" class="btn btn-success px-3 fw-bold">Checkout</a>
             </div>
         </div>
     </div>

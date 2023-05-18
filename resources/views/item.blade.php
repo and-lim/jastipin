@@ -52,7 +52,7 @@
                   <div class="product-btm">
                     <div class="item-details mb-3">
                       <a href="#" class="d-block">
-                        <h4>{{ $wtb->wtb_name }}</h4>
+                        <h3>{{ $wtb->wtb_name }}</h3>
                       </a>
                       <div class="mt-3">
                         <span class="me-4">Rp {{ $wtb->wtb_price }}</span>

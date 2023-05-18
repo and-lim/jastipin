@@ -7,15 +7,12 @@
     font-family: Montserrat, Arial, Helvetica, sans-serif;
     font-weight: 600;
   }
-  
-/* color */
-.bg-darkblue{
-    background-color: darkblue;
-}
 
-body{
+html,body{
     box-sizing: border-box;
-    /* background-color: #ebebeb !important; */
+    background-color: #ebebeb !important;
+    width: 100% !important; 
+    height: 100% !important;
 }
 
 .navbar{
@@ -97,7 +94,6 @@ h1.dashboard-title::after{
 }
 
 .card-image{
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding: 0.5rem;
     width: fit-content;
 
@@ -174,7 +170,7 @@ button,a.btn{
     content: " \2193";
     top: 0px;
     font-size: 25px;
-    right: -8px;
+    right: 0;
     height: 20px;
     width: 30px;
 }
@@ -243,15 +239,23 @@ button,a.btn{
   opacity: 0.5;
 }
 
+aside.left-sidebar{
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 .product {
     text-align: center;
     margin-bottom: 50px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    background-color: white;
 }
 .product .product-img {
     position: relative;
     overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .icon {
@@ -281,9 +285,9 @@ button,a.btn{
     text-align: left;
 }
 
-.product .product-btm h4 {
+.product .product-btm h3 {
     color: #4a4a4a;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0px;
@@ -397,8 +401,8 @@ a.dashboard-icon i{
 }
 
 .image-profile img{
-    width: 250px !important;
-    border-radius: 50%;
+    width: 300px !important;
+    border-radius: 45%;
     border: solid 1px blue;
 }
 

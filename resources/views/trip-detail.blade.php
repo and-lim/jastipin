@@ -44,25 +44,31 @@
                                         <img src="{{ asset('/storage/' .$item->item_image) }}" class="img-fluid" alt="">
                                     </div>
                                     <div class="col-lg-6 ms-lg-5">
-                                        <div class="item-name mb-3">
-                                            <h4 class="mb-2 fw-bold text-primary">item name</h4>
-                                            <p class="">{{ $item->item_name }}</p>
-                                        </div>
-                                        <div class="item-stock mb-3">
-                                            <h4 class="mb-2 fw-bold text-primary">item stock</h4>
-                                            <p>{{ $item->item_stock }} PC/s</p>
-                                        </div>
-                                        <div class="item-weight mb-3">
-                                            <h4 class="mb-2 fw-bold text-primary">item weight</h4>
-                                            <p>{{ $item->item_weight }} Kg</p>
-                                        </div>
-                                        <div class="item-price mb-3">
-                                            <h4 class="mb-2 fw-bold text-primary">item Price</h4>
-                                            <p>Rp {{ $item->item_display_price }}</p>
-                                        </div>
-                                        <div class="item-desc mb-3">
-                                            <h4 class="mb-2 fw-bold text-primary">item name</h4>
-                                            <p>{{ $item->item_description }}</p>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="item-name mb-3">
+                                                    <h4 class="mb-2 fw-bold text-primary">item name</h4>
+                                                    <p class="">{{ $item->item_name }}</p>
+                                                </div>
+                                                <div class="item-stock mb-3">
+                                                    <h4 class="mb-2 fw-bold text-primary">item stock</h4>
+                                                    <p>{{ $item->item_stock }} PC/s</p>
+                                                </div>
+                                                <div class="item-weight mb-3">
+                                                    <h4 class="mb-2 fw-bold text-primary">item weight</h4>
+                                                    <p>{{ $item->item_weight }} Kg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="item-price mb-3">
+                                                    <h4 class="mb-2 fw-bold text-primary">item Price</h4>
+                                                    <p>Rp {{ $item->item_display_price }}</p>
+                                                </div>
+                                                <div class="item-desc mb-3">
+                                                    <h4 class="mb-2 fw-bold text-primary">item name</h4>
+                                                    <p>{{ $item->item_description }}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -73,7 +79,7 @@
                                             <div class="d-flex align-items-center gap-3">
                                                 <input type="hidden" name="item_id" value="$item->id">
                                                 <div class="input-number">
-                                                    <input type="number" name="item_quantity" style="width: 50px">
+                                                    <input type="number" name="item_quantity" min="1" style="width: 50px">
                                                 </div>
                                                 <div class="button">
                                                     <button type="submit" class="btn btn-primary">
@@ -117,9 +123,9 @@
                                                 <div class="form-group">
                                                     <div class="form-category">
                                                         <div class="row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-6 mb-3">
                                                                 <label for="brand" class="form-label">Item Name</label>
-                                                                <input type="text" name="request_name" class="form-control " style="width: 50%">
+                                                                <input type="text" name="request_name" class="form-control " >
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="category" class="form-label">Category</label>
@@ -135,7 +141,7 @@
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="brand" class="form-label">Brand</label>
-                                                                <input type="text" name="request_brand" class="form-control " style="width: 50%">
+                                                                <input type="text" name="request_brand" class="form-control " >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -153,13 +159,19 @@
                                                         <label for="" class="form-label">Input your Desired Price</label>
                                                         <input type="text" name="request_price" class="form-control" style="width: 50%">
                                                     </div>
-                                                    <div class="quantity d-flex flex-column">
-                                                        <label for="quantity" class="form-label">Quantity</label>
-                                                        <input type="number" name="request_quantity" style="width: 50px">
-                                                    </div>
-                                                    <div class="quantity d-flex flex-column">
-                                                        <label for="weight" class="form-label">Weight</label>
-                                                        <input type="number" name="request_weight" style="width: 50px">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="quantity d-flex flex-column">
+                                                                <label for="quantity" class="form-label">Quantity</label>
+                                                                <input type="number" name="request_quantity" min="1" max="50" style="width: 50px">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="quantity d-flex flex-column">
+                                                                <label for="weight" class="form-label">Weight</label>
+                                                                <input type="number" name="request_weight" style="width: 50px">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

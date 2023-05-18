@@ -157,11 +157,11 @@
                                                         <div class="form-group mb-3 row">
                                                             <div class="col-lg-6">
                                                                 <label for="item_weight" class="form-label">Item weight</label>
-                                                                <input type="number" style="width: 50px" name="item_weight" id="item_weight"> Kg
+                                                                <input type="number" style="width: 50px" min="1" name="item_weight" id="item_weight"> Kg
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="item_stock" class="form-label">Item Stock</label>
-                                                                <input type="number" style="width: 50px" name="item_stock" id="item_stock"> Pc/s
+                                                                <input type="number" style="width: 50px" min="1" name="item_stock" id="item_stock"> Pc/s
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 form-group ">

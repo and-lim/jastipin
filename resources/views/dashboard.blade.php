@@ -200,7 +200,7 @@
                                                         <div class="mb-3 form-group row">
                                                             <label for="Location" class="col-sm-2 col-form-label">Location</label>
                                                             <div class="dropdown-datalist">
-                                                                <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control" aria-label="origin">
+                                                                <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control"  aria-label="origin">
                                                             </div>
                                                             <datalist id="datalistOptions">
                                                                 @foreach ($countries as $country)
@@ -228,13 +228,13 @@
 
                                                         <div class="mb-3 form-group row">
                                                             <label for="wtb_weight" class="col-sm-2 me-lg-3 col-form-label">Item Weight</label>
-                                                            <input type="number" name="wtb_weight" style="width: 70px">
+                                                            <input type="number" name="wtb_weight" min="1" max="30" style="width: 70px">
                                                             <p>Kg</p>
                                                         </div>
 
                                                         <div class="mb-3 form-group row">
                                                             <label for="wtb_amount" class="col-sm-2 me-lg-3 col-form-label">Item Amount</label>
-                                                            <input type="number" name="wtb_amount" style="width: 70px">
+                                                            <input type="number" name="wtb_amount" min="1" max="100" style="width: 70px">
                                                             <p>Pc/s</p>
                                                         </div>
 
@@ -337,7 +337,7 @@
                                     @endforeach
                                 </div>
 
-                                <div class="ongoing-trip mt-4 d-flex flex-column gap-2">
+                                <div class="ongoing-trip mt-4 d-flex flex-column gap-3">
                                     <h3 class="fw-bold">Ongoing Trip</h3>
 
                                     @foreach ($ongoing_trip as $ot)
@@ -482,7 +482,7 @@
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
 
                                         <div class="float-end d-flex gap-2">
-                                            <input type="number" style="width: 50px">
+                                            <input type="number" min="1" style="width: 50px">
                                             <a href="" class="btn btn-success">
                                                 <i class="fa fa-check"></i>
                                             </a>

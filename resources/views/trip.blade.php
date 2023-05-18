@@ -56,11 +56,9 @@
                 </aside>
             </div>
 
-            @foreach ($trip_list as $trip)
             <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="trip-list">
+                @foreach ($trip_list as $trip)
+                        <div class="trip-list mb-3">
                             <div class="card shadow-sm">
                                 <div class="card-body">
                                     <div class="row">
@@ -91,13 +89,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-
-                    </div>
-                </div>
+                        </div>        
+                        @endforeach
             </div>
-            @endforeach
 
 </section>
 @endsection
