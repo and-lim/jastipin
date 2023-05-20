@@ -18,6 +18,7 @@ class TransactionController extends Controller
 
 
         $request_items = RequestItem::create([
+            'requester_id' => auth()->user()->id,
             'request_name' => $request->request_name,
             'request_category' => $request->request_category,
             'request_brand' => $request->request_brand,
@@ -32,8 +33,8 @@ class TransactionController extends Controller
         $cart_request = Cart::create([
             'user_id' => auth()->user()->id,
             'request_id' => $request_items->id,
-            'item_id' => null,
-            'cart_item_quantity' => '4',
+            // 'item_id' => null,
+            'cart_item_quantity' => $request_items->request_quantity,
         ]);
 
         return redirect('/trip-detail/' . $request->trip_id);
@@ -42,7 +43,22 @@ class TransactionController extends Controller
 
     function addToCart(Request $request)
     {
+        $find = Cart::where('user_id', auth()->user()->id)->where('item_id', $request->item_id)->first();
 
+        if($find){
+            $find->cart_item_quantity = $request->item_quantity;
+            $find->save();
+        }else{
+
+            $add_cart = Cart::create([
+                'user_id' => auth()->user()->id,
+                'item_id' => $request->item_id,
+                'cart_item_quantity' => $request->item_quantity
+            ]);
+        }
+    
+
+        return back();
     }
 
     function viewCart()
@@ -51,7 +67,8 @@ class TransactionController extends Controller
             ->join('items', 'carts.item_id', 'items.id')
             ->select('items.*', 'carts.*')
             ->where('carts.user_id', auth()->user()->id)
-            ->where('carts.item_id', $operator = 'IS NOT NULL')
+            ->where('carts.item_id', '<>', 'NULL')
+            ->where('carts.cart_status', 'unpaid')
             ->get();
 
         $cart_request = DB::table('carts')
@@ -59,8 +76,35 @@ class TransactionController extends Controller
             ->select('request_items.*', 'carts.*')
             ->where('request_items.request_status', '<>', 'rejected')
             ->where('carts.user_id', auth()->user()->id)
+            ->where('carts.cart_status', 'unpaid')
             ->get();
 
-        return view('cart', compact('cart_item', 'cart_request'));
+        $check_status = DB::table('carts')
+            ->join('request_items', 'carts.request_id', 'request_items.id')
+            ->select('request_items.request_status')
+            ->where('request_items.request_status', 'waiting approval')
+            ->where('carts.user_id', auth()->user()->id)
+            ->first();
+
+
+        return view('cart', compact('cart_item', 'cart_request', 'check_status'));
     }
+
+    function deleteItemCart(Request $request)
+    {
+        $cart_item = DB::table('carts')
+            ->where('carts.item_id', $request->item_id)
+            ->delete();
+
+        return back();
+    }
+    function deleteRequestCart(Request $request)
+    {
+        $cart_item = DB::table('carts')
+            ->where('carts.request_id', $request->request_id)
+            ->delete();
+
+        return back();
+    }
+
 }
