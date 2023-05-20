@@ -42,10 +42,11 @@ class PageController extends Controller
             ->first();
 
         $items = DB::table('items')
-            ->select('*')
-            ->where('trip_id', $id)
+            ->leftJoinSub(DB::table('carts')->select('carts.item_id', 'carts.cart_item_quantity')->where('carts.user_id', auth()->user()->id),
+            'cart', 'cart.item_id', 'items.id')
+            ->select('items.*', 'cart.cart_item_quantity')
+            ->where('items.trip_id', $id)
             ->get();
-
         return view('trip-detail', compact('trips', 'items'));
     }
 
@@ -68,5 +69,39 @@ class PageController extends Controller
             ->first();
 
         return view('item-detail', compact('wtb_detail'));
+    }
+
+    function viewOrder()
+    {
+        $request_list = DB::table('request_items')
+        ->join('users', 'request_items.requester_id', 'users.id')
+        ->join('trips', 'request_items.trip_id', 'trips.id')
+        ->select('request_items.*', 'users.fullname')
+        ->where('request_items.request_status', 'waiting approval')
+        ->where('trips.user_id', auth()->user()->id)
+        ->get();
+
+        return view('order', compact('request_list'));
+    }
+
+    function acceptRequest(Request $request)
+    {
+        $accept_request = DB::table('request_items')
+        ->where('id', $request->request_id)
+        ->update([
+            'request_status' => 'Approved'
+        ]);
+
+        return back();
+    }
+    function rejectRequest(Request $request)
+    {
+        $reject_request = DB::table('request_items')
+        ->where('id', $request->request_id)
+        ->update([
+            'request_status' => 'Rejected'
+        ]);
+
+        return back();
     }
 }

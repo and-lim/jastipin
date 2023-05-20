@@ -45,6 +45,10 @@ Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
 Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
+Route::post('/addToCart', [TransactionController::class, 'addToCart']);
+Route::post('/deleteItemCart', [TransactionController::class, 'deleteItemCart']);
+Route::post('/deleteRequestCart', [TransactionController::class, 'deleteRequestCart']);
+
 
 
 Route::get('/item', [PageController::class, 'viewWtbList']);
@@ -53,6 +57,12 @@ Route::get('/item-detail/{id}', [PageController::class, 'viewWtbDetail']);
 
 //cart
 Route::get('/cart', [TransactionController::class, 'viewCart']);
+
+//order
+Route::get('/order', [PageController::class, 'viewOrder']);
+Route::post('/acceptRequest', [PageController::class, 'acceptRequest']);
+Route::post('/rejectRequest', [PageController::class, 'rejectRequest']);
+
 
 Route::get('/', function () {
     return view('home');
@@ -97,8 +107,8 @@ Route::get('/traveler', function () {
 
 
 
-Route::get('/order', function () {
-    return view('order');
-});
+// Route::get('/order', function () {
+//     return view('order');
+// });
 
 

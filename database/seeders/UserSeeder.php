@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'email' => 'user1@gmail.com',
                 'phone_number' => '08121212121',
                 'is_admin' => false,
+                'balance' => 100000000,
                 'password' => Hash::make('123456')
             ),
             array(
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'email' => 'user2@gmail.com',
                 'phone_number' => '08121212121',
                 'is_admin' => false,
+                'balance' => 100000000,
                 'password' => Hash::make('123456')
             )
         );

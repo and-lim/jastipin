@@ -89,7 +89,7 @@
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Balance</h2>
                                     <div class="card-body mt-0">
-                                        <h2 class="text-success">$20</h2>
+                                        <h2 class="text-success">Rp {{ auth()->user()->balance }}</h2>
                                     </div>
                                 </div>
                             </div>

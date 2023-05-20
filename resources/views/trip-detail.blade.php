@@ -47,25 +47,25 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="item-name mb-3">
-                                                    <h4 class="mb-2 fw-bold text-primary">item name</h4>
+                                                    <h4 class="mb-2 fw-bold text-primary">Item name</h4>
                                                     <p class="">{{ $item->item_name }}</p>
                                                 </div>
                                                 <div class="item-stock mb-3">
-                                                    <h4 class="mb-2 fw-bold text-primary">item stock</h4>
+                                                    <h4 class="mb-2 fw-bold text-primary">Item Stock</h4>
                                                     <p>{{ $item->item_stock }} PC/s</p>
                                                 </div>
                                                 <div class="item-weight mb-3">
-                                                    <h4 class="mb-2 fw-bold text-primary">item weight</h4>
+                                                    <h4 class="mb-2 fw-bold text-primary">Item Weight</h4>
                                                     <p>{{ $item->item_weight }} Kg</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="item-price mb-3">
-                                                    <h4 class="mb-2 fw-bold text-primary">item Price</h4>
+                                                    <h4 class="mb-2 fw-bold text-primary">Item Price</h4>
                                                     <p>Rp {{ $item->item_display_price }}</p>
                                                 </div>
                                                 <div class="item-desc mb-3">
-                                                    <h4 class="mb-2 fw-bold text-primary">item name</h4>
+                                                    <h4 class="mb-2 fw-bold text-primary">item Description</h4>
                                                     <p>{{ $item->item_description }}</p>
                                                 </div>
                                             </div>
@@ -77,9 +77,9 @@
                                         <form action="/addToCart" method="POST">
                                             @csrf
                                             <div class="d-flex align-items-center gap-3">
-                                                <input type="hidden" name="item_id" value="$item->id">
+                                                <input type="hidden" name="item_id" value="{{ $item->id }}">
                                                 <div class="input-number">
-                                                    <input type="number" name="item_quantity" min="1" style="width: 50px">
+                                                    <input type="number" name="item_quantity" min="1" max="{{ $item->item_stock }}" value="{{ $item->cart_item_quantity }}" style="width: 50px">
                                                 </div>
                                                 <div class="button">
                                                     <button type="submit" class="btn btn-primary">

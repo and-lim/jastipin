@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('trip_id');
             $table->foreign('trip_id')->references('id')->on('trips');
+            $table->unsignedBigInteger('requester_id');
+            $table->foreign('requester_id')->references('id')->on('users');
             $table->string('request_name');
             $table->string('request_category');
             $table->string('request_brand');
@@ -25,7 +27,7 @@ return new class extends Migration
             $table->integer('request_price');
             $table->integer('request_quantity');
             $table->integer('request_weight');
-            $table->string('request_status')->default("waiting_approval");
+            $table->string('request_status')->default("waiting approval");
             $table->timestamps();
         });
     }

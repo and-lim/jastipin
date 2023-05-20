@@ -30,19 +30,18 @@
                     <div class="shipping my-3 p-3">
                         <h2 class="text-decoration-underline mb-3">Shipping</h2>
                         <div class="form-check mt-3">
-                            <input class="form-check-input" type="radio" name="" id="">
+                            <input class="form-check-input" type="radio" name="ship" value="instant" id="">
                             <label class="form-check-label" for="">
                               Instant
                             </label>
                           </div>
                           <div class="form-check mt-2">
-                            <input class="form-check-input" type="radio" name="" id="" checked>
+                            <input class="form-check-input" type="radio" name="ship" value="reg" id="" checked>
                             <label class="form-check-label" for="">
                               Regular
                             </label>
                           </div>
                     </div>
-                    
                     <div class="request">
                         <h2 class="mb-3">Request
                             <span class="text-primary" style="font-size: 15px"> &#91Optional&#93</span>
