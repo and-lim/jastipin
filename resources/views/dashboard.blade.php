@@ -47,13 +47,13 @@
                         </a>
                     </li>
                     <li class="dashboard-nav">
-                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                        <a class="nav-link d-flex align-items-center" id="nav-transaction-tab" data-bs-toggle="tab" data-bs-target="#nav-transaction" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
                             <i class="fa fa-dollar-sign"></i>
                             <span>Transaction</span>
                         </a>
                     </li>
                     <li class="dashboard-nav">
-                        <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
+                        <a class="nav-link d-flex align-items-center" id="nav-shipment-tab" data-bs-toggle="tab" data-bs-target="#nav-shipment" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
                             <i class="fa fa-truck"></i>
                             <span>Shipment</span>
                         </a>
@@ -468,9 +468,8 @@
                         </div>
                     </div>
 
-
-                    <div class="tab-fane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">'
-                        <h1 class="dashboard-title pb-3 mb-3">Request</h1>
+                    <div class="tab-pane fade" id="nav-request" role="tabpanel" aria-labelledby="nav-request-tab">
+                        <h1 class="dashboard-title mb-5">Request</h1>
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <div class="row">
@@ -495,6 +494,53 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- transaction --}}
+                    <div class="tab-pane fade" id="nav-transaction" role="tabpanel" aria-labelledby="nav-transaction-tab">
+                        <h1 class="dashboard-title">Transaction</h1>
+                    </div>
+
+                    {{-- Shipment --}}
+                    <div class="tab-pane fade" id="nav-shipment" role="tabpanel" aria-labelledby="nav-shipment-tab">
+                        <div class="row mt-5">
+                            <div class="title">
+                                <h1 class="fw-bold">Shipment List</h1>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card p-3">
+                                        <div class="form-group mb-3 row">
+                                            <label for="" class="col-sm-2 col-form-label">To</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                                            </div>
+                                        </div>
+                
+                                        <div class="form-group mb-3 row">
+                                            <label for="" class="col-sm-2 col-form-label">Address</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                                            </div>
+                                        </div>
+                
+                                        <div class="form-group mb-3 row">
+                                            <label for="" class="col-sm-2 col-form-label">Phone Number</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                                            </div>
+                                        </div>
+                
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

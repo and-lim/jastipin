@@ -36,10 +36,10 @@
     <div class="line p-2"></div>
 
     <div class="container-fluid py-3 mx-1 mt-5">
-        <h2 class="text-center fw-bold mb-3 ms-lg-3">Ongoing Trip</h2>
+        <h2 class="text-center fw-bold mb-5 ms-lg-3">Ongoing Trip</h2>
         <div class="row m-0">
             <div class="col-lg-3">
-                <aside class="left-sidebar p-3 shadow">
+                <aside class="left-sidebar rounded-3 p-3 shadow">
                     <div class="sidebar-title">
                         <h5 class="fw-bold">Category</h5>
                     </div>
@@ -59,13 +59,13 @@
             <div class="col-lg-9">
                 @foreach ($trip_list as $trip)
                         <div class="trip-list mb-3">
-                            <div class="card shadow-sm">
+                            <div class="card rounded-4  shadow-sm">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-3 text-center">
                                             <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
-                                            <h5 class="text-center">{{ $trip->fullname }}</h5>
-                                            <a href="/traveler" class="btn btn-success"> See Profile</a>
+                                            <h5 class="text-center mt-3">{{ $trip->fullname }}</h5>
+                                            <a href="/traveler" class="btn btn-success mt-3"> See Profile</a>
                                         </div>
                                         <div class="col-lg-9">
                                             <h3 class="text-primary fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>

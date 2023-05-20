@@ -52,15 +52,72 @@
 
                     </div>
                    <div class="button d-flex gap-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                         Checkout
+                    </button>
                     @if (Auth::user()->id != $wtb_detail->user_id)
-                    <a href="/checkout" class="btn btn-primary">Checkout</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                         Checkout
+                    </button>
                     @endif
                         <a href="/item" class="btn btn-warning">Back</a>
                    </div>
 
                 </div>
             </div>
+                         <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                         <h1 class="modal-title fs-5" id="exampleModalLabel">Checkout</h1>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                         <h3 class="text-start text-primary">Shipping</h3>
+                         <div class="button-shipping d-flex gap-3 my-3">
+                              <button class="btn btn-warning">Regular</button>
+                              <button class="btn btn-success">Instant</button>
+                         </div>
+                         <div class="row mt-2">
+                              <div class="items-checkout">
+                                   <table class="table table-borderless">
+                                       <tbody>
+                                           <tr>
+                                               <td class="col-10">Total Item</td>
+                                               <td> Pcs</td>
+                                           </tr>
+                                           <tr>
+                                             <td class="col-10">Total Item Price</td>
+                                             <td>Rp.12468</td>
+                                           </tr>
+                                           <tr>
+                                             <td class="col-10">Total Shipping Fee</td>
+                                             <td>Rp.12468</td>
+                                           </tr>
+                                       </tbody>
+                                       <tfoot style="border-top: 2px solid black; ">
+                                        <tr class="table-padding">
+                                             <td class="col-10">Total</td>
+                                             <td>Rp.12468</td>
+                                        </tr>
+                                        <tr>
+                                             <td class="col-10">Your Balance</td>
+                                             <td>Rp.12468</td>
+                                        </tr>
+                                       </tfoot>
+                                   </table>
+                                   <div class="text-center mt-3">
+                                        <button type="button" class="btn btn-primary">Pay</button>
+                                   </div>
+                              </div>
+                         </div>
+                  </div>
+               </div>
+          </div>
         </div>
+   
+  
     </div>
 
 </section>

@@ -285,9 +285,13 @@ aside.left-sidebar{
     text-align: left;
 }
 
+.product .product-btm a{
+    text-decoration: none !important;
+}
+
 .product .product-btm h3 {
-    color: #4a4a4a;
-    font-size: 18px;
+    color: black;
+    font-size: 20px !important;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 0px;
@@ -336,6 +340,11 @@ img.item-img{
     width: 100px !important;
     max-height: 100%;
 }
+
+tr.table-padding>td {
+    padding-bottom: 3rem;
+  }
+
 
 .left-sidebar{
     border: 1px solid black;
