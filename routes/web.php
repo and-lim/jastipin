@@ -46,8 +46,7 @@ Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
 Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
 Route::post('/addToCart', [TransactionController::class, 'addToCart']);
-Route::post('/deleteItemCart', [TransactionController::class, 'deleteItemCart']);
-Route::post('/deleteRequestCart', [TransactionController::class, 'deleteRequestCart']);
+
 
 
 
@@ -57,6 +56,9 @@ Route::get('/item-detail/{id}', [PageController::class, 'viewWtbDetail']);
 
 //cart
 Route::get('/cart', [TransactionController::class, 'viewCart']);
+Route::post('/deleteItemCart', [TransactionController::class, 'deleteItemCart']);
+Route::post('/deleteRequestCart', [TransactionController::class, 'deleteRequestCart']);
+Route::post('/pay', [TransactionController::class, 'pay']);
 
 //order
 Route::get('/order', [PageController::class, 'viewOrder']);

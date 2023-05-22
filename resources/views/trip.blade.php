@@ -36,7 +36,7 @@
     <div class="line p-2"></div>
 
     <div class="container-fluid py-3 mx-1 mt-5">
-        <h2 class="text-center fw-bold mb-5 ms-lg-3">Ongoing Trip</h2>
+        <h2 class="text-center fw-bold mb-5 ms-lg-3" id="slebew">Ongoing Trip</h2>
         <div class="row m-0">
             <div class="col-lg-3">
                 <aside class="left-sidebar rounded-3 p-3 shadow">
@@ -44,19 +44,25 @@
                         <h5 class="fw-bold">Category</h5>
                     </div>
                     <div class="category-list mt-3">
-                        <input type="checkbox" id="food" name="food" value="food">
+                        <input type="checkbox" id="food" name="category" value="food" class="category_check_box">
                         <label for="food"> Food & Beverages</label><br></li>
-                        <input type="checkbox" id="food" name="food" value="food">
+                        <input type="checkbox" id="fashion" name="category" value="fashion" class="category_check_box">
                         <label for="fashion"> Fashion</label><br></li>
-                        <input type="checkbox" id="food" name="food" value="food">
-                        <label for="gadget"> Electronic Gadget</label><br></li>
-                        <input type="checkbox" id="food" name="food" value="food">
+                        <input type="checkbox" id="electronic" name="category" value="electronic" class="category_check_box">
+                        <label for="electronic"> Electronic Gadget</label><br></li>
+                        <input type="checkbox" id="accessories" name="category" value="accessories" class="category_check_box">
                         <label for="accessories"> Accessories</label><br></li>
                     </div>
                 </aside>
             </div>
 
             <div class="col-lg-9">
+                <div id="price">50000</div>
+                <div id="adjusted_price"></div>
+                <input type="hidden" id="adjusted_price_field" name="adjusted_price" value="">
+                <div id="cart_box">
+                    
+                </div>
                 @foreach ($trip_list as $trip)
                         <div class="trip-list mb-3">
                             <div class="card rounded-4  shadow-sm">
@@ -94,4 +100,43 @@
             </div>
 
 </section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    var richard = 0;
+    $('.category_check_box').click(function(){
+        if($(this).prop('checked') == true){
+            // console.log(Math.floor(Math.random() * 1000));
+
+            var category = $(this).val();
+
+            if(category == "food"){
+                var price_adjusment = 5000;
+            }else if(category == "fashion"){
+                var price_adjusment = 10000;
+            }else{
+                var price_adjusment = 20000;
+            }
+
+            var origin_price = parseInt($('#price').text());
+
+            var adjusted_price = origin_price + price_adjusment;
+
+            $('#adjusted_price').text(adjusted_price);
+            $('#adjusted_price_field').val(adjusted_price); 
+        }else{
+            $('#adjusted_price').text("");
+            $('#adjusted_price_field').val(""); 
+        }
+        
+    });
+
+    $('#slebew').click(function(){
+        $('#cart_box').append('<div class="row"><div class="col-md-3">Icon</div><div class="col-md-9">'+Math.floor(Math.random() * 1000)+' | <a href="javascript:;" class="btn-hapus">Hapus</a></div></div>')
+    })
+
+    $(document).on('click', '.btn-hapus', function(){
+        $(this).parent().parent().remove();
+    })
+</script>
 @endsection

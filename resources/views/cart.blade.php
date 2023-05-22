@@ -14,19 +14,19 @@
             $sumItemQuantity = 0;
             $sumItemWeight = 0;
 
-            
+
             @endphp
             @if ($cart_item != null)
             @foreach($cart_item as $item)
 
-            
+
             @php
             $sumItemPrice = $sumItemPrice + ($item->item_display_price * $item->cart_item_quantity);
             $sumItemQuantity = $sumItemQuantity + $item->cart_item_quantity;
             $sumItemWeight = $sumItemWeight + $item->item_weight;
 
             @endphp
-            
+
 
             <div class="item-cart border-bottom border-2 border-dark my-1">
                 <div class="row gap-3">
@@ -70,7 +70,7 @@
             @foreach($cart_request as $request)
 
             @php
-            $sumRequestPrice = $sumRequestPrice +  ($request->request_price * $request->request_quantity);
+            $sumRequestPrice = $sumRequestPrice + ($request->request_price * $request->request_quantity);
             $sumRequestQuantity = $sumRequestQuantity + $request->request_quantity;
             $sumRequestWeight = $sumRequestWeight + $request->request_weight;
             @endphp
@@ -119,18 +119,121 @@
                     <p>{{ $sumItemPrice + $sumRequestPrice }}</p>
                 </div>
             </div>
-            
-                <div class="d-flex justify-content-center">
-                    <input type="hidden" name="$sumItemQuantity" value="{{ $sumItemQuantity }}">
-                    <input type="hidden" name="$sumRequestQuantity" value="{{ $sumRequestQuantity }}">
-                    <input type="hidden" name="$sumItemPrice" value="{{ $sumItemPrice }}">
-                    <input type="hidden" name="$sumRequestPrice" value="{{ $sumRequestPrice }}">
-                    <input type="hidden" name="$sumItemWeight" value="{{ $sumItemWeight }}">
-                    <input type="hidden" name="$sumRequestWeight" value="{{ $sumRequestWeight }}">
-                    <button type="submit" @if ($check_status) disabled @endif class="btn btn-success px-3 fw-bold">Checkout</button>
+
+            <div class="d-flex justify-content-center">
+                <input type="hidden" name="$sumItemQuantity" value="{{ $sumItemQuantity }}">
+                <input type="hidden" name="$sumRequestQuantity" value="{{ $sumRequestQuantity }}">
+                <input type="hidden" name="$sumItemPrice" value="{{ $sumItemPrice }}">
+                <input type="hidden" name="$sumRequestPrice" value="{{ $sumRequestPrice }}">
+                <input type="hidden" name="$sumItemWeight" value="{{ $sumItemWeight }}">
+                <input type="hidden" name="$sumRequestWeight" value="{{ $sumRequestWeight }}">
+                <!-- <button type="submit" @if ($check_status) disabled @endif class="btn btn-success px-3 fw-bold">Checkout</button> -->
+                <button type="button" @if ($check_status) disabled @endif class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Checkout
+                </button>
+            </div>
+
+
+            @csrf
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Checkout</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-start text-primary">Shipping</h3>
+                            <div class="button-shipping d-flex gap-3 my-3">
+                                <button id="regular" class="btn btn-warning">Regular</button>
+                                <button id="instant" class="btn btn-success">Instant</button>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="items-checkout">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-10">Total Item</td>
+                                                <td>{{ $sumItemQuantity + $sumRequestQuantity }} Pcs</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-10">Total Item Price</td>
+                                                <td>Rp {{ $sumItemPrice + $sumRequestPrice }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-10">Total Shipping Fee</td>
+                                                <td>
+                                                    <p id="shipping_fee"></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot style="border-top: 2px solid black; ">
+                                            <tr class="table-padding">
+                                                <td class="col-10">Total</td>
+                                                <td>
+                                                    <p id="total_pay"></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-10">Your Balance</td>
+                                                @auth
+                                                <td>Rp {{ auth()->user()->balance }}</td>
+                                                @endauth
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="text-center mt-3">
+                                        <form action="/pay" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="item_id" value="$item->item_id">
+                                            <input type="hidden" name="request_id" value="$request->request_id">
+                                            <input type="hidden" id="total_payment" name="total_pay" value="">
+                                            <input type="hidden" id="shipping_fee_pay" name="shipping_fee_pay" value="">
+                                            <button type="submit" class="btn btn-primary">Pay</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
+
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    var reg_price = 20000;
+    var instant_price = 30000;
+    $('#regular').click(function() {
+
+        $('#shipping_fee').text('Rp ' + reg_price);
+
+        var price = "{{ $sumItemPrice + $sumRequestPrice }}"
+        price = parseInt(price)
+        // console.log(price)
+        var total_pay = price + reg_price;
+
+        $('#total_pay').text('Rp ' + total_pay);
+        $('#total_payment').val(total_pay);
+        $('#shipping_fee_pay').val(reg_price)
+
+    });
+
+    $('#instant').click(function() {
+
+        $('#shipping_fee').text('Rp ' + instant_price);
+
+        var price = "{{ $sumItemPrice + $sumRequestPrice }}"
+        price = parseInt(price)
+        // console.log(price)
+        var total_pay = price + instant_price;
+
+        $('#total_pay').text('Rp ' + total_pay);
+        $('#total_payment').val(total_pay);
+        $('#shipping_fee_pay').val(instant_price)
+    });
+</script>
 
 @endsection
