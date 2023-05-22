@@ -106,8 +106,13 @@ Route::get('/traveler', function () {
 });
 
 
+Route::get('/history', function () {
+    return view('transaction-history');
+});
 
-
+Route::get('/trip-checkout', function () {
+    return view('trip-checkout');
+});
 
 // Route::get('/order', function () {
 //     return view('order');

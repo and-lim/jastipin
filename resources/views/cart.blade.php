@@ -6,7 +6,7 @@
     <div class="container mt-3 py-5">
         <h1 class="title mt-3 pb-5">Cart</h1>
 
-        <div class="card shadow-sm p-3">
+        <div class="card col-lg-10 mx-auto shadow-sm p-3">
 
             @php
 
@@ -30,11 +30,11 @@
 
             <div class="item-cart border-bottom border-2 border-dark my-1">
                 <div class="row gap-3">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <img src="{{ asset('/storage/' .$item->item_image) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-8">
-                        <a href="/trip-detail/{{ $item->trip_id }}">
+                        <a href="/trip-detail/{{ $item->trip_id }}" class="text-decoration-none text-dark">
                             <h1 class="mb-2">{{ $item->item_name }}</h1>
                         </a>
                         <p>Rp {{ $item->item_display_price }}</p>

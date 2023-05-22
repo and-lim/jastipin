@@ -89,6 +89,7 @@
                         <table class="table table-borderless">
                             <thead>
                                 <tr>
+                                    <th scope="col" style="width: 10px"></th>
                                     <th scope="col">Item Name</th>
                                     <th scope="col">Amounts</th>
                                     <th scope="col">Price</th>
@@ -98,28 +99,101 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">
+                                    <td style="width: 10px;">
+                                        <div class="button">
+                                            <button type="button" class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                <i  class="fa fa-times"></i>
+                                              </button>
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header border-none">
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                        <div class="form-group mb-3">
+                                                            <label for="" class="form-label">reason</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="" class="form-label">Select reason</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                  Default radio
+                                                                </label>
+                                                              </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                    </td>
+                                    <td scope="row" class="d-flex">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="">
                                                 Item 1
                                             </label>
                                         </div>
-                                    </th>
+                                
+                                    </td>
                                     <td>2</td>
                                     <td>Rp.12345</td>
                                     <td>Rp.123</td>
                                     <td>Rp.12468</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">
+                                    <td style="width: 10px;">
+                                        <div class="button">
+                                            <button type="button" class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                <i  class="fa fa-times"></i>
+                                              </button>
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header border-none">
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                        <div class="form-group mb-3">
+                                                            <label for="" class="form-label">reason</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="" class="form-label">Select reason</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                  Default radio
+                                                                </label>
+                                                              </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="">
                                                 Item 2
                                             </label>
                                         </div>
-                                    </th>
+                                    </td>
                                     <td>2</td>
                                     <td>Rp.12345</td>
                                     <td>Rp.123</td>
