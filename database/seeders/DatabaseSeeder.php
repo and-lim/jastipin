@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(TripSeeder::class);
         $this->call(ItemSeeder::class);
+        $this->call(ShippingSeeder::class);
     }
 }

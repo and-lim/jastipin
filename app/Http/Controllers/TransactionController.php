@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Item;
 use App\Models\RequestItem;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
@@ -45,10 +49,10 @@ class TransactionController extends Controller
     {
         $find = Cart::where('user_id', auth()->user()->id)->where('item_id', $request->item_id)->first();
 
-        if($find){
+        if ($find) {
             $find->cart_item_quantity = $request->item_quantity;
             $find->save();
-        }else{
+        } else {
 
             $add_cart = Cart::create([
                 'user_id' => auth()->user()->id,
@@ -56,7 +60,7 @@ class TransactionController extends Controller
                 'cart_item_quantity' => $request->item_quantity
             ]);
         }
-    
+
 
         return back();
     }
@@ -107,4 +111,50 @@ class TransactionController extends Controller
         return back();
     }
 
+    function pay(Request $request)
+    {
+
+        $paid_validation = auth()->user()->balance;
+        $rules = [
+            'total_pay' => 'lte:' . $paid_validation
+        ];
+        $messages = [
+            'total_pay.lte' => 'Your balance is not sufficient'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+
+        $pay_cart = Cart::where('user_id', auth()->user()->id)->get();
+        
+        $transactions = Transaction::create([
+            'user_id' => auth()->user()->id,
+            'shipping_type_id' => $request->shipping_id,
+            'total_paid' => $request->total_pay
+        ]);
+
+        foreach($pay_cart as $cart) {
+            $cart->cart_status = 'paid';
+            $cart->save();
+
+            $item = Item::find($cart->item_id);
+
+        
+            $transaction_detail = TransactionDetail::create([
+                'transaction_id' => $transactions->id,
+                'item_id' => $cart->item_id,
+                'request_id' => $cart->request_id,
+                'quantity' => $cart->cart_item_quantity,
+                'price' => $item->item_price * $cart->cart_item_quantity,
+                'total' => $item->item_display_price * $cart->cart_item_quantity,
+                'profit' => ($item->item_display_price * $cart->cart_item_quantity) - ($item->item_price * $cart->cart_item_quantity)
+            ]);
+
+
+        }
+
+    }
 }

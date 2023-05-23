@@ -34,6 +34,15 @@ class UserSeeder extends Seeder
                 'is_admin' => false,
                 'balance' => 100000000,
                 'password' => Hash::make('123456')
+            ),
+            array(
+
+                'fullname' => 'admin',
+                'email' => 'admin@gmail.com',
+                'phone_number' => '08121212121',
+                'is_admin' => true,
+                'balance' => 0,
+                'password' => Hash::make('123456')
             )
         );
         DB::table('users')->insert($users);

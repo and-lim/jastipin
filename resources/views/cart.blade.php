@@ -7,7 +7,11 @@
         <h1 class="title mt-3 pb-5">Cart</h1>
 
         <div class="card col-lg-10 mx-auto shadow-sm p-3">
-
+            @if ($errors->any())
+            <div class="alert alert-dark" role="alert" style="outline: none">
+                <i class="text-danger mt-1">{{$errors->first()}}</i>
+            </div>
+            @endif
             @php
 
             $sumItemPrice = 0;
@@ -185,11 +189,9 @@
                                     <div class="text-center mt-3">
                                         <form action="/pay" method="POST">
                                             @csrf
-                                            <input type="hidden" name="item_id" value="$item->item_id">
-                                            <input type="hidden" name="request_id" value="$request->request_id">
                                             <input type="hidden" id="total_payment" name="total_pay" value="">
-                                            <input type="hidden" id="shipping_fee_pay" name="shipping_fee_pay" value="">
-                                            <button type="submit" class="btn btn-primary">Pay</button>
+                                            <input type="hidden" id="shipping_id" name="shipping_id" value="">
+                                            <button type="submit" disabled id="pay" class="btn btn-primary">Pay</button>
                                         </form>
                                     </div>
                                 </div>
@@ -217,7 +219,8 @@
 
         $('#total_pay').text('Rp ' + total_pay);
         $('#total_payment').val(total_pay);
-        $('#shipping_fee_pay').val(reg_price)
+        $('#shipping_id').val(1)
+        $('#pay').prop('disabled', false)
 
     });
 
@@ -232,7 +235,8 @@
 
         $('#total_pay').text('Rp ' + total_pay);
         $('#total_payment').val(total_pay);
-        $('#shipping_fee_pay').val(instant_price)
+        $('#shipping_id').val(2)
+        $('#pay').prop('disabled', false)
     });
 </script>
 

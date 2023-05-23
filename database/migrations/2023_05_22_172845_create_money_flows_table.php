@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('money_flows', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('transaction_status')->default('ongoing');
-            $table->unsignedBigInteger('shipping_type_id');
-            $table->foreign('shipping_type_id')->references('id')->on('users');
-            $table->string('shipping_receipt')->nullable();
-            $table->integer('total_paid');
+            $table->unsignedBigInteger('transaction_id')->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->integer('balance');
+            $table->integer('description');
+            $table->string('approval')->default('waiting_approval');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('money_flows');
     }
 };

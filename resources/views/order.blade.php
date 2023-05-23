@@ -91,7 +91,7 @@
                                 <tr>
                                     <th scope="col" style="width: 10px"></th>
                                     <th scope="col">Item Name</th>
-                                    <th scope="col">Amounts</th>
+                                    <th scope="col">Quantity</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Profit</th>
                                     <th scope="col">Total</th>

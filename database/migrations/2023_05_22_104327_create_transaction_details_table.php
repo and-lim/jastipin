@@ -21,11 +21,11 @@ return new class extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('request_id')->nullable();
             $table->foreign('request_id')->references('id')->on('request_items');
-            $table->unsignedBigInteger('cart_id')->nullable();
-            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->string('quantity');
             $table->integer('profit');
-            $table->string('item_status');
-            $table->string('transaction_status');
+            $table->integer('total');
+            $table->string('item_status')->default('buying');
+            $table->string('cancel_reason')->nullable();
             $table->timestamps();
         });
     }
