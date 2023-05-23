@@ -41,6 +41,11 @@
                         <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
                     </a>
                 </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="">Approval 
+                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto me-lg-5 align-items-center d-flex gap-5 text-white">
                 @auth

@@ -64,16 +64,20 @@
                 <div class="card p-3">
                     <div class="card p-3 mb-3 shadow">
                         <div class="form-group mb-3 row">
-                            <label for="" class="col-sm-2 col-form-label">From</label>
+                            <div class="col-lg-2">
+                                <p>From</p>
+                            </div>
                             <div class="col-lg-10">
-                                <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                                <p>jakarta</p>
                             </div>
                         </div>
 
                         <div class="form-group mb-3 row">
-                            <label for="" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-lg-2">
+                                <p>Address</p>
+                            </div>
                             <div class="col-lg-10">
-                                <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit neque laboriosam quasi quam quis placeat eveniet molestias! Error, non molestias harum, nihil velit, a tempore voluptatibus beatae vel eligendi exercitationem!</p>
                             </div>
                         </div>
 

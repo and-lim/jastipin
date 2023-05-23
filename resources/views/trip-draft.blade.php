@@ -105,6 +105,14 @@
                                             <label for="description" class="form-label">Add Description</label>
                                             <textarea name="description" class="form-control" id="description" cols="30" rows="2">{{ $edit_trip->description }}</textarea>
                                         </div>
+
+                                        <div class="form-group mb-3 d-flex flex-column">
+                                            <label for="" class="form-label">Luggage Size</label>
+                                            <div class="col-5">
+                                                <input type="number" min="1" max="20"> kg
+                                            </div>
+                                        </div>
+
                                         <div class="d-flex justify-content-between mt-3">
                                             <input type="hidden" name="id" value="{{ $edit_trip->id }}">
                                             <button type="submit" class="btn btn-primary">Update Trip</button>
@@ -194,6 +202,10 @@
                                 </div>
                             </div>
 
+                            <div class="luggage-limit my-2 d-flex gap-3">
+                                <h5 class="fw-bold">Luggage Limit :</h5>
+                                <p>8 / 20</p>
+                            </div>
 
                             {{-- item --}}
                             <div class="item-trip">

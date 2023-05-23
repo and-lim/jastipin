@@ -21,9 +21,16 @@
                     </li>
 
                     <li class="dashboard-nav">
-                        <a class="nav-link d-flex align-items-center" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">
+                        <a class="nav-link d-flex align-items-center" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-home" aria-selected="false">
                             <i class="fa fa-user"></i>
                             <span>Profile </span>
+                        </a>
+                    </li>
+
+                    <li class="dashboard-nav">
+                        <a class="nav-link d-flex align-items-center" id="nav-balance-tab" data-bs-toggle="tab" data-bs-target="#nav-balance" type="button" role="tab" aria-controls="nav-item" aria-selected="false">
+                            <i class="fa fa-dollar-sign"></i>
+                            <span>Balance</span>
                         </a>
                     </li>
 
@@ -48,7 +55,7 @@
                     </li>
                     <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-transaction-tab" data-bs-toggle="tab" data-bs-target="#nav-transaction" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
-                            <i class="fa fa-dollar-sign"></i>
+                            <i class="fa fa-money-bill"></i>
                             <span>Transaction</span>
                         </a>
                     </li>
@@ -116,7 +123,7 @@
 
                     {{-- tab update profile --}}
 
-                    <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <form action="/updateProfile" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="image-profile d-flex flex-column justify-content-center align-items-center my-3">
@@ -166,6 +173,57 @@
 
                     </div>
 
+                    {{-- Tab balance --}}
+                    <div class="tab-pane fade" id="nav-balance" role="tabpanel" aria-labelledby="nav-balance-tab">
+                        <h1 class="dashboard-title mb-3">Balance</h1>
+                        <div class="row my-5">
+                            <div class="col-lg-10 mx-auto">
+                                <div class="card shadow p-3">
+                                    <h3 class="fw-bold">Your Balance</h3>
+                                    <h1 class="text-success mx-5">$123</h1>
+                                    <div class="button">
+                                        <button type="button" class="btn btn-primary float-end  " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Add balance
+                                          </button>
+                                    </div>
+                                  
+                                       <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Balance</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group my-3">
+                                                    <label for="" class="form-label">Amount</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="d-flex gap-3">
+                                                    <p>Unique Code :</p>
+                                                    <p>123</p>
+                                                </div>
+                                                <div class="d-flex gap-3">
+                                                    <p>Total Amount :</p>
+                                                    <p>100123</p>
+                                                </div>
+                                                <div class="form-group my-3">
+                                                    <label for="" class="form-label">Transfer Receipt</label>
+                                                    <input type="file" class="form-control">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-success">Add Balance</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {{-- tab item list --}}
 
                     <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
@@ -242,9 +300,6 @@
                                                             <label for="" class="form-label">Add Description</label>
                                                             <textarea name="wtb_description" class="form-control" id="" cols="30" rows="2"></textarea>
                                                         </div>
-
-
-
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -495,52 +550,257 @@
                         </div>
                     </div>
 
+                        {{-- Shipment --}}
+                     <div class="tab-pane fade" id="nav-shipment" role="tabpanel" aria-labelledby="nav-shipment-tab">
+                            <div class="row mt-5">
+                                <div class="title">
+                                    <h1 class="fw-bold">Shipment List</h1>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="card p-3">
+                                            <div class="form-group mb-3 row">
+                                                <label for="" class="col-sm-2 col-form-label">To</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group mb-3 row">
+                                                <label for="" class="col-sm-2 col-form-label">Address</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group mb-3 row">
+                                                <label for="" class="col-sm-2 col-form-label">Phone Number</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group row">
+                                                <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                     </div>
+
                     {{-- transaction --}}
                     <div class="tab-pane fade" id="nav-transaction" role="tabpanel" aria-labelledby="nav-transaction-tab">
-                        <h1 class="dashboard-title">Transaction</h1>
-                    </div>
-
-                    {{-- Shipment --}}
-                    <div class="tab-pane fade" id="nav-shipment" role="tabpanel" aria-labelledby="nav-shipment-tab">
-                        <div class="row mt-5">
-                            <div class="title">
-                                <h1 class="fw-bold">Shipment List</h1>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="card p-3">
-                                        <div class="form-group mb-3 row">
-                                            <label for="" class="col-sm-2 col-form-label">To</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                        <h1 class="dashboard-title mb-3">Transaction</h1>
+                        <div class="row my-4">
+                            <h3 class="fw-bold my-3">Ongoing Transaction</h3>
+                            <div class="card shadow p-3">
+                                <h3 class="fw-bold mb-3">Item Name</h3>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>From</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>jakarta</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Address</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Phone Number</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>123456</p>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        See Detail
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card p-3">
+                                                    <div class="card p-3 mb-3 shadow">
+                                                        <div class="form-group mb-3 row">
+                                                            <div class="col-lg-2">
+                                                                <p>From</p>
+                                                            </div>
+                                                            <div class="col-lg-10">
+                                                                <p>jakarta</p>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div class="form-group mb-3 row">
+                                                            <div class="col-lg-2">
+                                                                <p>Address</p>
+                                                            </div>
+                                                            <div class="col-lg-10">
+                                                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit neque laboriosam quasi quam quis placeat eveniet molestias! Error, non molestias harum, nihil velit, a tempore voluptatibus beatae vel eligendi exercitationem!</p>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div class="form-group row">
+                                                            <label for="" class="col-sm-2 col-form-label">Phone Number</label>
+                                                            <div class="col-lg-10">
+                                                                <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                
+                                                    <div class="items">
+                                                        <table class="table table-borderless">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Item Name</th>
+                                                                    <th scope="col">Amounts</th>
+                                                                    <th scope="col">Price</th>
+                                                                    <th scope="col">Profit</th>
+                                                                    <th scope="col">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td scope="row" class="d-flex">
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                                                            <label class="form-check-label" for="">
+                                                                                Item 1
+                                                                            </label>
+                                                                        </div>
+                                                                
+                                                                    </td>
+                                                                    <td>2</td>
+                                                                    <td>Rp.12345</td>
+                                                                    <td>Rp.123</td>
+                                                                    <td>Rp.12468</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td scope="row">
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                                                            <label class="form-check-label" for="">
+                                                                                Item 2
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>2</td>
+                                                                    <td>Rp.12345</td>
+                                                                    <td>Rp.123</td>
+                                                                    <td>Rp.12468</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot style="border-top: 2px solid black; ">
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                    </th>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>23</td>
+                                                                    <td>23</td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                
+                                                    <div class="text-start">
+                                                        <button class="btn btn-primary px-3">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
-                
-                                        <div class="form-group mb-3 row">
-                                            <label for="" class="col-sm-2 col-form-label">Address</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" readonly class="form-control-plaintext " id="" value="address">
-                                            </div>
-                                        </div>
-                
-                                        <div class="form-group mb-3 row">
-                                            <label for="" class="col-sm-2 col-form-label">Phone Number</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
-                                            </div>
-                                        </div>
-                
-                                        <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
-                                            <div class="col-lg-3">
-                                                <input type="text" class="form-control">
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <h3 class="fw-bold">Transaction Done</h3>
+                            <div class="card shadow my-3 p-3" style="background-color: #bebebe">
+                                <div class="card-title d-flex justify-content-between">
+                                    <h3 class="fw-bold mb-3">Item Name</h3>
+                                    <div class="d-flex gap-2">
+                                        <p>Status:</p>
+                                        <p class="text-success">Complete</p>
+                                    </div>
+                                </div>
+                                <div class="button-review">
+                                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-review">
+                                        Submit Review
+                                   </button>
+                                   <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog ">
+                                       <div class="modal-content">
+                                         <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                         </div>
+                                         <div class="modal-body">
+                                               <div class="row mt-2">
+                                                    <div class="form-group d-flex gap-3 align-items-center">
+                                                        <label for="" class="form-label">Score</label>
+                                                        <input type="number" min="0" max="5" class="col-2">
+                                                    </div>
+                                                    <div class="form-group my-3">
+                                                        <label for="" class="form-label">Note</label>
+                                                        <textarea name="" class="form-control" id="" cols="20" rows="10"></textarea>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button class="btn btn-success">Submit Review</button>
+                                                    </div>
+                                              </div>
+                                       </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>From</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>jakarta</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Address</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Phone Number</p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>123456</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
