@@ -621,7 +621,8 @@
                                         <p>123456</p>
                                     </div>
                                 </div>
-                                <div class="button">
+                                <div class="button d-flex justify-content-between">
+                                    <button class="btn btn-outline-warning">Item Receive</button>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         See Detail
