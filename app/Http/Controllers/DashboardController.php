@@ -61,7 +61,21 @@ class DashboardController extends Controller
         ->select('*')
         ->get();
 
-        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries'));
+        $ongoing_transaction = DB::table('transactions')
+        ->join('trips', 'transactions.trip_id', 'trips.id')
+        ->join('users', 'transactions.user_id','users.id')
+        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name')
+        ->where('transactions.user_id', auth()->user()->id)
+        ->where('transaction_status', 'ongoing')
+        ->get();
+
+        $transaction_detail = DB::table('transaction_details')
+        ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+        ->select('*')
+        ->get();
+
+        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries', 'ongoing_transaction', 'transaction_detail'));
     }
     
     function editTrip($id){
@@ -130,6 +144,20 @@ class DashboardController extends Controller
             'item_description' => $request->item_description,
             'trip_id' => $request->trip_id,
         ]);
+
+        $kurs = 15000;
+        $FOB = $kurs * 500;
+        $pabean = $items->item_display_price - $FOB;
+        if ($pabean > $FOB) {
+            $ppn = $items->item_display_price * 0.1;
+            $nilai_pabean = $pabean - $FOB;
+            $add_ppn_pabean = DB::table('items')
+                ->where('items.id', $request->item_id)
+                ->update([
+                    'item_price_ppn' => $ppn,
+                    'item_price_pabean' => $nilai_pabean
+                ]);
+        }
         return redirect('/trip-draft/' . $request->trip_id);
     }
 

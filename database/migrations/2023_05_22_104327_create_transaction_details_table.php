@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('request_id')->nullable();
             $table->foreign('request_id')->references('id')->on('request_items');
             $table->string('quantity');
-            $table->integer('profit');
+            $table->integer('profit')->nullable();
             $table->integer('total');
             $table->string('item_status')->default('buying');
             $table->string('cancel_reason')->nullable();

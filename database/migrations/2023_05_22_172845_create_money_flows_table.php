@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreign('transaction_id')->references('id')->on('transactions');
             $table->integer('balance');
             $table->integer('description');
-            $table->string('approval')->default('waiting_approval');
+            $table->string('status')->nullable();
+            $table->string('approval')->nullable();
             $table->timestamps();
         });
     }

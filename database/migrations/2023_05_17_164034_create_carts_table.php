@@ -19,9 +19,11 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('item_id')->nullable();
             $table->foreign('item_id')->references('id')->on('items');
+            $table->unsignedBigInteger('trip_id')->nullable();
+            $table->foreign('trip_id')->references('id')->on('trips');
             $table->unsignedBigInteger('request_id')->nullable();
             $table->foreign('request_id')->references('id')->on('request_items');
-            $table->string('cart_item_quantity');
+            $table->integer('cart_item_quantity');
             $table->string('cart_status')->default('unpaid');
             $table->timestamps();
         });

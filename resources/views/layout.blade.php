@@ -36,16 +36,22 @@
                         <li><a class="dropdown-item" href="/trip">Search Trip</a></li>
                     </ul>
                 </li>
+                @auth
                 <li class="nav-item position-relative">
                     <a class="nav-link" href="/order">Order 
                         <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
                     </a>
                 </li>
+                @endauth
+                @auth
+                @if(auth()->user()->is_admin == true)
                 <li class="nav-item position-relative">
                     <a class="nav-link" href="">Approval 
                         <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
                     </a>
                 </li>
+                @endif
+                @endauth
             </ul>
             <ul class="navbar-nav ms-auto me-lg-5 align-items-center d-flex gap-5 text-white">
                 @auth

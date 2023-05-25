@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('request_description');
             $table->string('request_image');
             $table->integer('request_price');
+            $table->integer('request_price_ppn')->nullable();
+            $table->integer('request_price_pabean')->nullable();
             $table->integer('request_quantity');
             $table->integer('request_weight');
             $table->string('request_status')->default("waiting approval");

@@ -595,30 +595,49 @@
                         <h1 class="dashboard-title mb-3">Transaction</h1>
                         <div class="row my-4">
                             <h3 class="fw-bold my-3">Ongoing Transaction</h3>
+                            @foreach($ongoing_transaction as $transaction)
                             <div class="card shadow p-3">
-                                <h3 class="fw-bold mb-3">Item Name</h3>
+                                <h3 class="fw-bold mb-3">
+                                    <a href="/trip-detail/{{ $transaction->trip_id }}">{{ $transaction->destination }} - {{ $transaction->origin }}</a>
+                                </h3>
                                 <div class="form-group mb-3 row">
                                     <div class="col-lg-2">
-                                        <p>From</p>
+                                        <p>Address :</p>
                                     </div>
                                     <div class="col-lg-10">
-                                        <p>jakarta</p>
+                                        <p>{{ $transaction->address }}</p>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 row">
                                     <div class="col-lg-2">
-                                        <p>Address</p>
+                                        <p>Phone Number :</p>
                                     </div>
                                     <div class="col-lg-10">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
+                                        <p>{{ $transaction->phone_number }}</p>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 row">
                                     <div class="col-lg-2">
-                                        <p>Phone Number</p>
+                                        <p>Shipping Type: </p>
                                     </div>
                                     <div class="col-lg-10">
-                                        <p>123456</p>
+                                        <p>{{ $transaction->shipping_name }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Total Price: </p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>{{ $transaction->total_paid }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 row">
+                                    <div class="col-lg-2">
+                                        <p>Beacukai & Pabean: </p>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>Rp {{ $transaction->beacukai_pabean }}</p>
                                     </div>
                                 </div>
                                 <div class="button">
@@ -733,6 +752,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                         <div class="row my-4">
                             <h3 class="fw-bold">Transaction Done</h3>

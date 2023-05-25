@@ -17,6 +17,8 @@ class RequestItem extends Model
        'request_description', 
        'request_image', 
        'request_price', 
+       'request_price_ppn', 
+       'request_price_pabean', 
        'request_quantity', 
        'request_weight', 
        'request_status', 

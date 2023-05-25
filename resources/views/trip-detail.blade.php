@@ -11,6 +11,11 @@
             <div class="title mt-5 mb-3">
                 <h1 class="fw-bold">Trip Details</h1>
             </div>
+            @if ($errors->any())
+            <div class="alert alert-dark" role="alert" style="outline: none">
+                <i class="text-danger mt-1">{{$errors->first()}}</i>
+            </div>
+            @endif
             <div class="back-btn mb-3">
                 <a href="/trip" class="btn btn-warning float-end py-0 px-3">
                     <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>
@@ -78,6 +83,7 @@
                                             @csrf
                                             <div class="d-flex align-items-center gap-3">
                                                 <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                                <input type="hidden" name="trip_id" value="{{ $trips->id }}">
                                                 <div class="input-number">
                                                     <input type="number" name="item_quantity" min="1" max="{{ $item->item_stock }}" value="{{ $item->cart_item_quantity }}" style="width: 50px">
                                                 </div>
