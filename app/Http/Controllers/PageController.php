@@ -81,6 +81,19 @@ class PageController extends Controller
         ->where('trips.user_id', auth()->user()->id)
         ->get();
 
+    //     $transactions = DB::table('transactions')
+    //     ->join('users','transactions.user_id', 'users.id')
+    //     ->leftJoinSub(DB::table('carts')->join('items', 'carts.item_id', 'items.id')->join('trips','items.trip_id', 'trips.id')->select('carts.item_id','trips.user_id'), 'cart_item', 'cart_item.item_id', 'items.id')
+    //     ->leftJoinSub(DB::table('carts')->join('request_items', 'carts.request_id', 'request_items.id')->join('trips','request_items.trip_id', 'trips.id')->select('carts.request_id','trips.user_id'), 'cart_request', 'cart_request.request_id', 'request_items.id')
+    //    ->leftJoinSub(DB::table('carts')->join('items', 'carts.item_id', 'items.id')->where('items.trip_id', auth()->user()->id), 'cart', 'cart.item_id', 'items.id')
+    //     ->leftJoinSub(DB::table('carts')->join('request', 'carts.item_id', 'request.id')->where('request.trip_id', auth()->user()->id), 'cart', 'cart.request_id', 'request.id')
+    //     ->select('users.fullname', 'users.address', 'users.phone_number', 'transactions.*')
+    //     ->where('cart_item.user_id',auth()->user()->id)
+    //     ->where('cart_request.user_id',auth()->user()->id)
+    //     ->get();
+
+
+
         return view('order', compact('request_list'));
     }
 
@@ -96,11 +109,13 @@ class PageController extends Controller
     }
     function rejectRequest(Request $request)
     {
+        $delete_cart = DB::table('carts')
+        ->where('request_id', $request->request_id)
+        ->delete();
         $reject_request = DB::table('request_items')
         ->where('id', $request->request_id)
-        ->update([
-            'request_status' => 'Rejected'
-        ]);
+        ->delete();
+
 
         return back();
     }

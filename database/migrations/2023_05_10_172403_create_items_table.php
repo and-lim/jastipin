@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('item_weight');
             $table->integer('item_stock');
             $table->integer('item_price');
+            $table->integer('item_price_ppn')->nullable();
+            $table->integer('item_price_pabean')->nullable();
             $table->integer('item_display_price');
             $table->text('item_description');
             $table->timestamps();

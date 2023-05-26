@@ -12,23 +12,57 @@
                 <i class="text-danger mt-1">{{$errors->first()}}</i>
             </div>
             @endif
+
             @php
+
+            $sumItemPriceTrip = array();
+            $sumRequestPriceTrip = array();
+            $sumItemAmount = array();
+            $sumRequestAmount = array();
+            $sumBeacukaiPabean = array();
+            $item_array = array();
+            $request_array = array();
+            $array_cart_trip = array();
 
             $sumItemPrice = 0;
             $sumItemQuantity = 0;
             $sumItemWeight = 0;
+            $sumItemPpn = 0;
+            $sumItemPabean = 0;
 
+            $sumRequestPrice = 0;
+            $sumRequestQuantity = 0;
+            $sumRequestWeight = 0;
+            $sumRequestPpn = 0;
+            $sumRequestPabean = 0;
 
             @endphp
-            @if ($cart_item != null)
-            @foreach($cart_item as $item)
+
+            @foreach ($cart_trip as $trip)
+            @php
+            $contain_item_price = 0;
+            $contain_request_price = 0;
+            $contain_item_quantity = 0;
+            $contain_request_quantity = 0;
+            $contain_beacukai_pabean = 0;
+            $array_cart_trip[$trip->trip_id] = $trip;
+            @endphp
+
+
+            <p>{{ $trip->destination }} - {{ $trip->origin }}</p>
+
+            @foreach($array_trip[$trip->trip_id]->items as $item)
 
 
             @php
-            $sumItemPrice = $sumItemPrice + ($item->item_display_price * $item->cart_item_quantity);
             $sumItemQuantity = $sumItemQuantity + $item->cart_item_quantity;
             $sumItemWeight = $sumItemWeight + $item->item_weight;
-
+            $sumItemPpn = $sumItemPpn + $item->item_price_ppn;
+            $sumItemPabean = $sumItemPabean + $item->item_price_pabean;
+            $sumItemPrice = $sumItemPrice + ($item->item_display_price * $item->cart_item_quantity) + $sumItemPpn + $sumItemPabean;
+            $contain_item_price = $contain_item_price + ($item->item_display_price * $item->cart_item_quantity) + $sumItemPpn + $sumItemPabean;
+            $contain_item_quantity = $contain_item_quantity + $item->cart_item_quantity;
+            $contain_beacukai_pabean = $contain_beacukai_pabean + $sumItemPpn + $sumItemPabean;
             @endphp
 
 
@@ -44,6 +78,8 @@
                         <p>Rp {{ $item->item_display_price }}</p>
                         <p>{{ $item->item_weight }} Kg</p>
                         <p>{{ $item->item_description }}</p>
+                        <p>PPN : Rp{{ $item->item_price_ppn }}</p>
+                        <p>Pabean : Rp{{ $item->item_price_pabean }}</p>
                     </div>
                 </div>
 
@@ -60,23 +96,18 @@
 
             </div>
             @endforeach
-            @endif
+
+            @foreach($array_trip[$trip->trip_id]->request_items as $request)
 
             @php
-
-            $sumRequestPrice = 0;
-            $sumRequestQuantity = 0;
-            $sumRequestWeight = 0;
-
-            @endphp
-
-            @if ($cart_request != null)
-            @foreach($cart_request as $request)
-
-            @php
-            $sumRequestPrice = $sumRequestPrice + ($request->request_price * $request->request_quantity);
             $sumRequestQuantity = $sumRequestQuantity + $request->request_quantity;
             $sumRequestWeight = $sumRequestWeight + $request->request_weight;
+            $sumRequestPpn = $sumRequestPpn + $request->request_price_ppn;
+            $sumRequestPabean = $sumRequestPabean + $request->request_price_pabean;
+            $sumRequestPrice = $sumRequestPrice + ($request->request_price * $request->request_quantity) + $sumRequestPpn + $sumRequestPabean;
+            $contain_request_price = $contain_request_price + ($request->request_price * $request->request_quantity) + $sumRequestPpn + $sumRequestPabean;
+            $contain_request_quantity = $contain_request_quantity + $item->cart_item_quantity;
+            $contain_beacukai_pabean = $contain_beacukai_pabean + $sumRequestPpn + $sumRequestPabean;
             @endphp
 
             <div class="item-cart border-bottom border-2 border-dark my-1">
@@ -93,6 +124,8 @@
                         <p>{{ $request->request_weight }} Kg</p>
                         <p>{{ $request->request_description }}</p>
                         <p>{{ $request->request_status }}</p>
+                        <p>PPN : Rp {{ $request->request_price_ppn }}</p>
+                        <p>Pabean : Rp {{ $request->request_price_pabean }}</p>
                     </div>
                 </div>
 
@@ -109,7 +142,19 @@
 
             </div>
             @endforeach
-            @endif
+
+            @php
+            $sumItemPriceTrip[$trip->trip_id] = $contain_item_price;
+            $sumRequestPriceTrip[$trip->trip_id] = $contain_request_price;
+            $sumItemAmount[$trip->trip_id] = $contain_item_quantity;
+            $sumRequestAmount[$trip->trip_id] = $contain_request_quantity;
+            $sumBeacukaiPabean[$trip->trip_id] = $contain_beacukai_pabean;
+            @endphp
+
+            <p>Total Item Price in this Trip: Rp {{ $contain_item_price }}</p>
+            <p>Total Request Price in this Trip: Rp {{ $contain_request_price }}</p>
+
+            @endforeach
 
             {{-- details --}}
             <div class="cart-details 1 mt-2 py-5">
@@ -138,7 +183,7 @@
             </div>
 
 
-            @csrf
+
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -148,9 +193,13 @@
                         </div>
                         <div class="modal-body">
                             <h3 class="text-start text-primary">Shipping</h3>
+
+                            @foreach ($cart_trip as $trip)
+                            <p>{{ $trip->destination }} - {{ $trip->origin }}</p>
+
                             <div class="button-shipping d-flex gap-3 my-3">
-                                <button id="regular" class="btn btn-warning">Regular</button>
-                                <button id="instant" class="btn btn-success">Instant</button>
+                                <button id="regular{{ $trip->trip_id }}" class="btn btn-warning regular">Regular</button>
+                                <button id="instant{{ $trip->trip_id }}" class="btn btn-success instant">Instant</button>
                             </div>
                             <div class="row mt-2">
                                 <div class="items-checkout">
@@ -158,16 +207,16 @@
                                         <tbody>
                                             <tr>
                                                 <td class="col-10">Total Item</td>
-                                                <td>{{ $sumItemQuantity + $sumRequestQuantity }} Pcs</td>
+                                                <td>{{ $sumItemAmount[$trip->trip_id] + $sumRequestAmount[$trip->trip_id] }} Pcs</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-10">Total Item Price</td>
-                                                <td>Rp {{ $sumItemPrice + $sumRequestPrice }}</td>
+                                                <td>Rp {{ $sumItemPriceTrip[$trip->trip_id] + $sumRequestPriceTrip[$trip->trip_id] }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-10">Total Shipping Fee</td>
                                                 <td>
-                                                    <p id="shipping_fee"></p>
+                                                    <p class="shipping_fee" id="shipping_fee{{ $trip->trip_id }}"></p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -175,22 +224,33 @@
                                             <tr class="table-padding">
                                                 <td class="col-10">Total</td>
                                                 <td>
-                                                    <p id="total_pay"></p>
+                                                    <p id="total_pay{{ $trip->trip_id }}"></p>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="col-10">Your Balance</td>
-                                                @auth
-                                                <td>Rp {{ auth()->user()->balance }}</td>
-                                                @endauth
-                                            </tr>
                                         </tfoot>
+                                        <input type="hidden" id="sumItemPriceTrip{{ $trip->trip_id }}" value="{{ $sumItemPriceTrip[$trip->trip_id] }}">
+                                        <input type="hidden" id="sumRequestPriceTrip{{ $trip->trip_id }}" value="{{ $sumRequestPriceTrip[$trip->trip_id] }}">
                                     </table>
+                                    @endforeach
+                                    <p id="total_all">Total Pay: {{ $sumItemPrice + $sumRequestPrice }}</p>
+                                    <p>Your Balance</p>
+                                    @auth
+                                    <p>Rp {{ auth()->user()->balance }}</p>
+                                    @endauth
+
                                     <div class="text-center mt-3">
                                         <form action="/pay" method="POST">
                                             @csrf
-                                            <input type="hidden" id="total_payment" name="total_pay" value="">
-                                            <input type="hidden" id="shipping_id" name="shipping_id" value="">
+                                            @foreach ($cart_trip as $trip)
+                                            
+                                            <input type="hidden" name="cart_trip[{{ $trip->trip_id }}]" value="{{ json_encode($array_cart_trip[$trip->trip_id]) }}">
+                                            <input type="hidden" name= "array_trip_item[{{ $trip->trip_id }}]" value=" {{ json_encode($array_trip[$trip->trip_id]->items) }}">
+                                            <input type="hidden" name= "array_trip_request[{{ $trip->trip_id }}]" value="{{ json_encode($array_trip[$trip->trip_id]->request_items) }}">
+                                            <input type="hidden" name="beacukai_pabean[{{$trip->trip_id}}]" value="{{ json_encode($sumBeacukaiPabean[$trip->trip_id]) }}">
+                                            <input type="hidden" id="shipping_type{{ $trip->trip_id }}" name="shipping_type[{{ json_encode($trip->trip_id) }}]" value="">
+                                            <input type="hidden" id="price_per_trip{{ $trip->trip_id }}" name="price_per_trip[{{ $trip->trip_id }}]" value="">
+                                            @endforeach
+                                            <input type="hidden" class="total_all" name="total_all" value="">
                                             <button type="submit" disabled id="pay" class="btn btn-primary">Pay</button>
                                         </form>
                                     </div>
@@ -208,36 +268,84 @@
 <script>
     var reg_price = 20000;
     var instant_price = 30000;
-    $('#regular').click(function() {
+    $('.regular').click(function() {
 
-        $('#shipping_fee').text('Rp ' + reg_price);
+        var id = $(this).attr("id")
+        var number_id = parseInt(id.replace("regular", ""));
 
-        var price = "{{ $sumItemPrice + $sumRequestPrice }}"
-        price = parseInt(price)
+        
+        var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
+        var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
+        
+
+        $('#shipping_fee'+ number_id).text('Rp ' + reg_price);
+
+        var price = sumItemPriceTrip + sumRequestPriceTrip;
         // console.log(price)
         var total_pay = price + reg_price;
 
-        $('#total_pay').text('Rp ' + total_pay);
+        
+        $('#total_pay'+ number_id).text('Rp ' + total_pay);
+        $('#price_per_trip'+ number_id).val(total_pay);
         $('#total_payment').val(total_pay);
-        $('#shipping_id').val(1)
+        $('#shipping_type' + number_id).val(1);
         $('#pay').prop('disabled', false)
+
+        updateTotal()
 
     });
 
-    $('#instant').click(function() {
+    $('.instant').click(function() {
 
-        $('#shipping_fee').text('Rp ' + instant_price);
+        var id = $(this).attr("id")
+        var number_id = id.replace("instant", "");
 
-        var price = "{{ $sumItemPrice + $sumRequestPrice }}"
-        price = parseInt(price)
+        var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
+        var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
+
+        $('#shipping_fee' + number_id).text('Rp ' + instant_price);
+
+        var price = sumItemPriceTrip + sumRequestPriceTrip;
         // console.log(price)
         var total_pay = price + instant_price;
 
-        $('#total_pay').text('Rp ' + total_pay);
+        $('#total_pay'+ number_id).text('Rp ' + total_pay);
+        $('#price_per_trip'+ number_id).val(total_pay);
+
         $('#total_payment').val(total_pay);
-        $('#shipping_id').val(2)
+        $('#shipping_type' + number_id).val(2);
         $('#pay').prop('disabled', false)
+
+        updateTotal()
+
     });
+
+    function updateTotal(){
+        var total_all = "{{ $sumItemPrice + $sumRequestPrice }}"
+        total_all = parseInt(total_all)
+
+        const total_shipping = document.getElementsByClassName("shipping_fee");
+
+
+        for(let i = 0; i<total_shipping.length; i++){
+
+            if(total_shipping[i].innerHTML != ""){
+
+                total_all += parseInt(total_shipping[i].innerHTML.replace("Rp ", ""));
+            }
+
+        }
+
+
+        $('#total_all').text('Rp ' + total_all)
+        $('.total_all').val(total_all)
+        // $('.table-borderless > tbody > tr > td > p')
+        // {
+        //     console.log($('#shipping_id').attr('value')); 
+        // }
+
+
+    }
 </script>
 
 @endsection

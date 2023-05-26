@@ -37,6 +37,15 @@ class UserSeeder extends Seeder
             ),
             array(
 
+                'fullname' => 'user 3',
+                'email' => 'user3@gmail.com',
+                'phone_number' => '08121212121',
+                'is_admin' => false,
+                'balance' => 100000000,
+                'password' => Hash::make('123456')
+            ),
+            array(
+
                 'fullname' => 'admin',
                 'email' => 'admin@gmail.com',
                 'phone_number' => '08121212121',
