@@ -3,10 +3,11 @@
 @section('mainSection')
 
 <section>
-    <div class="container mt-3 py-5">
+    <div class="container-xl mt-3 py-5">
+        <div class="row">
         <h1 class="title mt-3 pb-5">Cart</h1>
 
-        <div class="card col-lg-10 mx-auto shadow-sm p-3">
+        <div class="card col-lg-9 shadow-sm p-3">
             @if ($errors->any())
             <div class="alert alert-dark" role="alert" style="outline: none">
                 <i class="text-danger mt-1">{{$errors->first()}}</i>
@@ -262,6 +263,22 @@
             </div>
         </div>
 
+       
+        <div class=" col-lg-3">
+            <div class="card p-3 shadow-sm">
+                <h3 class="text-primary fw-bold">Tax Note</h3>
+                <div class="line" style=""></div>
+                <ul class="tax-content my-3 d-flex flex-column gap-2">
+                    <li>FOB = USD $500</li>
+                    <li>$1 = Rp 500</li>
+                    <li>PPN = 10%</li>
+                    <li>Jika barang dikurangi nilai pabean > USD $500 = Bea cukai</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    
     </div>
 </section>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>

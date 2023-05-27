@@ -217,8 +217,9 @@
                         </table>
                     </div>
 
-                    <div class="text-start">
+                    <div class="d-flex justify-content-between">
                         <button class="btn btn-primary px-3">Update</button>
+                        <button class="btn btn-success px-3">Shipment</button>
                     </div>
                 </div>
             </div>

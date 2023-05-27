@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Balance</h2>
                                     <div class="card-body mt-0">
@@ -100,16 +100,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Trip</h2>
                                     <a href="/trip" class="card-body dashboard-icon mt-0">
                                         <i class="fa fa-map-marker-alt fa-2x text-warning"></i>
-                                        <h2>30</h2>
+                                        <h2>40</h2>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Item</h2>
                                     <a href="/item" class="card-body dashboard-icon mt-0">
@@ -180,14 +180,17 @@
                             <div class="col-lg-10 mx-auto">
                                 <div class="card shadow p-3">
                                     <h3 class="fw-bold">Your Balance</h3>
-                                    <h1 class="text-success mx-5">$123</h1>
-                                    <div class="button">
-                                        <button type="button" class="btn btn-primary float-end  " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <h1 class="text-success text-center my-3 pb-3 mx-5">$123</h1>
+                                    <div class="button d-flex justify-content-center gap-3">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Add balance
+                                          </button>
+                                          <button type="button" class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#withdraw">
+                                            Withdraw
                                           </button>
                                     </div>
                                   
-                                       <!-- Modal -->
+                                       <!-- add balance Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
@@ -216,6 +219,40 @@
                                             </div>
                                             <div class="modal-footer text-center">
                                                 <button type="button" class="btn btn-success">Add Balance</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- withdraw --}}
+                                    <div class="modal fade" id="withdraw" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group my-3">
+                                                    <label for="" class="form-label">Amount</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="d-flex gap-3">
+                                                    <p>Unique Code :</p>
+                                                    <p>123</p>
+                                                </div>
+                                                <div class="d-flex gap-3">
+                                                    <p>Total Amount :</p>
+                                                    <p>100123</p>
+                                                </div>
+                                                <div class="form-group my-3">
+                                                    <label for="" class="form-label">Transfer Receipt</label>
+                                                    <input type="file" class="form-control">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-success">Withdraw</button>
                                             </div>
                                         </div>
                                         </div>
