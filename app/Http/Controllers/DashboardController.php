@@ -6,6 +6,7 @@ use App\Models\Trip;
 use App\Models\Item;
 use App\Models\Wtb;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -65,17 +66,39 @@ class DashboardController extends Controller
         ->join('trips', 'transactions.trip_id', 'trips.id')
         ->join('users', 'transactions.user_id','users.id')
         ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name')
+        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
         ->where('transactions.user_id', auth()->user()->id)
         ->where('transaction_status', 'ongoing')
         ->get();
 
-        $transaction_detail = DB::table('transaction_details')
-        ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-        ->select('*')
-        ->get();
+        $transaction_detail_item = [];
+        $transaction_detail_request = [];
+        foreach($ongoing_transaction as $header){
+            $id_transaction = $header->id;
+            $detail_item =  DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('items', 'transaction_details.item_id', 'items.id')
+            ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
 
-        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries', 'ongoing_transaction', 'transaction_detail'));
+            $transaction_detail_item = Arr::add($transaction_detail_item, $id_transaction , $detail_item );
+
+            $detail_request = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+            ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
+
+            $transaction_detail_request = Arr::add($transaction_detail_request, $id_transaction, $detail_request);
+            
+            
+        }
+
+
+        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request'));
     }
     
     function editTrip($id){
