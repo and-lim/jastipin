@@ -60,6 +60,14 @@
             <div class="title">
                 <h1 class="fw-bold">Order List</h1>
             </div>
+
+            @if ($errors->any())
+            <div class="alert alert-dark" role="alert" style="outline: none">
+                <i class="text-danger mt-1">{{$errors->first()}}</i>
+            </div>
+            @endif
+
+            @foreach($order_list_header as $order_header)
             <div class="col-lg-12">
                 <div class="card p-3">
                     <div class="card p-3 mb-3 shadow">
@@ -68,7 +76,7 @@
                                 <p>From</p>
                             </div>
                             <div class="col-lg-10">
-                                <p>jakarta</p>
+                                <p>{{ $order_header->fullname }}</p>
                             </div>
                         </div>
 
@@ -77,16 +85,36 @@
                                 <p>Address</p>
                             </div>
                             <div class="col-lg-10">
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit neque laboriosam quasi quam quis placeat eveniet molestias! Error, non molestias harum, nihil velit, a tempore voluptatibus beatae vel eligendi exercitationem!</p>
+                                <p>{{ $order_header->address }}</p>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="" class="col-sm-2 col-form-label">Phone Number</label>
                             <div class="col-lg-10">
-                                <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                                <input type="text" readonly class="form-control-plaintext " id="" value="{{ $order_header->phone_number }}">
                             </div>
                         </div>
+
+                        <div class="form-group mb-3 row">
+                            <div class="col-lg-2">
+                                <p>Shipping Type</p>
+                            </div>
+                            <div class="col-lg-10">
+                                <p>{{ $order_header->shipping_name }}</p>
+                            </div>
+                        </div>
+
+                        @if($order_header->beacukai_pabean)
+                        <div class="form-group mb-3 row">
+                            <div class="col-lg-2">
+                                <p>Beacukai & Pabean</p>
+                            </div>
+                            <div class="col-lg-10">
+                                <p>{{ $order_header->beacukai_pabean }}</p>
+                            </div>
+                        </div>
+                        @endif
                     </div>
 
                     <div class="items">
@@ -102,107 +130,118 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($order_detail_item[$order_header->id] as $order_item)
+                                <tr>
+                                    <td style="width: 10px;">
+                                        <div class="button">
+                                            <button type="button" @if ($order_item->item_status == 'cancelled') disabled @endif class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-none">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action="/cancelBuyItem" method="POST">
+                                                            <div class="modal-body">
+                                                                <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                                <div class="form-group">
+                                                                    <label for="" class="form-label">Select reason</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="reason" id="flexRadioDefault1" value="Item Not Available">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Item Not Available
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                                                                    <label for="" class="form-label">reason</label>
+                                                                    <input type="text" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            @csrf
+                                                            <input type="hidden" name="item_id" value="{{ $order_item->item_id }}">
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td scope="row" class="d-flex">
+                                        <div class="form-check">
+                                            @if($order_item->item_status != 'cancelled')
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            @endif
+                                            <label class="form-check-label" for="">
+                                                {{ $order_item->item_name }}
+                                            </label>
+                                        </div>
+
+                                    </td>
+                                    <td>{{ $order_item->quantity }}</td>
+                                    <td>Rp {{ $order_item->item_display_price }}</td>
+                                    <td>RP {{ $order_item->profit }}</td>
+                                    <td>Rp {{ $order_item->total }}</td>
+                                </tr>
+                                @endforeach
+
+                                @foreach($order_detail_request[$order_header->id] as $order_request)
                                 <tr>
                                     <td style="width: 10px;">
                                         <div class="button">
                                             <button type="button" class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <i  class="fa fa-times"></i>
-                                              </button>
+                                                <i class="fa fa-times"></i>
+                                            </button>
                                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header border-none">
-                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h3 class="fw-bold mb-3">Why Cancel?</h3>
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">reason</label>
-                                                            <input type="text" class="form-control">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-none">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="" class="form-label">Select reason</label>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                  Default radio
-                                                                </label>
-                                                              </div>
+                                                        <div class="modal-body">
+                                                            <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                            <div class="form-group mb-3">
+                                                                <label for="" class="form-label">reason</label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="form-label">Select reason</label>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        Default radio
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
-                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                  </div>
                                                 </div>
-                                              </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="">
-                                                Item 1
+                                                {{ $order_request->request_name }}
                                             </label>
                                         </div>
-                                
+
                                     </td>
-                                    <td>2</td>
-                                    <td>Rp.12345</td>
-                                    <td>Rp.123</td>
-                                    <td>Rp.12468</td>
+                                    <td>{{ $order_request->quantity }}</td>
+                                    <td>Rp {{ $order_request->request_price }}</td>
+                                    <td>Rp {{ $order_request->total }}</td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 10px;">
-                                        <div class="button">
-                                            <button type="button" class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <i  class="fa fa-times"></i>
-                                              </button>
-                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header border-none">
-                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h3 class="fw-bold mb-3">Why Cancel?</h3>
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">reason</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="" class="form-label">Select reason</label>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                  Default radio
-                                                                </label>
-                                                              </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                        </div>
-                                    </td>
-                                    <td scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="">
-                                                Item 2
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>2</td>
-                                    <td>Rp.12345</td>
-                                    <td>Rp.123</td>
-                                    <td>Rp.12468</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                             <tfoot style="border-top: 2px solid black; ">
                                 <tr>
@@ -223,6 +262,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
 
         <div class="row mt-5">

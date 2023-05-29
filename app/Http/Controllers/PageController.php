@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
@@ -81,20 +83,44 @@ class PageController extends Controller
         ->where('trips.user_id', auth()->user()->id)
         ->get();
 
-    //     $transactions = DB::table('transactions')
-    //     ->join('users','transactions.user_id', 'users.id')
-    //     ->leftJoinSub(DB::table('carts')->join('items', 'carts.item_id', 'items.id')->join('trips','items.trip_id', 'trips.id')->select('carts.item_id','trips.user_id'), 'cart_item', 'cart_item.item_id', 'items.id')
-    //     ->leftJoinSub(DB::table('carts')->join('request_items', 'carts.request_id', 'request_items.id')->join('trips','request_items.trip_id', 'trips.id')->select('carts.request_id','trips.user_id'), 'cart_request', 'cart_request.request_id', 'request_items.id')
-    //    ->leftJoinSub(DB::table('carts')->join('items', 'carts.item_id', 'items.id')->where('items.trip_id', auth()->user()->id), 'cart', 'cart.item_id', 'items.id')
-    //     ->leftJoinSub(DB::table('carts')->join('request', 'carts.item_id', 'request.id')->where('request.trip_id', auth()->user()->id), 'cart', 'cart.request_id', 'request.id')
-    //     ->select('users.fullname', 'users.address', 'users.phone_number', 'transactions.*')
-    //     ->where('cart_item.user_id',auth()->user()->id)
-    //     ->where('cart_request.user_id',auth()->user()->id)
-    //     ->get();
+        $order_list_header = DB::table('transactions')
+        ->join('trips', 'transactions.trip_id', 'trips.id')
+        ->join('users as travelers', 'trips.user_id', 'travelers.id')
+        ->join('users as buyers', 'transactions.user_id', 'buyers.id')
+        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+        ->select('transactions.*', 'trips.destination', 'trips.origin', 'buyers.fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name')
+        ->where('trips.user_id', auth()->user()->id)
+        ->get();
 
 
+        $order_detail_item = [];
+        $order_detail_request = [];
+        foreach($order_list_header as $header){
+            $id_transaction = $header->id;
+            $detail_item =  DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('items', 'transaction_details.item_id', 'items.id')
+            ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
 
-        return view('order', compact('request_list'));
+            $order_detail_item = Arr::add($order_detail_item, $id_transaction , $detail_item );
+
+            $detail_request = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+            ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
+
+            $order_detail_request = Arr::add($order_detail_request, $id_transaction, $detail_request);
+            
+            
+        }
+
+
+        return view('order', compact('request_list', 'order_list_header', 'order_detail_item', 'order_detail_request'));
     }
 
     function acceptRequest(Request $request)
@@ -118,5 +144,19 @@ class PageController extends Controller
 
 
         return back();
+    }
+
+    function cancelBuyItem(Request $request)
+    {
+        $item_cancel = Item::find($request->item_id);
+        $cancel_buy = DB::table('transaction_details')
+        ->join('items', 'transaction_details.item_id', 'items.id')
+        ->where('item_id', $request->item_id)
+        ->update([
+            'item_status' => 'cancelled',
+            'cancel_reason' => $request->reason
+        ]);
+
+        return back()->withErrors(['msg' => $item_cancel->item_name . ' has been cancelled!']);
     }
 }

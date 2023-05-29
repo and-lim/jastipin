@@ -64,6 +64,8 @@ Route::post('/pay', [TransactionController::class, 'pay']);
 Route::get('/order', [PageController::class, 'viewOrder']);
 Route::post('/acceptRequest', [PageController::class, 'acceptRequest']);
 Route::post('/rejectRequest', [PageController::class, 'rejectRequest']);
+Route::post('/cancelBuyItem', [PageController::class, 'cancelBuyItem']);
+Route::post('/cancelBuyRequest', [PageController::class, 'cancelBuyRequest']);
 
 
 Route::get('/', function () {

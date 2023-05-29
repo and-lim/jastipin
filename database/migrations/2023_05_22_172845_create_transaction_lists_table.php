@@ -13,16 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('money_flows', function (Blueprint $table) {
+        Schema::create('transaction_lists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('transaction_id')->nullable();
+            $table->string('traveler');
+            $table->string('buyer');
+            $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions');
-            $table->integer('balance');
+            $table->unsignedBigInteger('transaction_detail_id')->nullable();
+            $table->foreign('transaction_detail_id')->references('id')->on('transaction_details');
+            $table->string('item_status')->default('buying');
+            $table->integer('hold_balance');
+            $table->integer('balance_to_buyer');
+            $table->integer('balance_to_user');
             $table->integer('description');
-            $table->string('status')->nullable();
-            $table->string('approval')->nullable();
+            $table->string('transaction_status')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('money_flows');
+        Schema::dropIfExists('transaction_lists');
     }
 };

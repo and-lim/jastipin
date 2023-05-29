@@ -107,7 +107,7 @@
             $sumRequestPabean = $sumRequestPabean + $request->request_price_pabean;
             $sumRequestPrice = $sumRequestPrice + ($request->request_price * $request->request_quantity) + $sumRequestPpn + $sumRequestPabean;
             $contain_request_price = $contain_request_price + ($request->request_price * $request->request_quantity) + $sumRequestPpn + $sumRequestPabean;
-            $contain_request_quantity = $contain_request_quantity + $item->cart_item_quantity;
+            $contain_request_quantity = $contain_request_quantity + $request->request_quantity;
             $contain_beacukai_pabean = $contain_beacukai_pabean + $sumRequestPpn + $sumRequestPabean;
             @endphp
 
@@ -270,7 +270,7 @@
                 <div class="line" style=""></div>
                 <ul class="tax-content my-3 d-flex flex-column gap-2">
                     <li>FOB = USD $500</li>
-                    <li>$1 = Rp 500</li>
+                    <li>$1 = Rp 15000</li>
                     <li>PPN = 10%</li>
                     <li>Jika barang dikurangi nilai pabean > USD $500 = Bea cukai</li>
                 </ul>
@@ -285,6 +285,8 @@
 <script>
     var reg_price = 20000;
     var instant_price = 30000;
+
+    $('')
     $('.regular').click(function() {
 
         var id = $(this).attr("id")

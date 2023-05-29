@@ -15,6 +15,7 @@ class Transaction extends Model
         'transaction_status',
         'shipping_type_id',
         'shipping_receipt',
+        'beacukai_pabean',
         'total_paid'
     ];
 }

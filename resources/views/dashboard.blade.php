@@ -35,9 +35,9 @@
                     </li>
 
                     <li class="dashboard-nav">
-                        <a class="nav-link d-flex align-items-center" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-item" type="button" role="tab" aria-controls="nav-item" aria-selected="false">
+                        <a class="nav-link d-flex align-items-center" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-transaction-list" type="button" role="tab" aria-controls="nav-transaction-list" aria-selected="false">
                             <i class="fa fa-shopping-cart"></i>
-                            <span>Item</span>
+                            <span>Transaction List</span>
                         </a>
                     </li>
 
@@ -180,22 +180,67 @@
                             <div class="col-lg-10 mx-auto">
                                 <div class="card shadow p-3">
                                     <h3 class="fw-bold">Your Balance</h3>
-                                    <h1 class="text-success text-center my-3 pb-3 mx-5">$123</h1>
+                                    <h1 class="text-success text-center my-3 pb-3 mx-5">Rp {{ auth()->user()->balance }}</h1>
                                     <div class="button d-flex justify-content-center gap-3">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Add balance
-                                          </button>
+                                        </button>
                                           <button type="button" class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#withdraw">
                                             Withdraw
                                           </button>
                                     </div>
-                                  
-                                       <!-- add balance Modal -->
+
+                                    <!-- add balance Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Balance</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="/top-up" method="POST" enctype="multipart/form-data">
+
+                                                    <div class="modal-body">
+                                                    <div class="form-group my-3">
+                                                            <label for="" class="form-label">Bank Code</label>
+                                                            <input type="text" name="bank_code" class="form-control">
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Bank Account Number</label>
+                                                            <input type="text" name="account_number" class="form-control">
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Amount</label>
+                                                            <input type="text" id="topup_amount" name="amount" class="form-control">
+                                                        </div>
+                                                        <div class="d-flex gap-3">
+                                                            <p>Unique Code :</p>
+                                                            <p id="unique_amount"></p>
+                                                        </div>
+                                                        <div class="d-flex gap-3">
+                                                            <p>Total Amount :</p>
+                                                            <p id="total_amount"></p>
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Transfer Receipt</label>
+                                                            <input type="file" class="form-control">
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="modal-footer text-center">
+                                                        <button type="submit" class="btn btn-success">Add Balance</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- withdraw --}}
+                                    <div class="modal fade" id="withdraw" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Balance</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -218,7 +263,7 @@
 
                                             </div>
                                             <div class="modal-footer text-center">
-                                                <button type="button" class="btn btn-success">Add Balance</button>
+                                                <button type="button" class="btn btn-success">Withdraw</button>
                                             </div>
                                         </div>
                                         </div>
@@ -263,20 +308,37 @@
                     </div>
                     {{-- tab item list --}}
 
-                    <div class="tab-pane fade" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
+                    <div class="tab-pane fade" id="nav-transaction-list" role="tabpanel" aria-labelledby="nav-transaction-list-tab">
                         <div class="row g-0">
-                            <h1 class="dashboard-title mb-3">Item List</h1>
-                            <div class=" mb-3">
+                            <h1 class="dashboard-title mb-3">Transaction List</h1>
+
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Trip Name</th>
+                                        <th>Traveler</th>
+                                        <th>Buyer</th>
+                                        <th>Balance</th>
+                                        <th>Item Status</th>
+                                        <th>Description</th>
+                                        <th>Transaction Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <!-- <div class=" mb-3"> -->
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <!-- <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Add Item
-                                </button>
+                                </button> -->
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <form action="/addWtbItem" method="POST" enctype="multipart/form-data">
+                                <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <form action="/addWtbItem" method="POST" enctype="multipart/form-data"> -->
                                         @csrf
-                                        <div class="modal-dialog modal-lg">
+                                        <!-- <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
@@ -295,7 +357,7 @@
                                                         <div class="mb-3 form-group row">
                                                             <label for="Location" class="col-sm-2 col-form-label">Location</label>
                                                             <div class="dropdown-datalist">
-                                                                <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control"  aria-label="origin">
+                                                                <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control" aria-label="origin">
                                                             </div>
                                                             <datalist id="datalistOptions">
                                                                 @foreach ($countries as $country)
@@ -346,8 +408,8 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                            </div>
+                                </div> -->
+                            <!-- </div> -->
                         </div>
 
                         <div class="row">
@@ -587,45 +649,45 @@
                         </div>
                     </div>
 
-                        {{-- Shipment --}}
-                     <div class="tab-pane fade" id="nav-shipment" role="tabpanel" aria-labelledby="nav-shipment-tab">
-                            <div class="row mt-5">
-                                <div class="title">
-                                    <h1 class="fw-bold">Shipment List</h1>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="card p-3">
-                                            <div class="form-group mb-3 row">
-                                                <label for="" class="col-sm-2 col-form-label">To</label>
-                                                <div class="col-lg-10">
-                                                    <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group mb-3 row">
-                                                <label for="" class="col-sm-2 col-form-label">Address</label>
-                                                <div class="col-lg-10">
-                                                    <input type="text" readonly class="form-control-plaintext " id="" value="address">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group mb-3 row">
-                                                <label for="" class="col-sm-2 col-form-label">Phone Number</label>
-                                                <div class="col-lg-10">
-                                                    <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group row">
-                                                <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
-                                                <div class="col-lg-3">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
+                    {{-- Shipment --}}
+                    <div class="tab-pane fade" id="nav-shipment" role="tabpanel" aria-labelledby="nav-shipment-tab">
+                        <div class="row mt-5">
+                            <div class="title">
+                                <h1 class="fw-bold">Shipment List</h1>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card p-3">
+                                    <div class="form-group mb-3 row">
+                                        <label for="" class="col-sm-2 col-form-label">To</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
                                         </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label for="" class="col-sm-2 col-form-label">Address</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label for="" class="col-sm-2 col-form-label">Phone Number</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
+                                        <div class="col-lg-3">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                     </div>
+                        </div>
+                    </div>
 
                     {{-- transaction --}}
                     <div class="tab-pane fade" id="nav-transaction" role="tabpanel" aria-labelledby="nav-transaction-tab">
@@ -669,6 +731,7 @@
                                         <p>{{ $transaction->total_paid }}</p>
                                     </div>
                                 </div>
+                                @if($transaction->beacukai_pabean)
                                 <div class="form-group mb-3 row">
                                     <div class="col-lg-2">
                                         <p>Beacukai & Pabean: </p>
@@ -677,115 +740,147 @@
                                         <p>Rp {{ $transaction->beacukai_pabean }}</p>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="button d-flex justify-content-between">
                                     <button class="btn btn-outline-warning">Item Receive</button>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#ongoing_transaction{{ $loop->iteration }}">
                                         See Detail
                                     </button>
-                                    
+
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="ongoing_transaction{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="card p-3">
-                                                    <div class="card p-3 mb-3 shadow">
-                                                        <div class="form-group mb-3 row">
-                                                            <div class="col-lg-2">
-                                                                <p>From</p>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card p-3">
+                                                        <div class="card p-3 mb-3 shadow">
+                                                            <div class="form-group mb-3 row">
+                                                                <div class="col-lg-2">
+                                                                    <p>Address :</p>
+                                                                </div>
+                                                                <div class="col-lg-10">
+                                                                    <p>{{ $transaction->address }}</p>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-lg-10">
-                                                                <p>jakarta</p>
+                                                            <div class="form-group row">
+                                                                <label for="" class="col-sm-2 col-form-label">Phone Number</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" readonly class="form-control-plaintext " id="" value="{{ $transaction->phone_number }}">
+                                                                </div>
                                                             </div>
+                                                            <div class="form-group mb-3 row">
+                                                                <div class="col-lg-2">
+                                                                    <p>Shipping Type: </p>
+                                                                </div>
+                                                                <div class="col-lg-10">
+                                                                    <p>{{ $transaction->shipping_name }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group mb-3 row">
+                                                                <div class="col-lg-2">
+                                                                    <p>Total Price: </p>
+                                                                </div>
+                                                                <div class="col-lg-10">
+                                                                    <p>Rp {{ $transaction->total_paid }}</p>
+                                                                </div>
+                                                            </div>
+                                                            @if($transaction->beacukai_pabean)
+                                                            <div class="form-group mb-3 row">
+                                                                <div class="col-lg-2">
+                                                                    <p>Beacukai & Pabean: </p>
+                                                                </div>
+                                                                <div class="col-lg-10">
+                                                                    <p>Rp {{ $transaction->beacukai_pabean }}</p>
+                                                                </div>
+                                                            </div>
+                                                            @endif
                                                         </div>
-                                
-                                                        <div class="form-group mb-3 row">
-                                                            <div class="col-lg-2">
-                                                                <p>Address</p>
-                                                            </div>
-                                                            <div class="col-lg-10">
-                                                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit neque laboriosam quasi quam quis placeat eveniet molestias! Error, non molestias harum, nihil velit, a tempore voluptatibus beatae vel eligendi exercitationem!</p>
-                                                            </div>
+
+                                                        <div class="items">
+                                                            <table class="table table-borderless">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Item Name</th>
+                                                                        <th scope="col">Amounts</th>
+                                                                        <th scope="col">Price</th>
+                                                                        <th scope="col">Cancellation Description</th>
+                                                                        <th scope="col">Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($transaction_detail_item[$transaction->id] as $detail_item)
+                                                                    <tr>
+                                                                        <td scope="row" class="d-flex">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @if($detail_item->item_status == 'bought') checked @endif>
+                                                                                <label class="form-check-label" for="">
+                                                                                    {{ $detail_item->item_name }}
+                                                                                </label>
+                                                                            </div>
+
+                                                                        </td>
+                                                                        <td>{{ $detail_item->quantity }}</td>
+                                                                        <td>Rp {{ $detail_item->item_display_price }}</td>
+                                                                        
+                                                                        <td> 
+                                                                            @if($detail_item->item_status == 'cancelled')
+                                                                            {{ $detail_item->cancel_reason }}@endif</td>
+                                                                        <td>Rp {{ $detail_item->total }}</td>
+                                                                    </tr>
+                                                                    @endforeach
+
+                                                                    @foreach($transaction_detail_request[$transaction->id] as $detail_request)
+                                                                    <tr>
+                                                                        <td scope="row" class="d-flex">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @if($detail_item->item_status == 'bought') checked @endif>
+                                                                                <label class="form-check-label" for="">
+                                                                                    {{ $detail_request->request_name }}
+                                                                                </label>
+                                                                            </div>
+
+                                                                        </td>
+                                                                        <td>{{ $detail_request->quantity }}</td>
+                                                                        <td>Rp {{ $detail_request->request_price }}</td>
+                                                                        
+                                                                        <td> 
+                                                                            @if($detail_request->item_status == 'cancelled')
+                                                                            {{ $detail_request->cancel_reason }}@endif</td>
+                                                                        <td>Rp {{ $detail_request->total }}</td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                    
+                                                                </tbody>
+                                                                <tfoot style="border-top: 2px solid black; ">
+                                                                <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Shipping Price: </td>
+                                                                        <td>Rp {{ $transaction->shipping_price }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                        </th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>Rp {{ $transaction->total_paid }}</td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
                                                         </div>
-                                
-                                                        <div class="form-group row">
-                                                            <label for="" class="col-sm-2 col-form-label">Phone Number</label>
-                                                            <div class="col-lg-10">
-                                                                <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                
-                                                    <div class="items">
-                                                        <table class="table table-borderless">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">Item Name</th>
-                                                                    <th scope="col">Amounts</th>
-                                                                    <th scope="col">Price</th>
-                                                                    <th scope="col">Profit</th>
-                                                                    <th scope="col">Total</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td scope="row" class="d-flex">
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                                                                            <label class="form-check-label" for="">
-                                                                                Item 1
-                                                                            </label>
-                                                                        </div>
-                                                                
-                                                                    </td>
-                                                                    <td>2</td>
-                                                                    <td>Rp.12345</td>
-                                                                    <td>Rp.123</td>
-                                                                    <td>Rp.12468</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td scope="row">
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                                                                            <label class="form-check-label" for="">
-                                                                                Item 2
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>2</td>
-                                                                    <td>Rp.12345</td>
-                                                                    <td>Rp.123</td>
-                                                                    <td>Rp.12468</td>
-                                                                </tr>
-                                                            </tbody>
-                                                            <tfoot style="border-top: 2px solid black; ">
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                    </th>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>23</td>
-                                                                    <td>23</td>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                
-                                                    <div class="text-start">
-                                                        <button class="btn btn-primary px-3">Update</button>
                                                     </div>
                                                 </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -805,55 +900,56 @@
                                 <div class="button-review">
                                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-review">
                                         Submit Review
-                                   </button>
-                                   <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog ">
-                                       <div class="modal-content">
-                                         <div class="modal-header">
-                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                         </div>
-                                         <div class="modal-body">
-                                               <div class="row mt-2">
-                                                    <div class="form-group d-flex gap-3 align-items-center">
-                                                        <label for="" class="form-label">Score</label>
-                                                        <input type="number" min="0" max="5" class="col-2">
+                                    </button>
+                                    <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog ">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row mt-2">
+                                                        <div class="form-group d-flex gap-3 align-items-center">
+                                                            <label for="" class="form-label">Score</label>
+                                                            <input type="number" min="0" max="5" class="col-2">
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Note</label>
+                                                            <textarea name="" class="form-control" id="" cols="20" rows="10"></textarea>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button class="btn btn-success">Submit Review</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group my-3">
-                                                        <label for="" class="form-label">Note</label>
-                                                        <textarea name="" class="form-control" id="" cols="20" rows="10"></textarea>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <button class="btn btn-success">Submit Review</button>
-                                                    </div>
-                                              </div>
-                                       </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                </div>
 
-                                <div class="form-group mb-3 row">
-                                    <div class="col-lg-2">
-                                        <p>From</p>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>From</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>jakarta</p>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-10">
-                                        <p>jakarta</p>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>Address</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group mb-3 row">
-                                    <div class="col-lg-2">
-                                        <p>Address</p>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3 row">
-                                    <div class="col-lg-2">
-                                        <p>Phone Number</p>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <p>123456</p>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>Phone Number</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>123456</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -861,7 +957,20 @@
                     </div>
                 </div>
             </div>
-        </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    var random_code = Math.floor(Math.random() * 1000);
 
+    $('#topup_amount').on('keyup',function(){
+        var amount = parseInt($(this).val())
+        if(amount){
+
+            amount = amount + random_code
+            $('#unique_amount').text(random_code)
+            $('#total_amount').text('Rp ' + amount)
+        }
+    })
+
+</script>
 @endsection
