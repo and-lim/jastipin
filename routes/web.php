@@ -116,6 +116,15 @@ Route::get('/trip-checkout', function () {
     return view('trip-checkout');
 });
 
+Route::get('/approval', function () {
+    return view('approval');
+});
+
+Route::get('/transaction-list', function () {
+    return view('transaction-list');
+});
+
+
 // Route::get('/order', function () {
 //     return view('order');
 // });

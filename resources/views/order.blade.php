@@ -173,15 +173,17 @@
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
-                                        <div class="form-check">
+                                        {{-- <div class="form-check">
                                             @if($order_item->item_status != 'cancelled')
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             @endif
                                             <label class="form-check-label" for="">
                                                 {{ $order_item->item_name }}
                                             </label>
-                                        </div>
-
+                                        </div> --}}
+                                        <button class="btn btn-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
                                     </td>
                                     <td>{{ $order_item->quantity }}</td>
                                     <td>Rp {{ $order_item->item_display_price }}</td>
@@ -229,13 +231,15 @@
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
-                                        <div class="form-check">
+                                        {{-- <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="">
                                                 {{ $order_request->request_name }}
                                             </label>
-                                        </div>
-
+                                        </div> --}}
+                                        <button class="btn btn-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
                                     </td>
                                     <td>{{ $order_request->quantity }}</td>
                                     <td>Rp {{ $order_request->request_price }}</td>
@@ -256,8 +260,27 @@
                         </table>
                     </div>
 
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary px-3">Update</button>
+                    <div class="d-flex justify-content-end">
+                        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order">
+                            Launch demo modal
+                        </button>
+                            <div class="modal fade" id="order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Order</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure to order this</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-success">Confirm</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div> --}}
                         <button class="btn btn-success px-3">Shipment</button>
                     </div>
                 </div>

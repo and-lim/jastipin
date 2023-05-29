@@ -150,12 +150,12 @@
                                         <input type="text" name="phone_number" class="form-control" id="email" value="{{ $user_profile->phone_number }}">
                                     </div>
                                 </div>
-                                <!-- <div class="mb-3 form-group row">
-                                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                <div class="mb-3 form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">City</label>
                                     <div class="col-sm-10">
-                                        <input type="password" name="password" class="form-control" id="inputPassword" value="{{ $user_profile->password }}">
+                                        <input type="text" name="" class="form-control" id="inputCity" value="{{ $user_profile->password }}">
                                     </div>
-                                </div> -->
+                                </div> 
                                 <div class="mb-3 form-group row">
                                     <label for="address" class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-10">

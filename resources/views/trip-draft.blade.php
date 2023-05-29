@@ -204,7 +204,10 @@
 
                             <div class="luggage-limit my-2 d-flex gap-3">
                                 <h5 class="fw-bold">Luggage Limit :</h5>
-                                <p>8 / 20</p>
+                                <div class="luggage-size">
+                                    <p class="d-inline-block">8</p>
+                                    <p class="d-inline-block">/ 20 kg</p>
+                                </div>
                             </div>
 
                             {{-- item --}}

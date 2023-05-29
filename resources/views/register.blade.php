@@ -25,6 +25,19 @@
                         <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
                         <input type="tel" name="phone_number" class="form-control" id="phone_number">
                     </div>
+                    <div class="form-group d-flex flex-column mb-3">
+                        <label for="destination" class="form-label">City</label>
+                        <div class="dropdown-datalist">
+                            <input list="datalistOptions" id="exampleDataList" name="city" class="form-control" placeholder="City" aria-label="city">
+                        </div>
+                        <datalist id="datalistOptions">
+                            <option value="San Francisco">
+                                <option value="New York">
+                                <option value="Seattle">
+                                <option value="Los Angeles">
+                                <option value="Chicago">
+                        </datalist>
+                    </div>
                     <div class="form-group mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="password">

@@ -73,14 +73,22 @@
                         <img src="{{ asset('/storage/' .$item->item_image) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-8">
-                        <a href="/trip-detail/{{ $item->trip_id }}" class="text-decoration-none text-dark">
-                            <h1 class="mb-2">{{ $item->item_name }}</h1>
-                        </a>
-                        <p>Rp {{ $item->item_display_price }}</p>
-                        <p>{{ $item->item_weight }} Kg</p>
-                        <p>{{ $item->item_description }}</p>
-                        <p>PPN : Rp{{ $item->item_price_ppn }}</p>
-                        <p>Pabean : Rp{{ $item->item_price_pabean }}</p>
+                        <div class="item-detail pb-2">
+                            <a href="/trip-detail/{{ $item->trip_id }}" class="text-decoration-none text-dark">
+                                <h1 class="mb-2">{{ $item->item_name }}</h1>
+                            </a>
+                            <p>{{ $item->item_description }}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p>Rp {{ $item->item_display_price }}</p>
+                                <p>{{ $item->item_weight }} Kg</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>PPN : Rp{{ $item->item_price_ppn }}</p>
+                                <p>Pabean : Rp{{ $item->item_price_pabean }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -113,20 +121,29 @@
 
             <div class="item-cart border-bottom border-2 border-dark my-1">
                 <div class="row gap-3">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <img src="{{ asset('/storage/' .$request->request_image) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-8">
-                        <a href="/trip-detail/{{ $request->trip_id }}">
-                            <h1 class="mb-2">{{ $request->request_name }}</h1>
-                        </a>
-                        <p>Rp {{ $request->request_price }}</p>
-                        <p>{{ $request->request_quantity }} PC/s</p>
-                        <p>{{ $request->request_weight }} Kg</p>
-                        <p>{{ $request->request_description }}</p>
-                        <p>{{ $request->request_status }}</p>
-                        <p>PPN : Rp {{ $request->request_price_ppn }}</p>
-                        <p>Pabean : Rp {{ $request->request_price_pabean }}</p>
+                        <div class="request-detail pb-2">
+                            <a href="/trip-detail/{{ $request->trip_id }}" class="text-decoration-none">
+                                <h1 class="mb-2">{{ $request->request_name }}</h1>
+                            </a>
+                            <p>{{ $request->request_description }}</p>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p>Rp {{ $request->request_price }}</p>
+                                <p>{{ $request->request_quantity }} PC/s</p>
+                                <p>{{ $request->request_weight }} Kg</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>{{ $request->request_status }}</p>
+                                <p>PPN : Rp {{ $request->request_price_ppn }}</p>
+                                <p>Pabean : Rp {{ $request->request_price_pabean }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
