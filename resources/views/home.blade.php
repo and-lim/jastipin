@@ -41,14 +41,14 @@
         <section class="">
             <div class="container-xl my-5">
                 <div class="text-title mb-3 pb-3">
-                    <h1 class="text-start home-title">Popular item</h1>
+                    <h1 class="text-start title">Item</h1>
                 </div>
 
                 <div class="row mt-3" style="row-gap: 1rem;">
                     <div class="col-lg-3">
                         <div class="category-card" >
                             <div class="card-image">
-                                <img src="img/laptop.jpg" alt="" srcset="">
+                                <img src="img/snack.png" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Food</h5>
@@ -58,7 +58,7 @@
                     <div class="col-lg-3">
                         <div class="category-card position-relative" >
                             <div class="card-image">
-                                <img src="img/laptop.jpg" alt="" srcset="">
+                                <img src="img/electronic.png" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Electronic</h5>
@@ -68,7 +68,7 @@
                     <div class="col-lg-3">
                         <div class="category-card" >
                             <div class="card-image">
-                                <img src="img/laptop.jpg" alt="" srcset="">
+                                <img src="img/skin-care.png" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Skin Care</h5>
@@ -78,7 +78,7 @@
                     <div class="col-lg-3">
                         <div class="category-card" >
                             <div class="card-image">
-                                <img src="img/laptop.jpg" alt="" srcset="">
+                                <img src="img/fashion.png" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Fashion</h5>
@@ -111,7 +111,7 @@
                                     <div class="col-lg-9">
                                         <h3 class="text-primary fw-bold">Jakarta - Tokyo</h3>
                                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At debitis itaque blanditiis dicta porro quidem nihil magni molestiae nemo aspernatur. Et doloremque porro quaerat culpa officiis molestiae ducimus asperiores eligendi.</p>
-                                    <div class="row g-0">
+                                    <div class="row gap-3">
                                         <div class="col-lg-2 trip-item">
                                             <img src="img/snack.jpg" style="width: 60px" class="img-fluid item-img" alt="">
                                             <div class="img-detail d-flex flex-column mt-1">
@@ -128,20 +128,6 @@
                                         </div>
                                         <div class="col-lg-2 trip-item">
                                             <img src="img/snack.jpg" style="width: 60px" class="img-fluid item-img" alt="">
-                                            <div class="img-detail d-flex flex-column mt-1">
-                                                <label for="" class="form-label mb-0">Snack</label>
-                                                <label for="" class="form-label mb-0">$30</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
-                                            <div class="img-detail d-flex flex-column mt-1">
-                                                <label for="" class="form-label mb-0">Snack</label>
-                                                <label for="" class="form-label mb-0">$30</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <img src="img/snack.jpg" style="width: 60px" class="img-fluid" alt="">
                                             <div class="img-detail d-flex flex-column mt-1">
                                                 <label for="" class="form-label mb-0">Snack</label>
                                                 <label for="" class="form-label mb-0">$30</label>

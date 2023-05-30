@@ -52,10 +52,6 @@ ul.navbar-nav{
     margin: 0 auto;
 }
 
-section{
-    max-height: 100% !important;
-}
-
 .line{
     width: 100%;
     background-color: black;
@@ -98,7 +94,9 @@ h1.dashboard-title::after{
 
 .card-image{
     padding: 0.5rem;
-    width: fit-content;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: white;
 
 }
 .card-image img{
@@ -425,8 +423,6 @@ img.checkout-image{
 }
 
 footer{
-    position: fixed;
-    bottom: 0;
     width: 100%;
     align-items: center;
     justify-content: center;
