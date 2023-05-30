@@ -6,11 +6,12 @@
             <div class="hero-header py-5">
                 <div class="container mt-2">
                     <div class="row">
-                        <div class="col-lg-6 mx-auto text-center text-lg-center">
-                            <h1 class="text-white mb-4 text-slider-items intro-title text-center">Jastipin</h1>
+                        <div class="col-lg-6 mx-auto text-center text-white text-lg-center">
+                            <h1 class="mb-4 intro-title ">Jastipin</h1>
+                            <h3 class="mb-2">Titip Barang dari Luar negeri dengan jastipin  </h3>
                         </div>
                     </div>
-                    <div class="form-group mx-auto col-lg-8">
+                    {{-- <div class="form-group mx-auto col-lg-8">
                         <div class="row align-items-center justify-content-center">
                             <div class="col-lg-5">
                             <input type="text" class="form-control" placeholder="Departure" aria-label="First name">
@@ -28,9 +29,9 @@
                                 <input type="text" class="form-control form-input" placeholder="Search anything...">
                             </div>
                         </div>
-                        <div class="search-button d-flex justify-content-center mt-3">
-                            <a href="" class="btn btn-warning text-center mx-auto">Search</a>
-                        </div>
+                    </div> --}}
+                    <div class="search-button d-flex justify-content-center mt-3">
+                        <a href="/trip" class="btn btn-warning text-center mx-auto">Search Trip</a>
                     </div>
                 </div>
             </div>
