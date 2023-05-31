@@ -24,6 +24,7 @@
             $item_array = array();
             $request_array = array();
             $array_cart_trip = array();
+            $sumTaxTrip = array();
 
             $sumItemPrice = 0;
             $sumItemQuantity = 0;
@@ -37,9 +38,11 @@
             $sumRequestPpn = 0;
             $sumRequestPabean = 0;
 
+            $sumTaxTotal = 0;
             @endphp
 
             @foreach ($cart_trip as $trip)
+            
             @php
             $contain_item_price = 0;
             $contain_request_price = 0;
@@ -47,6 +50,8 @@
             $contain_request_quantity = 0;
             $contain_beacukai_pabean = 0;
             $array_cart_trip[$trip->trip_id] = $trip;
+            $sumTaxTrip[$trip->trip_id] = $trip->tax;
+            $sumTaxTotal = $sumTaxTotal + $sumTaxTrip[$trip->trip_id];
             @endphp
 
 
@@ -83,10 +88,6 @@
                             <div class="col-lg-6">
                                 <p>Rp {{ $item->item_display_price }}</p>
                                 <p>{{ $item->item_weight }} Kg</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p>PPN : Rp{{ $item->item_price_ppn }}</p>
-                                <p>Pabean : Rp{{ $item->item_price_pabean }}</p>
                             </div>
                         </div>
                     </div>
@@ -171,6 +172,7 @@
 
             <p>Total Item Price in this Trip: Rp {{ $contain_item_price }}</p>
             <p>Total Request Price in this Trip: Rp {{ $contain_request_price }}</p>
+            <p>Total tax in this trip: RP {{ $trip->tax }}</p>
 
             @endforeach
 
@@ -183,7 +185,7 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>total price:</p>
-                    <p>{{ $sumItemPrice + $sumRequestPrice }}</p>
+                    <p>{{ $sumItemPrice + $sumRequestPrice + $sumTaxTotal }}</p>
                 </div>
             </div>
 
@@ -213,6 +215,7 @@
                             <h3 class="text-start text-primary">Shipping</h3>
 
                             @foreach ($cart_trip as $trip)
+                            <p hidden id="ongkir{{ $trip->trip_id }}">{{ $trip->ongkir }}</p>
                             <p>{{ $trip->destination }} - {{ $trip->origin }}</p>
 
                             <div class="button-shipping d-flex gap-3 my-3">
@@ -232,6 +235,10 @@
                                                 <td>Rp {{ $sumItemPriceTrip[$trip->trip_id] + $sumRequestPriceTrip[$trip->trip_id] }}</td>
                                             </tr>
                                             <tr>
+                                                <td class="col-10">Total Tax Price</td>
+                                                <td>Rp {{ $sumTaxTrip[$trip->trip_id] }}</td>
+                                            </tr>
+                                            <tr>
                                                 <td class="col-10">Total Shipping Fee</td>
                                                 <td>
                                                     <p class="shipping_fee" id="shipping_fee{{ $trip->trip_id }}"></p>
@@ -248,9 +255,10 @@
                                         </tfoot>
                                         <input type="hidden" id="sumItemPriceTrip{{ $trip->trip_id }}" value="{{ $sumItemPriceTrip[$trip->trip_id] }}">
                                         <input type="hidden" id="sumRequestPriceTrip{{ $trip->trip_id }}" value="{{ $sumRequestPriceTrip[$trip->trip_id] }}">
+                                        <input type="hidden" id="sumTaxTrip{{ $trip->trip_id }}" value="{{ $sumTaxTrip[$trip->trip_id] }}">
                                     </table>
                                     @endforeach
-                                    <p id="total_all">Total Pay: {{ $sumItemPrice + $sumRequestPrice }}</p>
+                                    <p id="total_all">Total Pay: {{ $sumItemPrice + $sumRequestPrice + $sumTaxTotal}}</p>
                                     <p>Your Balance</p>
                                     @auth
                                     <p>Rp {{ auth()->user()->balance }}</p>
@@ -284,11 +292,12 @@
         <div class=" col-lg-3">
             <div class="card p-3 shadow-sm">
                 <h3 class="text-primary fw-bold">Tax Note</h3>
-                <div class="line" style=""></div>
+                <div class="line" style =""></div>
                 <ul class="tax-content my-3 d-flex flex-column gap-2">
                     <li>FOB = USD $500</li>
                     <li>$1 = Rp 15000</li>
-                    <li>PPN = 10%</li>
+                    <li>PPN = 11%</li>
+                    <li>PPH dengan NPWP = 10%</li>
                     <li>Jika barang dikurangi nilai pabean > USD $500 = Bea cukai</li>
                 </ul>
 
@@ -300,25 +309,27 @@
 </section>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-    var reg_price = 20000;
-    var instant_price = 30000;
 
     $('')
     $('.regular').click(function() {
 
+        
         var id = $(this).attr("id")
         var number_id = parseInt(id.replace("regular", ""));
+        var regular = parseInt(document.getElementById('ongkir' + number_id).innerHTML)/2
+
+        console.log(regular);
 
         
         var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
         var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
+        var sumTaxTrip = parseInt($('#sumTaxTrip' + number_id).val())
         
 
-        $('#shipping_fee'+ number_id).text('Rp ' + reg_price);
+        $('#shipping_fee'+ number_id).text('Rp ' + regular);
 
         var price = sumItemPriceTrip + sumRequestPriceTrip;
-        // console.log(price)
-        var total_pay = price + reg_price;
+        var total_pay = price + regular;
 
         
         $('#total_pay'+ number_id).text('Rp ' + total_pay);
@@ -334,16 +345,19 @@
     $('.instant').click(function() {
 
         var id = $(this).attr("id")
-        var number_id = id.replace("instant", "");
+        var number_id = id.replace("instant", "")
+        var instant = parseInt(document.getElementById('ongkir' + number_id).innerHTML)
+
 
         var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
         var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
+        var sumTaxTrip = parseInt($('#sumTaxTrip' + number_id).val())
 
-        $('#shipping_fee' + number_id).text('Rp ' + instant_price);
+        $('#shipping_fee' + number_id).text('Rp ' + instant);
 
         var price = sumItemPriceTrip + sumRequestPriceTrip;
         // console.log(price)
-        var total_pay = price + instant_price;
+        var total_pay = price + instant;
 
         $('#total_pay'+ number_id).text('Rp ' + total_pay);
         $('#price_per_trip'+ number_id).val(total_pay);

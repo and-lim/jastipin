@@ -24,6 +24,8 @@ class User extends Authenticatable
         'avatar',
         'address',
         'balance',
+        'city',
+        'npwp',
         'is_admin',
         'password',
     ];

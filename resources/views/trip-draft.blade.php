@@ -36,14 +36,14 @@
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="destination" class="form-label">Destination</label>
                                                     <div class="dropdown-datalist">
-                                                        <input list="datalistOptions" id="exampleDataList" name="destination" class="form-control" value="{{ $edit_trip->destination }}" placeholder="Destination" aria-label="destination">
+                                                        <input list="destinations" id="exampleDataList" name="destination" class="form-control" value="{{ $edit_trip->destination }}" placeholder="Destination" aria-label="destination">
                                                     </div>
-                                                    <datalist id="datalistOptions">
-                                                      <option value="San Francisco">
-                                                      <option value="New York">
-                                                      <option value="Seattle">
-                                                      <option value="Los Angeles">
-                                                      <option value="Chicago">
+                                                    <datalist id="destinations">
+                                                        @foreach ($destinations as $destination)
+
+                                                        <option value="{{ $destination->name }}">
+
+                                                            @endforeach
                                                     </datalist>
                                                 </div>
                                                 <div class="col-lg-1">
@@ -51,16 +51,7 @@
                                                 </div>
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
-                                                    <div class="dropdown-datalist">
-                                                        <input list="datalistOptions" id="exampleDataList" name="origin" class="form-control"  value="{{ $edit_trip->origin }}" placeholder="Origin" aria-label="origin">
-                                                    </div>
-                                                    <datalist id="datalistOptions">
-                                                        <option value="San Francisco">
-                                                        <option value="New York">
-                                                        <option value="Seattle">
-                                                        <option value="Los Angeles">
-                                                        <option value="Chicago">
-                                                      </datalist>
+                                                    <input type="text" disabled class="form-control" id="" value="{{ auth()->user()->city }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +100,7 @@
                                         <div class="form-group mb-3 d-flex flex-column">
                                             <label for="" class="form-label">Luggage Size</label>
                                             <div class="col-5">
-                                                <input type="number" min="1" max="20"> kg
+                                                <input type="number" name="luggage" min="1" max="" value="{{ $edit_trip->luggage }}"> kg
                                             </div>
                                         </div>
 
@@ -205,8 +196,8 @@
                             <div class="luggage-limit my-2 d-flex gap-3">
                                 <h5 class="fw-bold">Luggage Limit :</h5>
                                 <div class="luggage-size">
-                                    <p class="d-inline-block">8</p>
-                                    <p class="d-inline-block">/ 20 kg</p>
+                                    <p class="d-inline-block">{{ $edit_trip->weight }}</p>
+                                    <p class="d-inline-block">/ {{ $edit_trip->luggage }} kg</p>
                                 </div>
                             </div>
 
@@ -268,7 +259,7 @@
                                 @csrf
                                 <input type="hidden" name="trip_id" value="{{ $edit_trip->id }}">
                                 <div class="publish-button mt-3 text-center">
-                                    <button type="submit" class="btn btn-success"> Publish Trip</button>
+                                    <button type="submit" @if($added_item->isEmpty() || $edit_trip->weight > $edit_trip->luggage) disabled @endif class="btn btn-success"> Publish Trip</button>
                                 </div>
                             </form>
                         </div>

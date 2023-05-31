@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Wtb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,6 +15,16 @@ class DashboardController extends Controller
 {
     function makeTrip(Request $request)
     {
+        $check_npwp = User::find(auth()->user()->id);
+        
+        if(!$check_npwp->npwp){
+            return back()->withErrors(['msg' => 'You need to fill your NPWP in Dashboard > Profile before you make a trip!']);
+        }
+        if($request->destination == $request->origin)
+        {
+            return back()->withErrors(['msg' => 'Destination and Origin can not be same']);
+        }
+
         $trips = Trip::create([
             'destination' => $request->destination,
             'origin' => $request->origin,
@@ -33,12 +44,14 @@ class DashboardController extends Controller
             ->join('users', 'trips.user_id', 'users.id')
             ->select('trips.*', 'users.fullname')
             ->where('status', 'draft')
+            ->where('trips.user_id', auth()->user()->id)
             ->get();
 
         $ongoing_trip = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
             ->select('trips.*', 'users.fullname')
             ->where('status', 'ongoing')
+            ->where('trips.user_id', auth()->user()->id)
             ->get();
 
         $item_in_trip = DB::table('items')
@@ -53,13 +66,29 @@ class DashboardController extends Controller
         ->where('wtb_status', 'published')
         ->get();
 
+        $city = DB::table('cities')
+        ->select('*')
+        ->get();
+
         $user_profile = DB::table('users')
         ->select('*')
         ->where('id', auth()->user()->id)
         ->first();
-
+        
+        
         $countries = DB::table('countries')
-        ->select('*')
+        ->select('countries.name')
+        ->where('name', '<>', 'Indonesia');
+        
+        $origins = $countries->get();
+
+        $destinations = DB::table('cities')
+        ->select('cities.name')
+        ->union($countries)
+        ->get();
+
+        $home = DB::table('cities')
+        ->select('name')
         ->get();
 
         $ongoing_transaction = DB::table('transactions')
@@ -98,13 +127,29 @@ class DashboardController extends Controller
         }
 
 
-        return view('dashboard', compact('draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile','countries', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request'));
+        return view('dashboard', compact('home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request'));
     }
     
     function editTrip($id){
 
+        $countries = DB::table('countries')
+        ->select('countries.name')
+        ->where('name', '<>', 'Indonesia');
+        
+        $origins = $countries->get();
+
+        $destinations = DB::table('cities')
+        ->select('cities.name')
+        ->union($countries)
+        ->get();
+
+        $home = DB::table('cities')
+        ->select('name')
+        ->get();
+
         $edit_trip = DB::table('trips')
-        ->select('trips.*')
+        ->select('trips.*', 'luggage_limit.weight')
+        ->leftJoinSub(DB::table('items')->select(DB::raw('items.trip_id, SUM(items.item_weight * items.item_stock) as weight'))->where('items.trip_id',$id), 'luggage_limit', 'trips.id', 'luggage_limit.trip_id')
         ->where('id',$id)
         ->first();
 
@@ -112,7 +157,7 @@ class DashboardController extends Controller
         ->select('*')
         ->where('trip_id', $id)
         ->get();
-        return view('trip-draft', compact('edit_trip', 'added_item'));
+        return view('trip-draft', compact('destinations','home','edit_trip', 'added_item'));
     }
     
     function updateTrip(Request $request){
@@ -124,6 +169,7 @@ class DashboardController extends Controller
             'start_date' => $request->start_date,
             'arrival_date' => $request->arrival_date,
             'request' => $request->request_other,
+            'luggage' => $request->luggage,
             'description' => $request->description,
         ]);
         return redirect('/trip-draft/' . $request->id);
@@ -193,16 +239,41 @@ class DashboardController extends Controller
     }
 
     function publishTrip(Request $request){
+
+        $total_price = DB::table('items')
+        ->select(DB::raw('SUM(item_price * item_stock) AS total_price_trip'))
+        ->where('items.trip_id', $request->trip_id)
+        ->first();
+
+        $total = $total_price->total_price_trip;
+        $kurs = 15000;
+        $fob = 500 * $kurs;
+        $tax = 0;
+
+        if($total > $fob ){
+            $pabean = ($total - $fob);
+            $beamasuk = 0.1 * $pabean;
+            $nilaiimpor = $pabean + $beamasuk;
+            $ppn =  0.11 * $nilaiimpor;
+            $pph =  0.1 * $nilaiimpor;
+
+            $tax = $beamasuk + $ppn + $pph;
+        }
+
+
         $publish_trip = DB::table('trips')
         ->where('id', $request->trip_id)
         ->update([
-            'status' => 'ongoing' 
+            'status' => 'ongoing',
+            'tax' => $tax,
+            'total_price' => $total
         ]);
         return redirect('/dashboard');
     }
 
     function addWtbItem(Request $request){
 
+        
         $filename = $request->file('wtb_image')->getClientOriginalName();
         $generate_file = time().'_'.$filename;
 
@@ -234,21 +305,46 @@ class DashboardController extends Controller
 
     function updateProfile(Request $request)
     {
-        $filename = $request->file('avatar')->getClientOriginalName();
-        $generate_file = time().'_'.$filename;
+        $search_city = DB::table('cities')
+        ->select('*')
+        ->where('name', $request->city)
+        ->first();
 
-        $path = $request->file('avatar')->storeAs('public/', $generate_file);
+        if(!$search_city) return back()->withErrors(['msg' => 'The city name is not a valid Indonesian city']);
 
-        $update_profile = DB::table('users')
+        if($request->file('avatar')){
+
+            $filename = $request->file('avatar')->getClientOriginalName();
+            $generate_file = time().'_'.$filename;
+    
+            $path = $request->file('avatar')->storeAs('public/', $generate_file);
+            $update_profile = DB::table('users')
         ->where('id', $request->id )
         ->update([
             'fullname' => $request->fullname,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'city' => $request->city,
+            'NPWP' => $request->NPWP,
             'password' => Hash::make($request->password),
             'avatar' => $generate_file,
             'address' => $request->address
         ]);
+        }else{
+
+            $update_profile = DB::table('users')
+            ->where('id', $request->id )
+            ->update([
+                'fullname' => $request->fullname,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'city' => $request->city,
+                'NPWP' => $request->NPWP,
+                'password' => Hash::make($request->password),
+                'address' => $request->address
+            ]);
+        }
+
         return redirect('/dashboard');
     }
     
