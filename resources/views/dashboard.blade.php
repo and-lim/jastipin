@@ -7,7 +7,11 @@
             <h1 class="text-white text-center">Dashboard</h1>
         </div>
     </div>
-
+    @if ($errors->any())
+    <div class="alert alert-dark" role="alert" style="outline: none">
+        <i class="text-danger mt-1">{{$errors->first()}}</i>
+    </div>
+    @endif
     <div class="container my-3 py-5 dashboard">
         <div class="row">
             <div class="col-lg-3">
@@ -152,14 +156,29 @@
                                 </div>
                                 <div class="mb-3 form-group row">
                                     <label for="inputPassword" class="col-sm-2 col-form-label">City</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="" class="form-control" id="inputCity" value="{{ $user_profile->password }}">
+                                    <!-- <div class="col-sm-10">
+                                        <input type="text" name="city" class="form-control" id="inputCity" value="">
+                                    </div> -->
+                                    <div class="dropdown-datalist">
+                                        <input list="user_cities" id="exampleDataList" name="city" class="form-control" placeholder="City" aria-label="city" value="{{ $user_profile->city }}">
                                     </div>
-                                </div> 
+                                    <datalist id="user_cities">
+                                        @foreach($city as $c)
+                                        <option value="{{ $c->name }}">
+                                            @endforeach
+                                    </datalist>
+                                </div>
+
                                 <div class="mb-3 form-group row">
                                     <label for="address" class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-10">
                                         <textarea name="address" class="form-control" id="" cols="30" rows="5">{{ $user_profile->address }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">NPWP</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="npwp" class="form-control" id="inputCity" oninput="validateInput(this)" value="{{ $user_profile->npwp }}">
                                     </div>
                                 </div>
 
@@ -185,9 +204,9 @@
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Add balance
                                         </button>
-                                          <button type="button" class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#withdraw">
+                                        <button type="button" class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#withdraw">
                                             Withdraw
-                                          </button>
+                                        </button>
                                     </div>
 
                                     <!-- add balance Modal -->
@@ -201,7 +220,7 @@
                                                 <form action="/top-up" method="POST" enctype="multipart/form-data">
 
                                                     <div class="modal-body">
-                                                    <div class="form-group my-3">
+                                                        <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Code</label>
                                                             <input type="text" name="bank_code" class="form-control">
                                                         </div>
@@ -225,7 +244,7 @@
                                                             <label for="" class="form-label">Transfer Receipt</label>
                                                             <input type="file" class="form-control">
                                                         </div>
-    
+
                                                     </div>
                                                     <div class="modal-footer text-center">
                                                         <button type="submit" class="btn btn-success">Add Balance</button>
@@ -238,68 +257,68 @@
                                     {{-- withdraw --}}
                                     <div class="modal fade" id="withdraw" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
                                         <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group my-3">
-                                                    <label for="" class="form-label">Amount</label>
-                                                    <input type="text" class="form-control">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="d-flex gap-3">
-                                                    <p>Unique Code :</p>
-                                                    <p>123</p>
-                                                </div>
-                                                <div class="d-flex gap-3">
-                                                    <p>Total Amount :</p>
-                                                    <p>100123</p>
-                                                </div>
-                                                <div class="form-group my-3">
-                                                    <label for="" class="form-label">Transfer Receipt</label>
-                                                    <input type="file" class="form-control">
-                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group my-3">
+                                                        <label for="" class="form-label">Amount</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="d-flex gap-3">
+                                                        <p>Unique Code :</p>
+                                                        <p>123</p>
+                                                    </div>
+                                                    <div class="d-flex gap-3">
+                                                        <p>Total Amount :</p>
+                                                        <p>100123</p>
+                                                    </div>
+                                                    <div class="form-group my-3">
+                                                        <label for="" class="form-label">Transfer Receipt</label>
+                                                        <input type="file" class="form-control">
+                                                    </div>
 
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <button type="button" class="btn btn-success">Withdraw</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="button" class="btn btn-success">Withdraw</button>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
 
                                     {{-- withdraw --}}
                                     <div class="modal fade" id="withdraw" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
                                         <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group my-3">
-                                                    <label for="" class="form-label">Amount</label>
-                                                    <input type="text" class="form-control">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="d-flex gap-3">
-                                                    <p>Unique Code :</p>
-                                                    <p>123</p>
-                                                </div>
-                                                <div class="d-flex gap-3">
-                                                    <p>Total Amount :</p>
-                                                    <p>100123</p>
-                                                </div>
-                                                <div class="form-group my-3">
-                                                    <label for="" class="form-label">Transfer Receipt</label>
-                                                    <input type="file" class="form-control">
-                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group my-3">
+                                                        <label for="" class="form-label">Amount</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="d-flex gap-3">
+                                                        <p>Unique Code :</p>
+                                                        <p>123</p>
+                                                    </div>
+                                                    <div class="d-flex gap-3">
+                                                        <p>Total Amount :</p>
+                                                        <p>100123</p>
+                                                    </div>
+                                                    <div class="form-group my-3">
+                                                        <label for="" class="form-label">Transfer Receipt</label>
+                                                        <input type="file" class="form-control">
+                                                    </div>
 
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <button type="button" class="btn btn-success">Withdraw</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="button" class="btn btn-success">Withdraw</button>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -329,16 +348,16 @@
                                 </tbody>
                             </table>
                             <!-- <div class=" mb-3"> -->
-                                <!-- Button trigger modal -->
-                                <!-- <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <!-- Button trigger modal -->
+                            <!-- <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Add Item
                                 </button> -->
 
-                                <!-- Modal -->
-                                <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <!-- Modal -->
+                            <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <form action="/addWtbItem" method="POST" enctype="multipart/form-data"> -->
-                                        @csrf
-                                        <!-- <div class="modal-dialog modal-lg">
+                            @csrf
+                            <!-- <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel">Add Item</h5>
@@ -360,11 +379,7 @@
                                                                 <input list="datalistOptions" id="exampleDataList" name="wtb_location" class="form-control" aria-label="origin">
                                                             </div>
                                                             <datalist id="datalistOptions">
-                                                                @foreach ($countries as $country)
-
-                                                                <option value="{{ $country->name }}">
-
-                                                                    @endforeach
+                                                                
                                                             </datalist>
                                                         </div>
 
@@ -538,18 +553,19 @@
                             <form action="/addTrip" method="POST">
                                 @csrf
                                 <div class="tab-pane fade" id="pills-add-trip" role="tabpanel" aria-labelledby="pills-profile-tab">
+
                                     <div class="card p-3 shadow-sm mt-2">
                                         <div class="form-group mb-3">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="destination" class="form-label">Destination</label>
                                                     <div class="dropdown-datalist">
-                                                        <input list="datalistOptions" id="exampleDataList" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
+                                                        <input list="destinations" id="exampleDataList" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
                                                     </div>
-                                                    <datalist id="datalistOptions">
-                                                        @foreach ($countries as $country)
+                                                    <datalist id="destinations">
+                                                        @foreach ($destinations as $destination)
 
-                                                        <option value="{{ $country->name }}">
+                                                        <option value="{{ $destination->name }}">
 
                                                             @endforeach
                                                     </datalist>
@@ -560,14 +576,10 @@
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
                                                     <div class="dropdown-datalist">
-                                                        <input list="datalistOptions" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
+                                                        <input list="origins" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
                                                     </div>
-                                                    <datalist id="datalistOptions">
-                                                        @foreach ($countries as $country)
-
-                                                        <option value="{{ $country->name }}">
-
-                                                            @endforeach
+                                                    <datalist id="origins">
+                                                        <option value="{{ auth()->user()->city }}">
                                                     </datalist>
                                                 </div>
                                             </div>
@@ -826,10 +838,11 @@
                                                                         </td>
                                                                         <td>{{ $detail_item->quantity }}</td>
                                                                         <td>Rp {{ $detail_item->item_display_price }}</td>
-                                                                        
-                                                                        <td> 
+
+                                                                        <td>
                                                                             @if($detail_item->item_status == 'cancelled')
-                                                                            {{ $detail_item->cancel_reason }}@endif</td>
+                                                                            {{ $detail_item->cancel_reason }}@endif
+                                                                        </td>
                                                                         <td>Rp {{ $detail_item->total }}</td>
                                                                     </tr>
                                                                     @endforeach
@@ -847,17 +860,18 @@
                                                                         </td>
                                                                         <td>{{ $detail_request->quantity }}</td>
                                                                         <td>Rp {{ $detail_request->request_price }}</td>
-                                                                        
-                                                                        <td> 
+
+                                                                        <td>
                                                                             @if($detail_request->item_status == 'cancelled')
-                                                                            {{ $detail_request->cancel_reason }}@endif</td>
+                                                                            {{ $detail_request->cancel_reason }}@endif
+                                                                        </td>
                                                                         <td>Rp {{ $detail_request->total }}</td>
                                                                     </tr>
                                                                     @endforeach
-                                                                    
+
                                                                 </tbody>
                                                                 <tfoot style="border-top: 2px solid black; ">
-                                                                <tr>
+                                                                    <tr>
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
@@ -962,15 +976,19 @@
 <script>
     var random_code = Math.floor(Math.random() * 1000);
 
-    $('#topup_amount').on('keyup',function(){
+    $('#topup_amount').on('keyup', function() {
         var amount = parseInt($(this).val())
-        if(amount){
+        if (amount) {
 
             amount = amount + random_code
             $('#unique_amount').text(random_code)
             $('#total_amount').text('Rp ' + amount)
         }
     })
-
+</script>
+<script>
+    function validateInput(input) {
+        input.value = input.value.replace(/\D/g, '');
+    }
 </script>
 @endsection

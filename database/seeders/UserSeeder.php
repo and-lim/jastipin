@@ -22,8 +22,10 @@ class UserSeeder extends Seeder
                 'fullname' => 'user 1',
                 'email' => 'user1@gmail.com',
                 'phone_number' => '08121212121',
+                'city' => 'Kota Bogor',
                 'is_admin' => false,
                 'balance' => 100000000,
+                'npwp' => 123123123,
                 'password' => Hash::make('123456')
             ),
             array(
@@ -32,7 +34,9 @@ class UserSeeder extends Seeder
                 'email' => 'user2@gmail.com',
                 'phone_number' => '08121212121',
                 'is_admin' => false,
+                'city' => 'Kota Banda Aceh',
                 'balance' => 100000000,
+                'npwp' => 123123123,
                 'password' => Hash::make('123456')
             ),
             array(
@@ -41,7 +45,9 @@ class UserSeeder extends Seeder
                 'email' => 'user3@gmail.com',
                 'phone_number' => '08121212121',
                 'is_admin' => false,
+                'city' => 'Kabupaten Banjarnegara',
                 'balance' => 100000000,
+                'npwp' => 123123123,
                 'password' => Hash::make('123456')
             ),
             array(
@@ -50,7 +56,9 @@ class UserSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'phone_number' => '08121212121',
                 'is_admin' => true,
+                'city' => 'Kota Jakarta Selatan',
                 'balance' => 0,
+                'npwp' => 123123123,
                 'password' => Hash::make('123456')
             )
         );

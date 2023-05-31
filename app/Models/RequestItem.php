@@ -22,6 +22,7 @@ class RequestItem extends Model
        'request_quantity', 
        'request_weight', 
        'request_status', 
+       'request_tax',
        'trip_id'
     ];
 }

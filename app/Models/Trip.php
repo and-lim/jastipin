@@ -14,8 +14,10 @@ class Trip extends Model
         'origin',
         'start_date',
         'arrival_date',
+        'luggage',
         'request',
         'status',
+        'tax',
         'description',
         'user_id'
     ];
