@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('request_price_pabean')->nullable();
             $table->integer('request_quantity');
             $table->integer('request_weight');
+            $table->integer('request_tax');
             $table->string('request_status')->default("waiting approval");
             $table->timestamps();
         });

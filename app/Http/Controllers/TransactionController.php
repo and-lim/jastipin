@@ -29,6 +29,19 @@ class TransactionController extends Controller
         //     return back()->withErrors(['another_trip' => 'There are some items in your cart from another trip, please checkout your cart first!']);
         // } else {
 
+            $kurs = 15000;
+            $fob = 500 * $kurs;
+            $tax = 0;
+    
+                $pabean = $request->request_price;
+                $beamasuk = 0.1 * $pabean;
+                $nilaiimpor = $pabean + $beamasuk;
+                $ppn =  0.11 * $nilaiimpor;
+                $pph =  0.1 * $nilaiimpor;
+    
+                $tax = $beamasuk + $ppn + $pph;
+
+
         $filename = $request->file('request_image')->getClientOriginalName();
         $generate_file = time() . '_' . $filename;
 
@@ -46,6 +59,7 @@ class TransactionController extends Controller
             'request_price' => $request->request_price,
             'request_quantity' => $request->request_quantity,
             'request_weight' => $request->request_weight,
+            'request_tax' => $tax,
             'trip_id' => $request->trip_id
         ]);
 
@@ -115,6 +129,24 @@ class TransactionController extends Controller
         return back();
     }
 
+    public static function vincentyGreatCircleDistance(
+        $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+      {
+        // convert from degrees to radians
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+      
+        $lonDelta = $lonTo - $lonFrom;
+        $a = pow(cos($latTo) * sin($lonDelta), 2) +
+          pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+        $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+      
+        $angle = atan2(sqrt($a), $b);
+        return $angle * $earthRadius;
+      }
+
     function viewCart()
     {
         $check_status = DB::table('carts')
@@ -135,14 +167,45 @@ class TransactionController extends Controller
 
         $cart_trip = DB::table('carts')
             ->leftJoin('trips', 'carts.trip_id', 'trips.id')
-            ->select('carts.trip_id', 'trips.*')
+            ->leftJoin('items', 'carts.item_id', 'items.id')
+            ->leftJoin('request_items', 'carts.request_id', 'request_items.id')
+            ->select(DB::raw('SUM(carts.cart_item_quantity*request_items.request_tax) as total_request_tax'),DB::raw('SUM(carts.cart_item_quantity*items.item_price) as total_price_item'),'carts.trip_id', 'trips.*')
             ->where('carts.user_id', auth()->user()->id)
             ->where('carts.cart_status', 'unpaid')
             ->groupBy('carts.trip_id')
             ->get();
 
+        // dd($cart_trip);
+
         $array_trip = [];
+        $longlatbuyer = DB::table('users')
+        ->join('cities', 'users.city', 'cities.name')
+        ->select('cities.longitude', 'cities.latitude')
+        ->where('users.id', auth()->user()->id)
+        ->first();
+
         foreach ($cart_trip as $trip) {
+            
+            $trip->tax = (int) (($trip->total_price_item / $trip->total_price) * $trip->tax) + $trip->total_request_tax;
+
+            // dd($trip->tax, $trip->id);
+            $longlattraveler = DB::table('users')
+            ->join('cities', 'users.city', 'cities.name')
+            ->select('cities.longitude', 'cities.latitude')
+            ->where('users.id', $trip->user_id)
+            ->first();
+
+            $trip->distance = $this->vincentyGreatCircleDistance($longlatbuyer->latitude, $longlatbuyer->longitude, $longlattraveler->latitude, $longlattraveler->longitude);
+            
+            $trip->distance = ($trip->distance / 1000);
+
+            $trip->ongkir = 5000 * (2 + (int)($trip->distance / 100));
+
+            // $berat_item = DB::table('carts')
+            // ->join('items','carts.item_id','items.id')
+            // ->select(DB::raw('SUM(items.item_weight*carts.cart_item_quantity) as total_item_weight'))
+            // ->where('carts.user_id', auth()->user()->id)
+
             $item = DB::table('carts')
                 ->join('items', 'carts.item_id', 'items.id')
                 ->select('items.*', 'carts.*')
@@ -162,13 +225,21 @@ class TransactionController extends Controller
                 ->where('carts.trip_id', $trip->trip_id)
                 ->get();
 
+            
+            // $total_price_intrip = DB::table('items')
+            
+            
             // $array_item = array('items' => $item, 'request_items' => $request);
             $array_item = app()->make('stdClass');
             $array_item->items = $item;
             $array_item->request_items = $request;
             // $array_trip = array_add($array_trip, $trip->trip_id, $array_item);
             $array_trip = Arr::add($array_trip, $trip->trip_id, $array_item);
+
+            
         }
+
+        // dd($cart_trip);
         // $cart_data = DB::table('carts')
         // ->leftJoin('items','carts.item_id','items.id')
         // ->leftJoin('request_items', 'carts.request_id', 'request_items.id')
@@ -302,7 +373,7 @@ class TransactionController extends Controller
                 'user_id' => auth()->user()->id,
                 'trip_id' => $trip_nih,
                 'shipping_type_id' => $shipping_type_transaction,
-                'beacukai_pabean' => $beacukai_pabean_transaction,
+                'beacukai_pabean' => $trip->tax,
                 'total_paid' => $price_per_trip
             ]);
 

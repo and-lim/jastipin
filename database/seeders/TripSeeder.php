@@ -19,23 +19,39 @@ class TripSeeder extends Seeder
         $trips = array(
             array(
                 'destination' => 'Japan',
-                'origin' => 'Indonesia',
+                'origin' => 'Kota Bogor',
                 'start_date' => '2023-05-20',
                 'arrival_date' => '2023-05-28',
                 'request' => true,
+                'total_price' => 11000000,
+                'tax' => 1158500,
                 'description' => 'deskripsi nih',
                 'status' => 'ongoing',
                 'user_id' => 1,
             ),
             array(
                 'destination' => 'United States',
-                'origin' => 'Indonesia',
+                'origin' => 'Kabupaten Banjarnegara',
                 'start_date' => '2023-05-25',
                 'arrival_date' => '2023-05-30',
                 'request' => true,
                 'description' => 'deskripsi nih',
                 'status' => 'ongoing',
+                'tax' => 21018500,
+                'total_price' => 71000000,
                 'user_id' => 3,
+            ),
+            array(
+                'destination' => 'Japan',
+                'origin' => 'Kota Bogor',
+                'start_date' => '2023-05-29',
+                'arrival_date' => '2023-05-30',
+                'request' => true,
+                'tax' => 0,
+                'total_price' => 0,
+                'description' => 'deskripsi nih',
+                'status' => 'draft',
+                'user_id' => 1,
             )
 
         );

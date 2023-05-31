@@ -67,7 +67,7 @@
             </div>
             @endif
 
-            @foreach($order_list_header as $order_header)
+        @foreach($order_list_header as $order_header)
             <div class="col-lg-12">
                 <div class="card p-3">
                     <div class="card p-3 mb-3 shadow">
@@ -134,10 +134,12 @@
                                 <tr>
                                     <td style="width: 10px;">
                                         <div class="button">
-                                            <button type="button" @if ($order_item->item_status == 'cancelled') disabled @endif class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            @if($order_item->item_status != 'bought')
+                                            <button type="button" @if ($order_item->item_status == 'cancelled') disabled @endif class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#item{{ $order_item->item_id }}">
                                                 <i class="fa fa-times"></i>
                                             </button>
-                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            @endif
+                                            <div class="modal fade" id="item{{ $order_item->item_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-none">
@@ -149,10 +151,19 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="form-label">Select reason</label>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="reason" id="flexRadioDefault1" value="Item Not Available">
+                                                                        <input class="form-check-input" type="radio" name="reason" id="itemNotAvailable" value="Item Not Available">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Item Not Available
                                                                         </label>
+                                                                        {{-- <input class="form-check-input" type="radio" name="reason" id="itemOutOfStock" value="Item Out of Stock">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Item Out of Stock
+                                                                        </label>
+                                                                        <input class="form-check-input" type="radio" name="reason" id="destinationChange" value="Destination Plan Changed">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Destination Plan Changed
+                                                                        </label>
+                                                                        --}}
                                                                     </div>
                                                                 </div>
 
@@ -173,17 +184,20 @@
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
-                                        {{-- <div class="form-check">
-                                            @if($order_item->item_status != 'cancelled')
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            @endif
+                                        @if($order_item->item_status != 'cancelled')
+                                        <form action="/itemBought" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="item_id" value="{{ $order_item->item_id }}">
+                                            <button type="submit" @if($order_item->item_status == 'bought') disabled @endif class="btn btn-success">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </form>
+                                        @endif
+                                        <div class="form-check">
                                             <label class="form-check-label" for="">
                                                 {{ $order_item->item_name }}
                                             </label>
-                                        </div> --}}
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-check"></i>
-                                        </button>
+                                        </div>
                                     </td>
                                     <td>{{ $order_item->quantity }}</td>
                                     <td>Rp {{ $order_item->item_display_price }}</td>
@@ -196,53 +210,72 @@
                                 <tr>
                                     <td style="width: 10px;">
                                         <div class="button">
-                                            <button type="button" class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            @if($order_request->item_status != 'bought')
+                                            <button type="button" class="btn btn-danger py-0 px-2" @if ($order_request->item_status == 'cancelled') disabled @endif data-bs-toggle="modal" data-bs-target="#request{{ $order_request->request_id }}">
                                                 <i class="fa fa-times"></i>
                                             </button>
-                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            @endif
+                                            <div class="modal fade" id="request{{ $order_request->request_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-none">
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <h3 class="fw-bold mb-3">Why Cancel?</h3>
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="form-label">reason</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="" class="form-label">Select reason</label>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Default radio
-                                                                    </label>
+                                                        <form action="/cancelBuyRequest" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                                <div class="form-group">
+                                                                    <label for="" class="form-label">Select reason</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="reason" id="requestNotAvailable" value="Item Not Available">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Item Not Available
+                                                                        </label>
+                                                                        {{-- <input class="form-check-input" type="radio" name="reason" id="requestOutOfStock" value="Item Out of Stock">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Item Out of Stock
+                                                                        </label>
+                                                                        <input class="form-check-input" type="radio" name="reason" id="destinationChanged" value="Destination Plan Changed">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                            Destination Plan Changed
+                                                                        </label>
+                                                                        --}}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group mb-3">
+                                                                    <label for="" class="form-label">reason</label>
+                                                                    <input type="text" class="form-control">
                                                                 </div>
                                                             </div>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary">Submit</button>
-                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" name="request_id" value="{{ $order_request->request_id }}">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
-                                        {{-- <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <form action="/requestBought" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="request_id" value="{{ $order_request->request_id }}">
+                                            <button type="submit" @if($order_request->item_status == 'bought') disabled @endif class="btn btn-success">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </form>
+                                        <div class="form-check">
                                             <label class="form-check-label" for="">
                                                 {{ $order_request->request_name }}
                                             </label>
-                                        </div> --}}
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-check"></i>
-                                        </button>
+                                        </div>
                                     </td>
                                     <td>{{ $order_request->quantity }}</td>
                                     <td>Rp {{ $order_request->request_price }}</td>
+                                    <td></td>
                                     <td>Rp {{ $order_request->total }}</td>
                                 </tr>
                                 @endforeach
@@ -281,7 +314,11 @@
                                 </div>
                                 </div>
                             </div> --}}
-                        <button class="btn btn-success px-3">Shipment</button>
+                        <form action="/shipping" method="POST">
+                            @csrf
+                            <input type="hidden" name="transaction_id" value="{{ $order_header->id }}">
+                            <button class="btn btn-success px-3" @if(!$order_header->shippable) disabled @endif>Shipment</button>
+                        </form>
                     </div>
                 </div>
             </div>

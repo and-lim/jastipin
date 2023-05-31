@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone_number');
+            $table->string('city');
             $table->text('address')->nullable();
             $table->integer('balance')->nullable();
+            $table->integer('npwp')->nullable();
             $table->string('password');
             $table->text('avatar')->nullable();
             $table->boolean('is_admin');
