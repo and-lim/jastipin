@@ -438,7 +438,7 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <h1 class="mb-2">{{ $wtb->wtb_name }}</h1>
-                                                <p>{{ $wtb->wtb_price }}</p>
+                                                <p id="price">{{ $wtb->wtb_price }}</p>
                                                 <p>{{ $wtb->wtb_location }}</p>
                                                 <p>{{ $wtb->wtb_description }}</p>
                                                 <div class="float-end d-flex align-items-center gap-4">
@@ -532,7 +532,7 @@
                                                             <img src="{{ asset('/storage/' .$item->item_image) }}" class="item-img" alt="">
                                                             <div class="img-detail d-flex flex-column mt-1">
                                                                 <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
-                                                                <label for="" class="form-label mb-0">Rp {{ $item->item_display_price }}</label>
+                                                                <label for="" class="form-label mb-0" id="price">Rp {{ $item->item_display_price }}</label>
                                                             </div>
                                                         </div>
                                                         @endif

@@ -3,8 +3,14 @@
 @section('mainSection')
 
     <section>
-
         <div class="container my-5 py-5">
+            <div class="d-flex justify-content-start">
+                <a href="/dashboard" class="btn btn-warning px-2">
+                    <h6 class="mt-2"><i class="fa fa-arrow-left me-2"></i>  
+                        Back to Trip
+                    </h6>
+                </a>
+            </div>
             <div class="row mb-5 justify-content-center">
                 <div class="col-lg-3">
                     <div class="image-profile mb-3 d-flex flex-column justify-content-center align-items-center my-3">
@@ -21,7 +27,8 @@
                                 <small class="fa fa-star"></small>
                             </div>
                             <div class="score">
-                                <p>5/5</p>
+                                <p class="d-inline-block">5</p>
+                                <p class="d-inline-block"> /5</p>
                             </div>
                         </div>
                         <div class="profile-desc">
@@ -139,7 +146,7 @@
                 </div>
             </div>
              
-            <div class="line "></div>
+            <div class="line"></div>
 
             <div class="ongoing-trip mt-4">
                 <h3 class="fw-bold">Past Trip</h3>

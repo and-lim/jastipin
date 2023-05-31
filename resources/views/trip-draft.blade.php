@@ -166,7 +166,7 @@
                                                         <div class="mb-3 form-group ">
                                                             <label for="Price" class="form-label">Item Price</label>
                                                             <div class="col-sm-5">
-                                                                <input type="text" name="item_price" class="form-control" id="price" placeholder="Rp">
+                                                                <input type="text" id="price" name="item_price" class="form-control" id="price" placeholder="Rp">
                                                             </div>
                                                         </div>
 
@@ -220,7 +220,7 @@
                                             </div>
                                             <div class="item-desc">
                                                 <label for="" class="form-label text-primary fw-bold">Item Price</label>
-                                                <p>Rp {{ $item->item_price }}</p>
+                                                <p id="price">Rp {{ $item->item_price }}</p>
                                             </div>
                                             <div class="item-desc mb-3">
                                                 <label for="description" class="form-label text-primary fw-bold">Item Description</label>

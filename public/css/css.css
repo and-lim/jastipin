@@ -36,12 +36,23 @@ ul.navbar-nav{
 }
 
 
+section{
+    min-height: 100vh;
+}
+
+
 .hero-header{
     background-color: #4c4c53;
-    height: 80vh;
+    height: 70vh;
     vertical-align: middle;
     display: flex;
     align-items: center;
+}
+
+@media (max-width:600px) {
+    .hero-header{
+        height: 100%;
+    }
 }
 
 .intro-title{
@@ -51,7 +62,6 @@ ul.navbar-nav{
 .form-hero{
     margin: 0 auto;
 }
-
 
 .line{
     width: 100%;
@@ -95,7 +105,9 @@ h1.dashboard-title::after{
 
 .card-image{
     padding: 0.5rem;
-    width: fit-content;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: white;
 
 }
 .card-image img{
@@ -422,8 +434,6 @@ img.checkout-image{
 }
 
 footer{
-    position: fixed;
-    bottom: 0;
     width: 100%;
     align-items: center;
     justify-content: center;

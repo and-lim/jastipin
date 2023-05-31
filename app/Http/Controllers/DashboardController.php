@@ -325,7 +325,7 @@ class DashboardController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'city' => $request->city,
-            'NPWP' => $request->NPWP,
+            'NPWP' => $request->npwp,
             'password' => Hash::make($request->password),
             'avatar' => $generate_file,
             'address' => $request->address
@@ -339,7 +339,7 @@ class DashboardController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
                 'city' => $request->city,
-                'NPWP' => $request->NPWP,
+                'NPWP' => $request->npwp,
                 'password' => Hash::make($request->password),
                 'address' => $request->address
             ]);

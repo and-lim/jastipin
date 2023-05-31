@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-lg-6 position-relative d-lg-block d-none">
                     <div>
-                        <img class="position-absolute h-100 w-100" src="img/snack.jpg" alt="">
+                        <img class="position-absolute h-100 w-100" src="img/jastip.jpg" alt="">
                     </div>
                     <div class="position-absolute h-100 w-100" style="background-color: rgba(6, 5, 39, 0.5);"></div>
                 </div>

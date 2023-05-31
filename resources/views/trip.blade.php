@@ -3,7 +3,7 @@
 @section('mainSection')
 <section class="py-5">
 
-    <div class="hero-header py-5" style="height: 70vh">
+    <div class="hero-header py-5">
         <div class="container mt-4">
             <div class="row col-lg-10 mx-auto">
                 <div class="search-title my-3 text-center">
@@ -38,12 +38,12 @@
     <div class="container-fluid py-3 mx-1 mt-5">
         <h2 class="text-center fw-bold mb-5 ms-lg-3" id="slebew">Ongoing Trip</h2>
         <div class="row m-0">
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-lg-0 mb-2">
                 <aside class="left-sidebar rounded-3 p-3 shadow">
                     <div class="sidebar-title">
                         <h5 class="fw-bold">Category</h5>
                     </div>
-                    <div class="category-list mt-3">
+                    {{-- <div class="category-list mt-3">
                         <input type="checkbox" id="food" name="category" value="food" class="category_check_box">
                         <label for="food"> Food & Beverages</label><br></li>
                         <input type="checkbox" id="fashion" name="category" value="fashion" class="category_check_box">
@@ -52,7 +52,23 @@
                         <label for="electronic"> Electronic Gadget</label><br></li>
                         <input type="checkbox" id="accessories" name="category" value="accessories" class="category_check_box">
                         <label for="accessories"> Accessories</label><br></li>
+                    </div> --}}
+                    <div class="select my-2">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Food</option>
+                            <option value="1">Electronic</option>
+                            <option value="2">Fashion</option>
+                            <option value="3">Accessories</option>
+                          </select>
                     </div>
+                    <div class="button mt-2">
+                        <button class="btn btn-primary">
+                            filter
+                            <i class="fa fa-filter">
+                            </i>
+                        </button>
+                    </div>
+
                 </aside>
             </div>
 
@@ -67,15 +83,15 @@
                         <div class="trip-list mb-3">
                             <div class="card rounded-4  shadow-sm">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row gap-lg-0 gap-3">
                                         <div class="col-lg-3 text-center">
                                             <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
                                             <h5 class="text-center mt-3">{{ $trip->fullname }}</h5>
                                             <a href="/traveler" class="btn btn-success mt-3"> See Profile</a>
                                         </div>
-                                        <div class="col-lg-9">
-                                            <h3 class="text-primary fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>
-                                            <p>{{ $trip->description }}</p>
+                                        <div class="col-lg-9 my-lg-0 my-2">
+                                            <h3 class="text-primary text-center text-lg-start fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>
+                                            <p class="text-center text-lg-start">{{ $trip->description }}</p>
                                             <div class="row gap-1">
                                                 @foreach ($items as $item)
 

@@ -109,7 +109,7 @@
 
     @yield('mainSection')
 
-    <footer class="position-relative bottom-0 bg-dark py-2 text-white text-center">
+    <footer class="position-sticky bg-dark py-2 text-white text-center">
         <h5>copyright &copy; jastip</h5>
     </footer>
 
@@ -118,7 +118,7 @@
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.9.0/autoNumeric.min.js" integrity="sha512-8gzQcg9kbS4PKtpwg52pfVLjkqSYAc5IWHnd0eLGgxlcAnqYPcVLCh9pgQErFthJvmmxFNvbCAGF6vuHtGfZsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const swiper = new Swiper('.swiper', {
             // Optional parameters
@@ -168,6 +168,13 @@
             // 	el: '.swiper-scrollbar',
             // },
         });
+    </script>
+
+    <script>
+        new AutoNumeric('#price',{
+            decimalPlace:'2',
+            decimalCharacter:'.'
+        })
     </script>
 
 </body>
