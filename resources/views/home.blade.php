@@ -94,8 +94,8 @@
             </div> --}}
    
 
-            <div class="container my-3">
-                <h1 class="title mb-3">Trip</h1>
+            <div class="container my-lg-3 pb-5 pb-lg-0">
+                <h1 class="title mb-lg-3 mb-5">Trip</h1>
                 <div class="row ">
                     <div class="col-lg-10">
                         <div class="trip-list d-flex flex-column gap-2">
@@ -142,10 +142,10 @@
                         </div>
                     </div>
                 </div>
-                <a href="/trip" class="btn btn-primary float-end">See more Trip</a>
+                <a href="/trip" class="btn btn-primary float-end my-3">See more Trip</a>
             </div>
 
-            <div class="container mt-3">
+            <div class="container mt-3 pt-5 pt-lg-0">
                 <div class="section-title text-center pt-5"></div>
                 <div class="row">
                     <div class="col-lg-6">

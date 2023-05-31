@@ -117,7 +117,7 @@
                         @endif
                     </div>
 
-                    <div class="items">
+                    <div class="items table-responsive">
                         <table class="table table-borderless">
                             <thead>
                                 <tr>
@@ -132,7 +132,7 @@
                             <tbody>
                                 @foreach($order_detail_item[$order_header->id] as $order_item)
                                 <tr>
-                                    <td style="width: 10px;">
+                                    <td style="width: 20px;" class="me-2 pe-2">
                                         <div class="button">
                                             @if($order_item->item_status != 'bought')
                                             <button type="button" @if ($order_item->item_status == 'cancelled') disabled @endif class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#item{{ $order_item->item_id }}">

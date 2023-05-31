@@ -49,6 +49,12 @@ section{
     align-items: center;
 }
 
+@media (max-width:600px) {
+    .hero-header{
+        height: 100%;
+    }
+}
+
 .intro-title{
     font-size: 5rem;
 }
