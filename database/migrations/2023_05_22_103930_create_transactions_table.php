@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('trip_id')->references('id')->on('trips');
             $table->unsignedBigInteger('shipping_type_id');
             $table->foreign('shipping_type_id')->references('id')->on('shipping_types');
+            $table->string('shipping_trip_price');
             $table->string('transaction_status')->default('ongoing');
             $table->integer('beacukai_pabean');
             $table->integer('total_paid');

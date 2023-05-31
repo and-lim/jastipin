@@ -199,12 +199,18 @@ class TransactionController extends Controller
             
             $trip->distance = ($trip->distance / 1000);
 
-            $trip->ongkir = 5000 * (2 + (int)($trip->distance / 100));
+            
+            
+            $berat_item = DB::table('carts')
+            ->leftJoin('items','carts.item_id','items.id')
+            ->leftJoin('request_items', 'carts.request_id', 'request_items.id')
+            ->select(DB::raw('SUM(cart_item_quantity * CASE WHEN carts.item_id is null THEN request_items.request_weight else items.item_weight END) AS berat_ongkir'))
+            ->where('carts.user_id', auth()->user()->id)
+            ->first();
 
-            // $berat_item = DB::table('carts')
-            // ->join('items','carts.item_id','items.id')
-            // ->select(DB::raw('SUM(items.item_weight*carts.cart_item_quantity) as total_item_weight'))
-            // ->where('carts.user_id', auth()->user()->id)
+            $trip->ongkir = (5000 * (2 + (int)($trip->distance / 100))) + (($berat_item->berat_ongkir + 1) * 1000);
+
+            // dd($trip->ongkir);
 
             $item = DB::table('carts')
                 ->join('items', 'carts.item_id', 'items.id')
@@ -280,7 +286,10 @@ class TransactionController extends Controller
         $decode_request = [];
         $decode_beacukai_pabean = [];
         $decode_shipping_type = [];
+        $decode_shipping_price = [];
         $decode_price_per_trip = [];
+
+        // dd($request);
         foreach ($request->cart_trip as $trip) {
 
             $decoded_trip = json_decode($trip);
@@ -317,6 +326,11 @@ class TransactionController extends Controller
         foreach ($request->shipping_type as $key => $shipping_type) {
             $decoded_shiping_type = json_decode($shipping_type);
             $decode_shipping_type = Arr::add($decode_shipping_type, $key, $decoded_shiping_type);
+        }
+
+        foreach($request->shipping_price as $key => $shipping_price) {
+            $decoded_shipping_price = json_decode($shipping_price);
+            $decode_shipping_price = Arr::add($decode_shipping_price, $key, $decoded_shipping_price);
         }
         foreach ($request->price_per_trip as $key => $price_per_trip) {
             $decoded_price_per_trip = json_decode($price_per_trip);
@@ -364,6 +378,7 @@ class TransactionController extends Controller
             $item_transaction = $decode_item[$trip_nih];
             $request_transaction = $decode_request[$trip_nih];
             $shipping_type_transaction = $decode_shipping_type[$trip_nih];
+            $shipping_price_transaction = $decode_shipping_price[$trip_nih];
             $beacukai_pabean_transaction = $decode_beacukai_pabean[$trip_nih];
             $price_per_trip = $decode_price_per_trip[$trip_nih];
 
@@ -373,6 +388,7 @@ class TransactionController extends Controller
                 'user_id' => auth()->user()->id,
                 'trip_id' => $trip_nih,
                 'shipping_type_id' => $shipping_type_transaction,
+                'shipping_trip_price' => $shipping_price_transaction,
                 'beacukai_pabean' => $trip->tax,
                 'total_paid' => $price_per_trip
             ]);

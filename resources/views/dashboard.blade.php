@@ -667,37 +667,42 @@
                             <div class="title">
                                 <h1 class="fw-bold">Shipment List</h1>
                             </div>
+                            @foreach($shipping_list as $shipping)
                             <div class="col-lg-12">
                                 <div class="card p-3">
+                                <div class="form-group mb-3 row">
+                                        <label for="" class="col-sm-2 col-form-label">From</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->traveller }}">
+                                        </div>
+                                    </div>
                                     <div class="form-group mb-3 row">
                                         <label for="" class="col-sm-2 col-form-label">To</label>
                                         <div class="col-lg-10">
-                                            <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->buyer }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-3 row">
                                         <label for="" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-lg-10">
-                                            <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->address }}">
                                         </div>
                                     </div>
-
-                                    <div class="form-group mb-3 row">
-                                        <label for="" class="col-sm-2 col-form-label">Phone Number</label>
-                                        <div class="col-lg-10">
-                                            <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
-                                        </div>
-                                    </div>
-
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
                                         <div class="col-lg-3">
-                                            <input type="text" class="form-control">
+                                            <input type="text" readonly class="form-control" value="{{ $shipping->shipping_receipt }}">
                                         </div>
                                     </div>
+                                    <form action="/received" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="shipping_id" value="{{ $shipping->id }}">
+                                        <button type="submit" class="btn btn-outline-warning px-3">Item Received</button>
+                                    </form>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
 

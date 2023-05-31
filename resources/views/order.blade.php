@@ -67,7 +67,7 @@
             </div>
             @endif
 
-        @foreach($order_list_header as $order_header)
+            @foreach($order_list_header as $order_header)
             <div class="col-lg-12">
                 <div class="card p-3">
                     <div class="card p-3 mb-3 shadow">
@@ -111,7 +111,7 @@
                                 <p>Beacukai & Pabean</p>
                             </div>
                             <div class="col-lg-10">
-                                <p>{{ $order_header->beacukai_pabean }}</p>
+                                <p class="price-format">{{ $order_header->beacukai_pabean }}</p>
                             </div>
                         </div>
                         @endif
@@ -130,7 +130,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $sum_profit= 0;
+                                @endphp
                                 @foreach($order_detail_item[$order_header->id] as $order_item)
+
+                                @php
+                                $sum_profit = $sum_profit + $order_item->profit;
+                                @endphp
                                 <tr>
                                     <td style="width: 20px;" class="me-2 pe-2">
                                         <div class="button">
@@ -287,7 +294,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>23</td>
-                                    <td>23</td>
+                                    <td>{{ $sum_profit }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -329,40 +336,98 @@
             <div class="title">
                 <h1 class="fw-bold">Shipment List</h1>
             </div>
+
+            @foreach($shipping_list as $shipping)
             <div class="col-lg-12">
                 <div class="card p-3">
                     <div class="form-group mb-3 row">
                         <label for="" class="col-sm-2 col-form-label">To</label>
                         <div class="col-lg-10">
-                            <input type="text" readonly class="form-control-plaintext " id="" value="User 3">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->fullname }}">
                         </div>
                     </div>
 
                     <div class="form-group mb-3 row">
                         <label for="" class="col-sm-2 col-form-label">Address</label>
                         <div class="col-lg-10">
-                            <input type="text" readonly class="form-control-plaintext " id="" value="address">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->address }}">
                         </div>
                     </div>
 
                     <div class="form-group mb-3 row">
                         <label for="" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="col-lg-10">
-                            <input type="text" readonly class="form-control-plaintext " id="" value="1234678">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->phone_number }}">
                         </div>
                     </div>
 
+                    <div class="form-group mb-3 row">
+                        <label for="" class="col-sm-2 col-form-label">Shipping Type</label>
+                        <div class="col-lg-10">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->shipping_name }}">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label for="" class="col-sm-2 col-form-label">Shipping Price</label>
+                        <div class="col-lg-10">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->shipping_trip_price }}">
+                        </div>
+                    </div>
+
+                    <div class="card p-3 mb-3">
+                        @foreach($shipping_detail_item[$shipping->id] as $item)
+                        <div class="row align-items-center">
+                            <div class="col-lg-4">
+                                <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 200px" alt="" srcset="">
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="item-desc mb-3">
+                                    <label for="" class="form-label text-primary fw-bold">Item Name</label>
+                                    <h5>{{ $item->item_name }}</h5>
+                                </div>
+                                <div class="item-desc mb-3">
+                                    <label for="" class="form-label text-primary fw-bold">Item Quantity</label>
+                                    <h5>{{ $item->quantity }}</h5>
+                                </div>
+                            </div>
+
+                        </div>
+                        @endforeach
+
+                        @foreach($shipping_detail_request[$shipping->id] as $request)
+                        <div class="row align-items-center">
+                            <div class="col-lg-4">
+                                <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 200px" alt="" srcset="">
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="item-desc mb-3">
+                                    <label for="" class="form-label text-primary fw-bold">request Name</label>
+                                    <h5>{{ $request->request_name }}</h5>
+                                </div>
+                                <div class="item-desc mb-3">
+                                    <label for="" class="form-label text-primary fw-bold">request Quantity</label>
+                                    <h5>{{ $request->quantity }}</h5>
+                                </div>
+                            </div>
+
+                        </div>
+                        @endforeach
+                    </div>
+                    <form action="/send" method="POST">
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
                         <div class="col-lg-3">
-                            <input type="text" class="form-control">
+                            <input type="text" name="shipping_receipt" class="form-control">
                         </div>
                     </div>
+                        @csrf
+                        <input type="hidden" name="shipping_transaction_id" value="{{ $shipping->id }}">
+                        <button class="btn btn-success px-3">Send</button>
+                    </form>
                 </div>
+                @endforeach
             </div>
         </div>
-    </div>
-    </div>
 
 </section>
 @endsection
