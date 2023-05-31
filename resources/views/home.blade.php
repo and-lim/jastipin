@@ -2,13 +2,14 @@
 
 @section('mainSection')
 
-        <section class="hero">  
+        <section class="py-5">  
             <div class="hero-header py-5">
                 <div class="container mt-2">
                     <div class="row">
                         <div class="col-lg-6 mx-auto text-center text-white text-lg-center">
                             <h1 class="mb-4 intro-title ">Jastipin</h1>
                             <h3 class="mb-2">Titip Barang dari Luar negeri dengan jastipin  </h3>
+                            <input type="text" id="price">
                         </div>
                     </div>
                     {{-- <div class="form-group mx-auto col-lg-8">
@@ -36,10 +37,9 @@
                 </div>
             </div>
             <div class="line p-2"></div>
-        </section>
+
     
-        <section class="">
-            <div class="container-xl my-5">
+            {{-- <div class="container-xl my-5">
                 <div class="text-title mb-3 pb-3">
                     <h1 class="text-start title">Item</h1>
                 </div>
@@ -91,11 +91,9 @@
                         See more Item
                     </a>
                 </div>
-            </div>
-        </section>
-    
-    
-        <section class="trip-list my-3 py-3">
+            </div> --}}
+   
+
             <div class="container my-3">
                 <h1 class="title mb-3">Trip</h1>
                 <div class="row ">
@@ -146,9 +144,7 @@
                 </div>
                 <a href="/trip" class="btn btn-primary float-end">See more Trip</a>
             </div>
-        </section>
-    
-        <section class="about py-3 my-5">
+
             <div class="container mt-3">
                 <div class="section-title text-center pt-5"></div>
                 <div class="row">
@@ -164,5 +160,4 @@
                 </div>
             </div>
         </section>
-
       @endsection

@@ -36,6 +36,11 @@ ul.navbar-nav{
 }
 
 
+section{
+    min-height: 100vh;
+}
+
+
 .hero-header{
     background-color: #4c4c53;
     height: 70vh;

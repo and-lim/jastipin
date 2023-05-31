@@ -43,7 +43,7 @@
                     <div class="sidebar-title">
                         <h5 class="fw-bold">Category</h5>
                     </div>
-                    <div class="category-list mt-3">
+                    {{-- <div class="category-list mt-3">
                         <input type="checkbox" id="food" name="category" value="food" class="category_check_box">
                         <label for="food"> Food & Beverages</label><br></li>
                         <input type="checkbox" id="fashion" name="category" value="fashion" class="category_check_box">
@@ -52,7 +52,23 @@
                         <label for="electronic"> Electronic Gadget</label><br></li>
                         <input type="checkbox" id="accessories" name="category" value="accessories" class="category_check_box">
                         <label for="accessories"> Accessories</label><br></li>
+                    </div> --}}
+                    <div class="select my-2">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Food</option>
+                            <option value="1">Electronic</option>
+                            <option value="2">Fashion</option>
+                            <option value="3">Accessories</option>
+                          </select>
                     </div>
+                    <div class="button mt-2">
+                        <button class="btn btn-primary">
+                            filter
+                            <i class="fa fa-filter">
+                            </i>
+                        </button>
+                    </div>
+
                 </aside>
             </div>
 
