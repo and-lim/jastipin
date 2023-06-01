@@ -274,6 +274,7 @@
                                             <input type="hidden" name= "array_trip_request[{{ $trip->trip_id }}]" value="{{ json_encode($array_trip[$trip->trip_id]->request_items) }}">
                                             <input type="hidden" name="beacukai_pabean[{{$trip->trip_id}}]" value="{{ json_encode($sumBeacukaiPabean[$trip->trip_id]) }}">
                                             <input type="hidden" id="shipping_type{{ $trip->trip_id }}" name="shipping_type[{{ json_encode($trip->trip_id) }}]" value="">
+                                            <input type="hidden" id="shipping_price{{ $trip->trip_id }}" name="shipping_price[{{ json_encode($trip->trip_id) }}]" value="">
                                             <input type="hidden" id="price_per_trip{{ $trip->trip_id }}" name="price_per_trip[{{ $trip->trip_id }}]" value="">
                                             @endforeach
                                             <input type="hidden" class="total_all" name="total_all" value="">
@@ -310,10 +311,10 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
 
-    $('')
+    
     $('.regular').click(function() {
 
-        
+       
         var id = $(this).attr("id")
         var number_id = parseInt(id.replace("regular", ""));
         var regular = parseInt(document.getElementById('ongkir' + number_id).innerHTML)/2
@@ -336,19 +337,21 @@
         $('#price_per_trip'+ number_id).val(total_pay);
         $('#total_payment').val(total_pay);
         $('#shipping_type' + number_id).val(1);
+        $('#shipping_price' + number_id).val(regular);
         $('#pay').prop('disabled', false)
 
         updateTotal()
-
+        border()
     });
 
     $('.instant').click(function() {
 
+        $(this).toggleClass('ongkir')
         var id = $(this).attr("id")
         var number_id = id.replace("instant", "")
         var instant = parseInt(document.getElementById('ongkir' + number_id).innerHTML)
 
-
+        console.log(instant);
         var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
         var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
         var sumTaxTrip = parseInt($('#sumTaxTrip' + number_id).val())
@@ -364,6 +367,7 @@
 
         $('#total_payment').val(total_pay);
         $('#shipping_type' + number_id).val(2);
+        $('#shipping_price' + number_id).val(instant);
         $('#pay').prop('disabled', false)
 
         updateTotal()

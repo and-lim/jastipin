@@ -14,7 +14,7 @@ class Transaction extends Model
         'trip_id',
         'transaction_status',
         'shipping_type_id',
-        'shipping_receipt',
+        'shipping_trip_price',
         'beacukai_pabean',
         'total_paid'
     ];

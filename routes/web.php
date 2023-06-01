@@ -37,6 +37,7 @@ Route::post('/removeItem', [DashboardController::class, 'removeItem']);
 Route::post('/addWtbItem', [DashboardController::class, 'addWtbItem']);
 Route::post('/removeWtbItem', [DashboardController::class, 'removeWtbItem']);
 Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
+Route::post('/received', [DashboardController::class, 'received']);
 Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
@@ -62,12 +63,14 @@ Route::post('/pay', [TransactionController::class, 'pay']);
 
 //order
 Route::get('/order', [PageController::class, 'viewOrder']);
+Route::post('/send', [PageController::class, 'send']);
 Route::post('/acceptRequest', [PageController::class, 'acceptRequest']);
 Route::post('/rejectRequest', [PageController::class, 'rejectRequest']);
 Route::post('/cancelBuyItem', [PageController::class, 'cancelBuyItem']);
 Route::post('/itemBought', [PageController::class, 'itemBought']);
 Route::post('/requestBought', [PageController::class, 'requestBought']);
 Route::post('/cancelBuyRequest', [PageController::class, 'cancelBuyRequest']);
+Route::post('/shipping', [PageController::class, 'shipping']);
 
 
 Route::get('/', function () {

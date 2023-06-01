@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\RequestItem;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -94,6 +95,7 @@ class PageController extends Controller
         ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
         ->select('transactions.*', 'trips.destination', 'trips.origin', 'buyers.fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name')
         ->where('trips.user_id', auth()->user()->id)
+        ->where('transactions.transaction_status', 'ongoing')
         ->get();
 
 
@@ -135,8 +137,43 @@ class PageController extends Controller
         }
         // dd($order_list_header);
 
+        $shipping_list = DB::table('transactions')
+        ->join('trips', 'transactions.trip_id', 'trips.id')
+        ->join('users as travelers', 'trips.user_id', 'travelers.id')
+        ->join('users as buyers', 'transactions.user_id', 'buyers.id')
+        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+        ->select('transactions.*', 'trips.destination', 'trips.origin', 'buyers.fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name')
+        ->where('trips.user_id', auth()->user()->id)
+        ->where('transactions.transaction_status', 'shipping')
+        ->get();
 
-        return view('order', compact('request_list', 'order_list_header', 'order_detail_item', 'order_detail_request'));
+        $shipping_detail_item = [];
+        $shipping_detail_request = [];
+
+        foreach($shipping_list as $shipping){
+            $shipping_list_id = $shipping->id;
+
+            $item_shipping = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('items', 'transaction_details.item_id', 'items.id')
+            ->select('transaction_details.*', 'items.item_name', 'items.item_image')
+            ->where('transactions.id', $shipping_list_id)
+            ->where('transaction_details.item_status', 'bought')
+            ->get();
+
+            $shipping_detail_item = Arr::add($shipping_detail_item, $shipping_list_id , $item_shipping );
+
+            $request_shipping = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+            ->select('transaction_details.*', 'request_items.request_name')
+            ->where('transactions.id', $shipping_list_id)
+            ->where('transaction_details.item_status', 'bought')
+            ->get();
+
+            $shipping_detail_request = Arr::add($shipping_detail_request, $shipping_list_id , $request_shipping );
+        }
+        return view('order', compact('request_list', 'order_list_header', 'order_detail_item', 'order_detail_request', 'shipping_list', 'shipping_detail_item', 'shipping_detail_request'));
     }
 
     function acceptRequest(Request $request)
@@ -213,35 +250,28 @@ class PageController extends Controller
 
     function shipping(Request $request)
     {
-        $change_status_shipping = DB::table('transaction')
+        $change_status_shipping = DB::table('transactions')
         ->where('id', $request->transaction_id)
         ->update([
             'transaction_status' => 'shipping'
         ]);
 
-        $shipping = DB::table('transactions')
-        ->join('trips', 'transactions.trips_id', 'trips.id')
-        ->join('users as buyer', 'transaction.user_id', 'users.id')
-        ->join('users as traveller', 'transaction.user_id', 'users.id')
-        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-        ->select('traveller.fullname', 'traveller.address', 'traveller.phone_number', 'shipping_types.shipping_name')
-        ->where('traveler.id', 'trips.user_id')
-        ->get();
+        return back();
+    }
 
-        $item_shipping = DB::table('transaction_details')
-        ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-        ->join('items', 'transaction_details.item_id', 'items.id')
-        ->select('transaction_details.*', 'items.item_name')
-        ->where('transactions.id', $request->transaction_id)
-        ->get();
+    function send(Request $request)
+    {
+        $change_status_shipped = DB::table('transactions')
+        ->where('id', $request->shipping_transaction_id)
+        ->update([
+            'transaction_status' => 'shipped'
+        ]);
 
-        $request_shipping = DB::table('transaction_details')
-        ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-        ->join('request_items', 'transaction_detail.request_id', 'request_items.id')
-        ->select('transaction_details.*', 'request_items.request_name')
-        ->where('transactions.id', $request->transaction_id)
-        ->get();
+        $send= Shipping::create([
+            'transaction_id' => $request->shipping_transaction_id,
+            'shipping_receipt' => $request->shipping_receipt
+        ]);
 
-        return view('order', compact('shipping', 'item_shipping'));
+        return back();
     }
 }

@@ -122,12 +122,21 @@ class DashboardController extends Controller
             ->get();
 
             $transaction_detail_request = Arr::add($transaction_detail_request, $id_transaction, $detail_request);
-            
+
             
         }
+        $shipping_list = DB::table('shippings')
+        ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+        ->join('trips', 'transactions.trip_id','trips.id')
+        ->join('users as travelers', 'trips.user_id', 'travelers.id')
+        ->join('users as buyers', 'transactions.user_id', 'buyers.id')
+        ->select('shippings.shipping_receipt','transactions.*', 'buyers.fullname as buyer','buyers.address', 'travelers.fullname as traveller')
+        ->where('transactions.user_id', auth()->user()->id)
+        ->get();
+        
 
 
-        return view('dashboard', compact('home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request'));
+        return view('dashboard', compact('home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request','shipping_list'));
     }
     
     function editTrip($id){
@@ -347,5 +356,7 @@ class DashboardController extends Controller
 
         return redirect('/dashboard');
     }
+
+    
     
 }

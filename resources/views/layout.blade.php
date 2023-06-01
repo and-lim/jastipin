@@ -44,6 +44,7 @@
                     </a>
                 </li>
                 @endauth
+                @if(auth()->user()->is_admin == true)
                 <li class="nav-item dropdown position-relative">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
@@ -56,7 +57,6 @@
                     </ul>
                 </li>
                 @auth
-                @if(auth()->user()->is_admin == true)
            
                 {{-- <li class="nav-item position-relative">
                     <a class="nav-link" href="">Approval 
@@ -171,9 +171,9 @@
     </script>
 
     <script>
-        new AutoNumeric('#price',{
-            decimalPlace:'2',
-            decimalCharacter:'.'
+        new AutoNumeric('.price-format',{
+            currencySymbol: 'Rp',
+            digitGroupSeparator: '.'
         })
     </script>
 
