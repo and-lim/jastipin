@@ -3,7 +3,7 @@
 @section('mainSection')
 <section class="py-5">
 
-    <div class="hero-header py-5">
+    <div class="hero-header py-5" style="height: 75vh;">
         <div class="container mt-4">
             <div class="row col-lg-10 mx-auto">
                 <div class="search-title my-3 text-center">
@@ -28,6 +28,26 @@
                                 <input type="date" name="datenya" value="{{ $datenya }}" class="form-control form-input">
                             </div>
                         </div>
+                        {{-- category --}}
+                        <div class="category-list col-lg-5 mx-auto my-3 py-2">
+                            <div class="category-title">
+                                <h5 class="fw-bold text-white text-center">Category</h5>
+                            </div>
+                            <form action="/filter_category" method="POST">
+                                @csrf
+                                <div class="select my-2">
+                                    <select class="form-select" name="category" aria-label="Default select example">
+                                        <option @if($selected_category == 'Food & Beverage') selected @endif value="Food & Beverage">Food & Beverage</option>
+                                        <option @if($selected_category == 'Electronic') selected @endif value="Electronic">Electronic</option>
+                                        <option @if($selected_category == 'Fashion') selected @endif value="Fashion">Fashion</option>
+                                        <option @if($selected_category == 'Accessories') selected @endif value="Accessories">Accessories</option>
+                                        <option @if($selected_category == 'Other') selected @endif value="Other">Other</option>
+                                      </select>
+                                </div>
+                            </form>
+        
+                        </div>
+
                         <div class="search-button d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-warning text-center mx-auto">Search</button>
                         </div>
@@ -41,12 +61,12 @@
     <div class="container-fluid py-3 mx-1 mt-5">
         <h2 class="text-center fw-bold mb-5 ms-lg-3" id="slebew">Ongoing Trip</h2>
         <div class="row m-0">
-            <div class="col-lg-3 mb-lg-0 mb-2">
+            {{-- <div class="col-lg-3 mb-lg-0 mb-2">
                 <aside class="left-sidebar rounded-3 p-3 shadow">
                     <div class="sidebar-title">
                         <h5 class="fw-bold">Category</h5>
                     </div>
-                    {{-- <div class="category-list mt-3">
+                    <div class="category-list mt-3">
                         <input type="checkbox" id="food" name="category" value="food" class="category_check_box">
                         <label for="food"> Food & Beverages</label><br></li>
                         <input type="checkbox" id="fashion" name="category" value="fashion" class="category_check_box">
@@ -55,7 +75,7 @@
                         <label for="electronic"> Electronic Gadget</label><br></li>
                         <input type="checkbox" id="accessories" name="category" value="accessories" class="category_check_box">
                         <label for="accessories"> Accessories</label><br></li>
-                    </div> --}}
+                    </div> 
 
                     <form action="/filter_category" method="POST">
                         @csrf
@@ -78,9 +98,9 @@
                     </form>
 
                 </aside>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-9">
+            <div class="col-lg-10 mx-auto">
                 <div id="price">50000</div>
                 <div id="adjusted_price"></div>
                 <input type="hidden" id="adjusted_price_field" name="adjusted_price" value="">

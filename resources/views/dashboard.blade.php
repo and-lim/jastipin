@@ -850,7 +850,7 @@
                                                             @endif
                                                         </div>
 
-                                                        <div class="items">
+                                                        <div class="items table-responsive">
                                                             <table class="table table-borderless">
                                                                 <thead>
                                                                     <tr>
@@ -866,26 +866,23 @@
                                                                     @foreach($transaction_detail_item[$transaction->id] as $detail_item)
                                                                     <tr>
                                                                         <td>
-                                                                            <div class="float-end d-flex">
+                                                                            <div class="d-flex">
                                                                                 @if($detail_item->item_status == "bought")
-                                                                                <button type="submit" disabled class="btn btn-success">
+                                                                                <button type="submit" disabled class="btn btn-success px-2">
                                                                                     <i class="fa fa-check"></i>
                                                                                 </button>
                                                                                 @endif
                                                                                 @if($detail_item->item_status == "cancelled")
-                                                                                <button type="submit" disabled class="btn btn-danger">
+                                                                                <button type="submit" disabled class="btn btn-danger px-2">
                                                                                     <i class="fa fa-times"></i>
                                                                                 </button>
                                                                                 @endif
                                                                             </div>
                                                                         </td>
-                                                                        <td scope="row" class="d-flex">
-                                                                            <div class="form-check">
+                                                                        <td>
                                                                                 <label class="form-check-label" for="">
                                                                                     {{ $detail_item->item_name }}
                                                                                 </label>
-                                                                            </div>
-
                                                                         </td>
                                                                         <td>{{ $detail_item->quantity }}</td>
                                                                         <td>Rp {{ $detail_item->item_display_price }}</td>
@@ -900,7 +897,7 @@
 
                                                                     @foreach($transaction_detail_request[$transaction->id] as $detail_request)
                                                                     <tr>
-                                                                        <td scope="row" class="d-flex">
+                                                                        <td scope="row" colspan="2">
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @if($detail_item->item_status == 'bought') checked @endif>
                                                                                 <label class="form-check-label" for="">
@@ -909,6 +906,7 @@
                                                                             </div>
 
                                                                         </td>
+                                                                        <td></td>
                                                                         <td>{{ $detail_request->quantity }}</td>
                                                                         <td>Rp {{ $detail_request->request_price }}</td>
 
@@ -926,12 +924,14 @@
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
+                                                                        <td></td>
                                                                         <td>Shipping Price: </td>
                                                                         <td>Rp {{ $transaction->shipping_price }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">
-                                                                        </th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>

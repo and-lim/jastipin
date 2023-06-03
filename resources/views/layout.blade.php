@@ -82,6 +82,12 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        <li class="dropdown-item mx-auto ">
+                            <a class="text-decoration-none ms-2 text-dark d-flex align-items-center gap-2" href="/profile">
+                                <i class="fa fa-user-plus"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
                         @auth
                         <form action="/logout" method="POST">
                             @csrf

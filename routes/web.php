@@ -133,6 +133,9 @@ Route::get('/approval', function () {
     return view('approval');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
 
 
 
