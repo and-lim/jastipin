@@ -8,7 +8,9 @@ use App\Models\MoneyFlow;
 use App\Models\RequestItem;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\TransactionList;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -184,7 +186,9 @@ class TransactionController extends Controller
         ->where('users.id', auth()->user()->id)
         ->first();
 
+        // dd($cart_trip);
         foreach ($cart_trip as $trip) {
+            
             
             $trip->tax = (int) (($trip->total_price_item / $trip->total_price) * $trip->tax) + $trip->total_request_tax;
 
@@ -231,6 +235,25 @@ class TransactionController extends Controller
                 ->where('carts.trip_id', $trip->trip_id)
                 ->get();
 
+            
+                foreach($request as $req){
+
+                    $req->limit = new Carbon($req->created_at);
+                    $req->limit = $req->limit->addDay(2);
+                    
+                    if($req->limit > $trip->start_date){
+        
+                        $req->limit =  new Carbon($trip->start_date);
+                    }
+                    
+                    $req->approvable = Carbon::now() < $req->limit;
+                    $req->limit = $req->limit->toDayDateTimeString();
+
+                    if(!$req->approvable){
+                        $req->request_status = 'past the time limit';
+                    }
+        
+                }
             
             // $total_price_intrip = DB::table('items')
             
@@ -375,15 +398,9 @@ class TransactionController extends Controller
 
         foreach ($decode_trip as $trip) {
             $trip_nih = $trip->trip_id;
-            $item_transaction = $decode_item[$trip_nih];
-            $request_transaction = $decode_request[$trip_nih];
             $shipping_type_transaction = $decode_shipping_type[$trip_nih];
             $shipping_price_transaction = $decode_shipping_price[$trip_nih];
-            $beacukai_pabean_transaction = $decode_beacukai_pabean[$trip_nih];
             $price_per_trip = $decode_price_per_trip[$trip_nih];
-
-
-            // dd($item_transaction, $request_transaction, $shipping_type_transaction, $beacukai_pabean_transaction, $price_per_trip);
             $transaction_header = Transaction::create([
                 'user_id' => auth()->user()->id,
                 'trip_id' => $trip_nih,
@@ -393,34 +410,48 @@ class TransactionController extends Controller
                 'total_paid' => $price_per_trip
             ]);
 
-
-            foreach ($item_transaction as $item) {
-                $transaction_detail = TransactionDetail::create([
-                    'transaction_id' => $transaction_header->id,
-                    'item_id' => $item->item_id,
-                    'quantity' => $item->cart_item_quantity,
-                    'profit' => $item->cart_item_quantity * ($item->item_display_price - $item->item_price),
-                    'total' => $item->cart_item_quantity * $item->item_display_price
-                ]);
-
-                $update_stock = Item::find($item->item_id);
-                $update_stock->item_stock -= $item->cart_item_quantity;
-                $update_stock->save();
-
-                
+            if($decode_item){
+                $item_transaction = $decode_item[$trip_nih];
+                foreach ($item_transaction as $item) {
+                    $transaction_detail = TransactionDetail::create([
+                        'transaction_id' => $transaction_header->id,
+                        'item_id' => $item->item_id,
+                        'quantity' => $item->cart_item_quantity,
+                        'profit' => $item->cart_item_quantity * ($item->item_display_price - $item->item_price),
+                        'total' => $item->cart_item_quantity * $item->item_display_price
+                    ]);
+    
+                    $update_stock = Item::find($item->item_id);
+                    $update_stock->item_stock -= $item->cart_item_quantity;
+                    $update_stock->save();
+                }
             }
 
+            if($decode_request){
+                $request_transaction = $decode_request[$trip_nih];
 
-
-            foreach ($request_transaction as $request_item) {
-                // dd($request_item);
-                $transaction_detail = TransactionDetail::create([
-                    'transaction_id' => $transaction_header->id,
-                    'request_id' => $request_item->request_id,
-                    'quantity' => $request_item->request_quantity,
-                    'total' => $request_item->request_quantity * $request_item->request_price
-                ]);
+                foreach ($request_transaction as $request_item) {
+                    // dd($request_item);
+                    $transaction_detail = TransactionDetail::create([
+                        'transaction_id' => $transaction_header->id,
+                        'request_id' => $request_item->request_id,
+                        'quantity' => $request_item->request_quantity,
+                        'total' => $request_item->request_quantity * $request_item->request_price
+                    ]);
+                }
             }
+
+            $transaction_list_admin = TransactionList::create([
+                'transaction_id' => $transaction_header->id,
+                'hold_balance' => $transaction_header->total_paid
+            ]);
+
+            $admin_balance_update = User::where('is_admin', true)->first();
+            $admin_balance_update->balance = $admin_balance_update->balance + $transaction_list_admin->hold_balance;
+            $admin_balance_update->save();
+                       
+            $beacukai_pabean_transaction = $decode_beacukai_pabean[$trip_nih];
+            // dd($item_transaction, $request_transaction, $shipping_type_transaction, $beacukai_pabean_transaction, $price_per_trip);
         }
 
 

@@ -10,7 +10,9 @@ class TransactionList extends Model
     use HasFactory;
 
     protected $fillable = [
-
+        'user_id',
+        'transaction_id',
+        'hold_balance',
+        'balance_to_buyer'
     ];
 }
-

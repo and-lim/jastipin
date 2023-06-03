@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/css.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -36,35 +36,35 @@
                         <li><a class="dropdown-item" href="/trip">Search Trip</a></li>
                     </ul>
                 </li>
-                
+
                 @auth
                 <li class="nav-item position-relative">
-                    <a class="nav-link" href="/order">Order 
-                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
+                    <a class="nav-link" href="/order">Order
+                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span>
                     </a>
                 </li>
-                @endauth
                 @if(auth()->user()->is_admin == true)
                 <li class="nav-item dropdown position-relative">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
-                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
+                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item position-relative" href="/approval">Approval
-                        <span class="bg-danger position-absolute end-1 ms-3 text-white" style="font-size: 15px;">10</span></a></li>
+                                <span class="bg-danger position-absolute end-1 ms-3 text-white" style="font-size: 15px;">10</span></a></li>
                         <li><a class="dropdown-item" href="/transaction-list">Transaction List</a></li>
                     </ul>
                 </li>
-                @auth
-           
+
                 {{-- <li class="nav-item position-relative">
-                    <a class="nav-link" href="">Approval 
-                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
-                    </a>
-                </li> --}}
+                        <a class="nav-link" href="">Approval 
+                            <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;" >10</span>
+                        </a>
+                    </li> --}}
                 @endif
                 @endauth
+
+
             </ul>
             <ul class="navbar-nav ms-auto me-lg-5 align-items-center d-flex gap-5 text-white">
                 @auth
@@ -171,7 +171,7 @@
     </script>
 
     <script>
-        new AutoNumeric('.price-format',{
+        new AutoNumeric('.price-format', {
             currencySymbol: 'Rp',
             digitGroupSeparator: '.'
         })

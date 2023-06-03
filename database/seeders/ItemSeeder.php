@@ -34,7 +34,7 @@ class ItemSeeder extends Seeder
             array(
 
                 'item_name' => 'item 2',
-                    'item_category' => 'Fashion',
+                    'item_category' => 'Food & Beverage',
                     'item_image' => '1684333267_Delete User',
                     'item_weight' => '2',
                     'item_stock' => '4',
@@ -48,7 +48,7 @@ class ItemSeeder extends Seeder
             array(
 
                 'item_name' => 'item 3',
-                    'item_category' => 'Fashion',
+                    'item_category' => 'Accessories',
                     'item_image' => '1684333267_SearchBase',
                     'item_weight' => '1',
                     'item_stock' => '3',
@@ -62,7 +62,7 @@ class ItemSeeder extends Seeder
             array(
 
                 'item_name' => 'item 4',
-                    'item_category' => 'Fashion',
+                    'item_category' => 'Other',
                     'item_image' => '1684333267_Delete User',
                     'item_weight' => '2',
                     'item_stock' => '4',
@@ -86,6 +86,62 @@ class ItemSeeder extends Seeder
                     'item_price_pabean' => '1000000',
                     'item_description' => 'deskripsi item 5',
                     'trip_id' => 2,
+            ),
+            array(
+
+                'item_name' => 'item 6',
+                    'item_category' => 'Food & Beverage',
+                    'item_image' => '1684333267_Delete User',
+                    'item_weight' => '2',
+                    'item_stock' => '4',
+                    'item_price' => '2000000',
+                    'item_display_price' => '3000000',
+                    'item_price_ppn' => null,
+                    'item_price_pabean' => null,
+                    'item_description' => 'deskripsi item 2',
+                    'trip_id' => 4,
+            ),
+            array(
+
+                'item_name' => 'item 7',
+                    'item_category' => 'Accessories',
+                    'item_image' => '1684333267_Delete User',
+                    'item_weight' => '2',
+                    'item_stock' => '4',
+                    'item_price' => '15000000',
+                    'item_display_price' => '16000000',
+                    'item_price_ppn' => '1600000',
+                    'item_price_pabean' => '1000000',
+                    'item_description' => 'deskripsi item 5',
+                    'trip_id' => 4,
+            ),
+            array(
+
+                'item_name' => 'item 8',
+                    'item_category' => 'Other',
+                    'item_image' => '1684333267_Delete User',
+                    'item_weight' => '2',
+                    'item_stock' => '4',
+                    'item_price' => '2000000',
+                    'item_display_price' => '3000000',
+                    'item_price_ppn' => null,
+                    'item_price_pabean' => null,
+                    'item_description' => 'deskripsi item 2',
+                    'trip_id' => 3,
+            ),
+            array(
+
+                'item_name' => 'item 9',
+                    'item_category' => 'Fashion',
+                    'item_image' => '1684333267_Delete User',
+                    'item_weight' => '2',
+                    'item_stock' => '4',
+                    'item_price' => '15000000',
+                    'item_display_price' => '16000000',
+                    'item_price_ppn' => '1600000',
+                    'item_price_pabean' => '1000000',
+                    'item_description' => 'deskripsi item 5',
+                    'trip_id' => 3,
             )
             );
         DB::table('items')->insert($items);

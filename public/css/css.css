@@ -431,6 +431,10 @@ a.dashboard-icon i{
     border: 2px solid #7dd4e8;
 }
 
+.list-item-admin{
+    list-style-type: none;
+}
+
 img.checkout-image{
     border: solid 3px blue;
     border-radius: 10px;

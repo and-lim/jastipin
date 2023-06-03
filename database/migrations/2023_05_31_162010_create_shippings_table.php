@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions');
-            $table->string('shipping_receipt');
-            $table->string('shipping_status')->default('shipping');
+            $table->string('shipping_receipt')->nullable();
+            $table->date('ship_time_limit')->nullable();
+            $table->string('shipping_status')->default('waiting_receipt');
             $table->timestamps();
         });
     }

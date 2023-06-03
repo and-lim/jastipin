@@ -560,7 +560,12 @@
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="destination" class="form-label">Destination</label>
                                                     <div class="dropdown-datalist">
-                                                        <input list="destinations" id="exampleDataList" name="destination" class="form-control" placeholder="Destination" aria-label="destination">
+                                                        <input list="destinations" id="exampleDataList" name="destination" class="form-control" required placeholder="Destination" aria-label="destination">
+                                                        @error('destination')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                     <datalist id="destinations">
                                                         @foreach ($destinations as $destination)
@@ -576,7 +581,12 @@
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
                                                     <div class="dropdown-datalist">
-                                                        <input list="origins" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" aria-label="origin">
+                                                        <input list="origins" id="exampleDataList" name="origin" class="form-control" required placeholder="Origin" aria-label="origin">
+                                                        @error('origin')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                     <datalist id="origins">
                                                         <option value="{{ auth()->user()->city }}">
@@ -589,14 +599,24 @@
                                             <div class="row align-items-center">
                                                 <div class="col-lg-5">
                                                     <label for="start_date" class="form-label">Start Date</label>
-                                                    <input id="start_date" name="start_date" class="form-control" type="date" />
+                                                    <input id="start_date" name="start_date" required class="form-control" type="date" />
+                                                    @error('start_date')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div class="bg-dark mt-4" style="height: 5px;"></div>
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <label for="arrival_date" class="form-label">Arrival Date</label>
-                                                    <input id="arrival_date" name="arrival_date" class="form-control" type="date" />
+                                                    <input id="arrival_date" name="arrival_date" required class="form-control" type="date" />
+                                                    @error('arrival_date')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -622,7 +642,12 @@
 
                                         <div class="form-group mb-3">
                                             <label for="description" class="form-label">Add Description</label>
-                                            <textarea name="description" class="form-control" id="description" cols="30" rows="2"></textarea>
+                                            <textarea name="description" class="form-control" required id="description" cols="30" rows="2"></textarea>
+                                            @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
 
                                         <div class="text-center mt-3">
@@ -669,8 +694,9 @@
                             </div>
                             @foreach($shipping_list as $shipping)
                             <div class="col-lg-12">
+                                <p>Transaction will automatically finished after {{ $shipping->ship_time_limit }} if you don't confirm your order</p>
                                 <div class="card p-3">
-                                <div class="form-group mb-3 row">
+                                    <div class="form-group mb-3 row">
                                         <label for="" class="col-sm-2 col-form-label">From</label>
                                         <div class="col-lg-10">
                                             <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->traveller }}">
@@ -687,6 +713,12 @@
                                         <label for="" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-lg-10">
                                             <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->address }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <label for="" class="col-sm-2 col-form-label">Shipping Type</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->shipping_name }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -751,7 +783,7 @@
                                 @if($transaction->beacukai_pabean)
                                 <div class="form-group mb-3 row">
                                     <div class="col-lg-2">
-                                        <p>Beacukai & Pabean: </p>
+                                        <p>Tax: </p>
                                     </div>
                                     <div class="col-lg-10">
                                         <p>Rp {{ $transaction->beacukai_pabean }}</p>
@@ -809,7 +841,7 @@
                                                             @if($transaction->beacukai_pabean)
                                                             <div class="form-group mb-3 row">
                                                                 <div class="col-lg-2">
-                                                                    <p>Beacukai & Pabean: </p>
+                                                                    <p>Tax: </p>
                                                                 </div>
                                                                 <div class="col-lg-10">
                                                                     <p>Rp {{ $transaction->beacukai_pabean }}</p>
@@ -822,6 +854,7 @@
                                                             <table class="table table-borderless">
                                                                 <thead>
                                                                     <tr>
+                                                                        <th scope="col">Status</th>
                                                                         <th scope="col">Item Name</th>
                                                                         <th scope="col">Amounts</th>
                                                                         <th scope="col">Price</th>
@@ -832,9 +865,22 @@
                                                                 <tbody>
                                                                     @foreach($transaction_detail_item[$transaction->id] as $detail_item)
                                                                     <tr>
+                                                                        <td>
+                                                                            <div class="float-end d-flex">
+                                                                                @if($detail_item->item_status == "bought")
+                                                                                <button type="submit" disabled class="btn btn-success">
+                                                                                    <i class="fa fa-check"></i>
+                                                                                </button>
+                                                                                @endif
+                                                                                @if($detail_item->item_status == "cancelled")
+                                                                                <button type="submit" disabled class="btn btn-danger">
+                                                                                    <i class="fa fa-times"></i>
+                                                                                </button>
+                                                                                @endif
+                                                                            </div>
+                                                                        </td>
                                                                         <td scope="row" class="d-flex">
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @if($detail_item->item_status == 'bought') checked @endif>
                                                                                 <label class="form-check-label" for="">
                                                                                     {{ $detail_item->item_name }}
                                                                                 </label>
@@ -908,9 +954,12 @@
                         </div>
                         <div class="row my-4">
                             <h3 class="fw-bold">Transaction Done</h3>
+                            @foreach($finished_transaction_list as $finished)
                             <div class="card shadow my-3 p-3" style="background-color: #bebebe">
                                 <div class="card-title d-flex justify-content-between">
-                                    <h3 class="fw-bold mb-3">Item Name</h3>
+                                <h3 class="fw-bold mb-3">
+                                    <a href="/trip-detail/{{ $finished->trip_id }}">{{ $finished->destination }} - {{ $finished->origin }}</a>
+                                </h3>
                                     <div class="d-flex gap-2">
                                         <p>Status:</p>
                                         <p class="text-success">Complete</p>
@@ -945,21 +994,12 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group mb-3 row">
-                                        <div class="col-lg-2">
-                                            <p>From</p>
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <p>jakarta</p>
-                                        </div>
-                                    </div>
                                     <div class="form-group mb-3 row">
                                         <div class="col-lg-2">
                                             <p>Address</p>
                                         </div>
                                         <div class="col-lg-10">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequatur at totam nemo deserunt odio consectetur corrupti accusamus, reprehenderit incidunt, facere ab! Voluptatum, nulla inventore. Pariatur optio quasi obcaecati minus.</p>
+                                            <p>{{ $finished->address }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3 row">
@@ -967,11 +1007,38 @@
                                             <p>Phone Number</p>
                                         </div>
                                         <div class="col-lg-10">
-                                            <p>123456</p>
+                                            <p>{{ $finished->phone_number }}</p>
                                         </div>
                                     </div>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>Shipping Type</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>{{ $finished->shipping_name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>Total Price</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>{{ $finished->total_paid }}</p>
+                                        </div>
+                                    </div>
+                                    @if($finished->beacukai_pabean)
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-lg-2">
+                                            <p>Tax</p>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p>Rp {{ $finished->beacukai_pabean }}</p>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

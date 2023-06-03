@@ -22,6 +22,7 @@
         @foreach ($request_list as $request)
         <div class="card shadow-sm">
             <div class="card-body">
+                <p>Time limit to approve: {{ $request->limit }}</p>
                 <div class="row">
                     <div class="col-lg-2">
                         <img src="img/laptop.jpg" class="img-fluid" alt="">
@@ -33,22 +34,37 @@
                         <p>Price: {{ $request->request_price }}</p>
                         <p>Weight: {{ $request->request_weight }}</p>
 
-                        <div class="float-end d-flex gap-2">
-                            <form action="/acceptRequest" method="POST">
-                                @csrf
-                                <input type="hidden" name="request_id" value="{{ $request->id }}">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-check"></i>
+                        @if(!$request->approvable)
+
+                        <form action="/deleteRequestCart" method="POST">
+                            @csrf
+                            <div class="float-end d-flex">
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
                                 </button>
-                            </form>
-                            <form action="/rejectRequest" method="POST">
-                                @csrf
-                                <input type="hidden" name="request_id" value="{{ $request->id }}">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                        
+                        @else
+
+                            <div class="float-end d-flex gap-2">
+                                <form action="/acceptRequest" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </form>
+                                <form action="/rejectRequest" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,7 +124,7 @@
                         @if($order_header->beacukai_pabean)
                         <div class="form-group mb-3 row">
                             <div class="col-lg-2">
-                                <p>Beacukai & Pabean</p>
+                                <p>Tax</p>
                             </div>
                             <div class="col-lg-10">
                                 <p class="price-format">{{ $order_header->beacukai_pabean }}</p>
@@ -162,21 +178,24 @@
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Item Not Available
                                                                         </label>
-                                                                        {{-- <input class="form-check-input" type="radio" name="reason" id="itemOutOfStock" value="Item Out of Stock">
+                                                                    </div>
+
+                                                                    <div class="form-check">
+
+                                                                        <input class="form-check-input" type="radio" name="reason" id="itemOutOfStock" value="Item Out of Stock">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Item Out of Stock
                                                                         </label>
+                                                                    </div>
+
+                                                                    <div class="form-check">
+
                                                                         <input class="form-check-input" type="radio" name="reason" id="destinationChange" value="Destination Plan Changed">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Destination Plan Changed
                                                                         </label>
-                                                                        --}}
+                                                                        
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="form-group mb-3">
-                                                                    <label for="" class="form-label">reason</label>
-                                                                    <input type="text" class="form-control">
                                                                 </div>
                                                             </div>
                                                             @csrf
@@ -235,19 +254,27 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="form-label">Select reason</label>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="reason" id="requestNotAvailable" value="Item Not Available">
+                                                                        <input class="form-check-input" type="radio" name="reason" id="itemNotAvailable" value="Item Not Available">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Item Not Available
                                                                         </label>
-                                                                        {{-- <input class="form-check-input" type="radio" name="reason" id="requestOutOfStock" value="Item Out of Stock">
+                                                                    </div>
+
+                                                                    <div class="form-check">
+
+                                                                        <input class="form-check-input" type="radio" name="reason" id="itemOutOfStock" value="Item Out of Stock">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Item Out of Stock
                                                                         </label>
-                                                                        <input class="form-check-input" type="radio" name="reason" id="destinationChanged" value="Destination Plan Changed">
+                                                                    </div>
+
+                                                                    <div class="form-check">
+
+                                                                        <input class="form-check-input" type="radio" name="reason" id="destinationChange" value="Destination Plan Changed">
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Destination Plan Changed
                                                                         </label>
-                                                                        --}}
+                                                                        
                                                                     </div>
                                                                 </div>
 
@@ -293,7 +320,7 @@
                                     </th>
                                     <td></td>
                                     <td></td>
-                                    <td>23</td>
+                                    <td></td>
                                     <td>{{ $sum_profit }}</td>
                                 </tr>
                             </tfoot>
@@ -339,6 +366,7 @@
 
             @foreach($shipping_list as $shipping)
             <div class="col-lg-12">
+                <p>You need to ship the items before {{ $shipping->ship_time_limit }}</p>
                 <div class="card p-3">
                     <div class="form-group mb-3 row">
                         <label for="" class="col-sm-2 col-form-label">To</label>
@@ -375,7 +403,7 @@
                     </div>
 
                     <div class="card p-3 mb-3">
-                        @foreach($shipping_detail_item[$shipping->id] as $item)
+                        @foreach($shipping_detail_item[$shipping->transaction_id] as $item)
                         <div class="row align-items-center">
                             <div class="col-lg-4">
                                 <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 200px" alt="" srcset="">
@@ -394,10 +422,10 @@
                         </div>
                         @endforeach
 
-                        @foreach($shipping_detail_request[$shipping->id] as $request)
+                        @foreach($shipping_detail_request[$shipping->transaction_id] as $request)
                         <div class="row align-items-center">
                             <div class="col-lg-4">
-                                <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 200px" alt="" srcset="">
+                                <img src="{{ asset('/storage/' .$request->request_image) }}" style="width: 200px" alt="" srcset="">
                             </div>
                             <div class="col-lg-3">
                                 <div class="item-desc mb-3">
@@ -414,14 +442,15 @@
                         @endforeach
                     </div>
                     <form action="/send" method="POST">
-                    <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
-                        <div class="col-lg-3">
-                            <input type="text" name="shipping_receipt" class="form-control">
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Shipping Receipt</label>
+                            <div class="col-lg-3">
+                                <input type="text" name="shipping_receipt" class="form-control">
+                            </div>
                         </div>
-                    </div>
                         @csrf
-                        <input type="hidden" name="shipping_transaction_id" value="{{ $shipping->id }}">
+                        <input type="hidden" name="shipping_id" value="{{ $shipping->id }}">
+                        <input type="hidden" name="transaction_id" value="{{ $shipping->transaction_id }}">
                         <button class="btn btn-success px-3">Send</button>
                     </form>
                 </div>
@@ -431,3 +460,14 @@
 
 </section>
 @endsection
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    function clicked(radio){
+        if(radio.value == 'other'){
+            document.getElementById('reason_text').disabled = false
+        }else{
+            document.getElementById('reason_text').disabled = true
+        } 
+    }
+    console.log($("input[type='radio'][name='reason']:checked").val());
+</script>

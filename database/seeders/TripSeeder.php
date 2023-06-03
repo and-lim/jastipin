@@ -20,8 +20,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Japan',
                 'origin' => 'Kota Bogor',
-                'start_date' => '2023-05-20',
-                'arrival_date' => '2023-05-28',
+                'start_date' => '2023-06-12',
+                'arrival_date' => '2023-06-13',
                 'request' => true,
                 'total_price' => 11000000,
                 'tax' => 1158500,
@@ -32,8 +32,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'United States',
                 'origin' => 'Kabupaten Banjarnegara',
-                'start_date' => '2023-05-25',
-                'arrival_date' => '2023-05-30',
+                'start_date' => '2023-06-14',
+                'arrival_date' => '2023-06-16',
                 'request' => true,
                 'description' => 'deskripsi nih',
                 'status' => 'ongoing',
@@ -44,14 +44,26 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Japan',
                 'origin' => 'Kota Bogor',
-                'start_date' => '2023-05-29',
-                'arrival_date' => '2023-05-30',
+                'start_date' => '2023-06-19',
+                'arrival_date' => '2023-06-23',
                 'request' => true,
-                'tax' => 0,
-                'total_price' => 0,
+                'tax' => 20025500,
+                'total_price' => 68000000,
                 'description' => 'deskripsi nih',
-                'status' => 'draft',
+                'status' => 'ongoing',
                 'user_id' => 1,
+            ),
+            array(
+                'destination' => 'Brazil',
+                'origin' => 'Kota Dumai',
+                'start_date' => '2023-06-01',
+                'arrival_date' => '2023-06-03',
+                'request' => true,
+                'tax' => 20025500,
+                'total_price' => 68000000,
+                'description' => 'deskripsi nih',
+                'status' => 'ongoing',
+                'user_id' => 3,
             )
 
         );

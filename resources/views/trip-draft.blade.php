@@ -15,6 +15,11 @@
 
                     {{-- tab trip list --}}
                     <div class="tab-pane show active fade" id="nav-trip" role="tabpanel" aria-labelledby="nav-trip-tab">
+                        @if ($errors->any())
+                        <div class="alert alert-dark" role="alert" style="outline: none">
+                            <i class="text-danger mt-1">{{$errors->first()}}</i>
+                        </div>
+                        @endif
                         <div class="card shadow p-3">
                             <div class="draft-trip">
                                 <div class="row">
@@ -37,6 +42,11 @@
                                                     <label for="destination" class="form-label">Destination</label>
                                                     <div class="dropdown-datalist">
                                                         <input list="destinations" id="exampleDataList" name="destination" class="form-control" value="{{ $edit_trip->destination }}" placeholder="Destination" aria-label="destination">
+                                                        @error('destination')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                     <datalist id="destinations">
                                                         @foreach ($destinations as $destination)
@@ -61,6 +71,11 @@
                                                 <div class="col-lg-5">
                                                     <label for="start_date" class="form-label">Start Date</label>
                                                     <input id="start_date" name="start_date" class="form-control" type="date" value="{{ $edit_trip->start_date }}" />
+                                                    @error('start_date')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div class="bg-dark mt-4" style="height: 5px;"></div>
@@ -68,6 +83,11 @@
                                                 <div class="col-lg-5">
                                                     <label for="arrival_date" class="form-label">Arrival Date</label>
                                                     <input id="arrival_date" name="arrival_date" class="form-control" type="date" value="{{ $edit_trip->arrival_date }}" />
+                                                    @error('arrival_date')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -95,12 +115,22 @@
                                         <div class="form-group mb-3">
                                             <label for="description" class="form-label">Add Description</label>
                                             <textarea name="description" class="form-control" id="description" cols="30" rows="2">{{ $edit_trip->description }}</textarea>
+                                            @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group mb-3 d-flex flex-column">
                                             <label for="" class="form-label">Luggage Size</label>
                                             <div class="col-5">
-                                                <input type="number" name="luggage" min="1" max="" value="{{ $edit_trip->luggage }}"> kg
+                                                <input type="number" name="luggage" required min="1" max="" value="{{ $edit_trip->luggage }}"> kg
+                                                @error('luggage_size')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -128,7 +158,12 @@
                                                         <div class="form-group mb-3 ">
                                                             <label for="Item" class="form-label">Item Name</label>
                                                             <div class="col-sm-5">
-                                                                <input type="text" name="item_name" class="form-control" id="item-name" required>
+                                                                <input type="text" name="item_name" required class="form-control" id="item-name" required>
+                                                                @error('item_name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
 
@@ -136,11 +171,11 @@
                                                             <label for="category" class="form-label">Category</label>
                                                             <div class="col-sm-5">
                                                                 <select class="form-select" name="item_category" aria-label="Default select example">
-                                                                    <option value="food_beverage" selected>Food & Beverage</option>
-                                                                    <option value="fashion">Fashion</option>
-                                                                    <option value="electronic">Electronic Gadget</option>
-                                                                    <option value="accessories">Accessories</option>
-                                                                    <option value="other">Other</option>
+                                                                    <option value="Food & Beverage" selected>Food & Beverage</option>
+                                                                    <option value="Fashion">Fashion</option>
+                                                                    <option value="Electronic">Electronic Gadget</option>
+                                                                    <option value="Accessories">Accessories</option>
+                                                                    <option value="Other">Other</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -149,7 +184,11 @@
                                                             <label for="image" class="col-form-label">Select Image</label>
                                                             <div class="col-sm-8">
                                                                 <input type="file" name="item_image" class="form-control" id="image">
-                                                                <a href="" class="btn btn-primary mt-2">upload</a>
+                                                                @error('item_image')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
 
@@ -157,28 +196,53 @@
                                                             <div class="col-lg-6">
                                                                 <label for="item_weight" class="form-label">Item weight</label>
                                                                 <input type="number" style="width: 50px" min="1" name="item_weight" id="item_weight"> Kg
+                                                                @error('item_weight')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="item_stock" class="form-label">Item Stock</label>
                                                                 <input type="number" style="width: 50px" min="1" name="item_stock" id="item_stock"> Pc/s
+                                                                @error('item_stock')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 form-group ">
                                                             <label for="Price" class="form-label">Item Price</label>
                                                             <div class="col-sm-5">
-                                                                <input type="text" id="price" name="item_price" class="form-control" id="price" placeholder="Rp">
+                                                                <input type="text" id="price" oninput="validateInput(this)" name="item_price" required class="form-control" id="price" placeholder="Rp">
+                                                                @error('item_price')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
 
                                                         <div class="mb-3 form-group ">
                                                             <label for="Price" class="form-label">Item Display Price</label>
                                                             <div class="col-sm-5">
-                                                                <input type="text" name="item_display_price" class="form-control" id="price" placeholder="Rp">
+                                                                <input type="text" name="item_display_price" oninput="validateInput(this)" required class="form-control" id="price" placeholder="Rp">
+                                                                @error('item_display_price')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="description" class="form-label">Add Description</label>
                                                             <textarea name="item_description" class="form-control" id="description" cols="30" rows="2"></textarea>
+                                                            @error('description')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -268,5 +332,10 @@
             </div>
         </div>
 </section>
-
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    function validateInput(input) {
+        input.value = input.value.replace(/\D/g, '');
+    }
+</script>
 @endsection
