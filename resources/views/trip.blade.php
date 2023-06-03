@@ -9,27 +9,30 @@
                 <div class="search-title my-3 text-center">
                     <h1 class="fw-bold text-white">Search your Trip</h1>
                 </div>
-                <div class="form-group mx-auto col-lg-8">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Departure" aria-label="First name">
+                <form action="/search_trip" method="POST">
+                    @csrf
+                    <div class="form-group mx-auto col-lg-8">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-lg-5">
+                                <input type="text" name="destination" class="form-control" placeholder="Destination" value="{{ $destination }}" aria-label="First name">
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="bg-white" style="height: 5px;"></div>
+                            </div>
+                            <div class="col-lg-5">
+                                <input type="text" name="origin" class="form-control" placeholder="Origin" value="{{ $origin }}" aria-label="Last name">
+                            </div>
                         </div>
-                        <div class="col-lg-1">
-                            <div class="bg-white" style="height: 5px;"></div>
+                        <div class="row mt-5 justify-content-center">
+                            <div class="calendar-form col-lg-6 ">
+                                <input type="date" name="datenya" value="{{ $datenya }}" class="form-control form-input">
+                            </div>
                         </div>
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Destination" aria-label="Last name">
+                        <div class="search-button d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-warning text-center mx-auto">Search</button>
                         </div>
                     </div>
-                    <div class="row mt-5 justify-content-center">
-                        <div class="calendar-form col-lg-6 ">
-                            <input type="date" class="form-control form-input">
-                        </div>
-                    </div>
-                    <div class="search-button d-flex justify-content-center mt-3">
-                        <a href="" class="btn btn-warning text-center mx-auto">Search</a>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -53,21 +56,26 @@
                         <input type="checkbox" id="accessories" name="category" value="accessories" class="category_check_box">
                         <label for="accessories"> Accessories</label><br></li>
                     </div> --}}
-                    <div class="select my-2">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Food</option>
-                            <option value="1">Electronic</option>
-                            <option value="2">Fashion</option>
-                            <option value="3">Accessories</option>
-                          </select>
-                    </div>
-                    <div class="button mt-2">
-                        <button class="btn btn-primary">
-                            filter
-                            <i class="fa fa-filter">
-                            </i>
-                        </button>
-                    </div>
+
+                    <form action="/filter_category" method="POST">
+                        @csrf
+                        <div class="select my-2">
+                            <select class="form-select" name="category" aria-label="Default select example">
+                                <option @if($selected_category == 'Food & Beverage') selected @endif value="Food & Beverage">Food & Beverage</option>
+                                <option @if($selected_category == 'Electronic') selected @endif value="Electronic">Electronic</option>
+                                <option @if($selected_category == 'Fashion') selected @endif value="Fashion">Fashion</option>
+                                <option @if($selected_category == 'Accessories') selected @endif value="Accessories">Accessories</option>
+                                <option @if($selected_category == 'Other') selected @endif value="Other">Other</option>
+                              </select>
+                        </div>
+                        <div class="button mt-2">
+                            <button type="submit" class="btn btn-primary">
+                                filter
+                                <i class="fa fa-filter">
+                                </i>
+                            </button>
+                        </div>
+                    </form>
 
                 </aside>
             </div>
@@ -116,43 +124,4 @@
             </div>
 
 </section>
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script>
-    var richard = 0;
-    $('.category_check_box').click(function(){
-        if($(this).prop('checked') == true){
-            // console.log(Math.floor(Math.random() * 1000));
-
-            var category = $(this).val();
-
-            if(category == "food"){
-                var price_adjusment = 5000;
-            }else if(category == "fashion"){
-                var price_adjusment = 10000;
-            }else{
-                var price_adjusment = 20000;
-            }
-
-            var origin_price = parseInt($('#price').text());
-
-            var adjusted_price = origin_price + price_adjusment;
-
-            $('#adjusted_price').text(adjusted_price);
-            $('#adjusted_price_field').val(adjusted_price); 
-        }else{
-            $('#adjusted_price').text("");
-            $('#adjusted_price_field').val(""); 
-        }
-        
-    });
-
-    $('#slebew').click(function(){
-        $('#cart_box').append('<div class="row"><div class="col-md-3">Icon</div><div class="col-md-9">'+Math.floor(Math.random() * 1000)+' | <a href="javascript:;" class="btn-hapus">Hapus</a></div></div>')
-    })
-
-    $(document).on('click', '.btn-hapus', function(){
-        $(this).parent().parent().remove();
-    })
-</script>
 @endsection

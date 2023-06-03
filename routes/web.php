@@ -44,6 +44,8 @@ Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
 //trip
 Route::get('/trip', [PageController::class, 'viewTripList']);
+Route::post('/filter_category', [PageController::class, 'filter_category']);
+Route::post('/search_trip', [PageController::class, 'search_trip']);
 Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
 Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
 Route::post('/addToCart', [TransactionController::class, 'addToCart']);
@@ -73,6 +75,12 @@ Route::post('/cancelBuyRequest', [PageController::class, 'cancelBuyRequest']);
 Route::post('/shipping', [PageController::class, 'shipping']);
 
 
+//admin
+Route::get('/transaction-list', [PageController::class, 'transaction_list']);
+
+// Route::get('/transaction-list', function () {
+//     return view('transaction-list');
+// });
 Route::get('/', function () {
     return view('home');
 });
@@ -125,9 +133,7 @@ Route::get('/approval', function () {
     return view('approval');
 });
 
-Route::get('/transaction-list', function () {
-    return view('transaction-list');
-});
+
 
 
 // Route::get('/order', function () {

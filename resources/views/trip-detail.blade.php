@@ -34,6 +34,7 @@
                                 <h2 class="fw-bold">{{ $trips->fullname }}</h2>
                                 <div class="destination mt-3">
                                     <h3>{{ $trips->destination }} - {{ $trips->origin }}</h3>
+                                    <p>Trip Date: {{ $trips->start_date }}  until  {{ $trips->arrival_date }}</p>
                                     <p>{{ $trips->description }}</p>
                                 </div>
                             </div>
@@ -77,7 +78,7 @@
                                         </div>
                                     </div>
 
-                                    @if (Auth::user()->id != $trips->user_id && $trips->request)
+                                    @if (Auth::user()->id != $trips->user_id)
                                     <div class="col-lg-2 position-absolute" style="top: 45%; right: 0;">
                                         <form action="/addToCart" method="POST">
                                             @csrf

@@ -6,6 +6,9 @@ use App\Models\Trip;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Wtb;
+use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -15,15 +18,38 @@ class DashboardController extends Controller
 {
     function makeTrip(Request $request)
     {
+
+        $rules = [
+            'destination' => 'required',
+            'origin' => 'required',
+            'start_date' => 'required|after:now',
+            'arrival_date' => 'required|after:start_date',
+            'description' => 'required|min:10|max:250'
+        ];
+
+        $message = [
+            'required' => 'All field in add trip section are required.',
+            'start_date.after' => 'Start Date must be greater than today',
+            'arrival_date.after' => 'Arrival Date must be greater than Start Date',
+            'description.min' => 'Description must be between 10-250 characters.',
+            'description.max' => 'Description must be between 10-250 characters.', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()){
+            return back()->withErrors($validator);
+        }
+        
         $check_npwp = User::find(auth()->user()->id);
         
         if(!$check_npwp->npwp){
             return back()->withErrors(['msg' => 'You need to fill your NPWP in Dashboard > Profile before you make a trip!']);
         }
-        if($request->destination == $request->origin)
-        {
-            return back()->withErrors(['msg' => 'Destination and Origin can not be same']);
-        }
+        // if($request->destination == $request->origin)
+        // {
+        //     return back()->withErrors(['msg' => 'Destination and Origin can not be same']);
+        // }
 
         $trips = Trip::create([
             'destination' => $request->destination,
@@ -127,16 +153,66 @@ class DashboardController extends Controller
         }
         $shipping_list = DB::table('shippings')
         ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
         ->join('trips', 'transactions.trip_id','trips.id')
         ->join('users as travelers', 'trips.user_id', 'travelers.id')
         ->join('users as buyers', 'transactions.user_id', 'buyers.id')
-        ->select('shippings.shipping_receipt','transactions.*', 'buyers.fullname as buyer','buyers.address', 'travelers.fullname as traveller')
+        ->select('shippings.*','shippings.ship_time_limit','shipping_types.shipping_name', 'buyers.fullname as buyer','buyers.address', 'travelers.fullname as traveller', )
         ->where('transactions.user_id', auth()->user()->id)
+        ->where('shippings.shipping_status', 'waiting receive')
         ->get();
         
+        $finished_transaction_list = DB::table('transactions')
+        ->join('trips', 'transactions.trip_id', 'trips.id')
+        ->join('users', 'transactions.user_id','users.id')
+        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
+        ->where('transactions.user_id', auth()->user()->id)
+        ->where('transaction_status', 'finished')
+        ->get();
+
+        $finished_detail_item = [];
+        $finished_detail_request = [];
+        foreach($finished_transaction_list as $finished){
+            $id_transaction = $finished->id;
+            $detail_item =  DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('items', 'transaction_details.item_id', 'items.id')
+            ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
+
+            $finished_detail_item = Arr::add($finished_detail_item, $id_transaction , $detail_item );
+
+            $detail_request = DB::table('transaction_details')
+            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+            ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
+            ->where('transaction_details.transaction_id', $id_transaction)
+            ->get();
+
+            $finished_detail_request = Arr::add($finished_detail_request, $id_transaction, $detail_request);
+
+            
+        }
 
 
-        return view('dashboard', compact('home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request','shipping_list'));
+        return view('dashboard', compact('finished_detail_item','finished_detail_request','finished_transaction_list','home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request','shipping_list'));
+    }
+
+    function autoFinish(Schedule $schedule): void{
+        $schedule->call(function(){
+
+            $now = Carbon::now();
+            
+            $auto_finish = DB::table('shippings')
+            ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+            ->where('shippings.ship_time_limit', '<', $now)
+            ->update([
+                'transactions.transaction_status' => 'finished'
+            ]);
+            })->daily();
     }
     
     function editTrip($id){
@@ -170,6 +246,28 @@ class DashboardController extends Controller
     }
     
     function updateTrip(Request $request){
+        $rules = [
+            'destination' => 'required',
+            'origin' => 'required',
+            'start_date' => 'required|after:now',
+            'arrival_date' => 'required|after:start_date',
+            'description' => 'required|min:10|max:250',
+            'luggage_size' => 'required'
+        ];
+
+        $message = [
+            'required' => 'All field in add trip section are required.',
+            'start_date.after' => 'Start Date must be greater than today',
+            'arrival_date.after' => 'Arrival Date must be greater than Start Date',
+            'description.min' => 'Description must be between 10-250 characters.',
+            'description.max' => 'Description must be between 10-250 characters.', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()){
+            return back()->withErrors($validator);
+        }
         $update_trip = DB::table('trips')
         ->where('id', $request->id)
         ->update([
@@ -186,25 +284,33 @@ class DashboardController extends Controller
 
     function addItem(Request $request){
         $rules = [
-            'name' => 'required|min:5|max:25',
-            'category' => 'gte:1',
-            'description' => 'required|min:10|max:100',
-            'price' => 'required|gte:1000|lte:10000000',
-            'stock' => 'required|gte:1',
-            'image' => 'required'
+            'item_name' => 'required|min:5|max:25',
+            'item_category' => 'required',
+            'item_description' => 'required|min:10|max:250',
+            'item_price' => 'required|gte:1000',
+            'item_display_price' => 'required|gt:item_price',
+            'item_stock' => 'required|gte:1',
+            'item_image' => 'required',
+            'item_weight' => 'required|gte:1'
         ];
 
         $message = [
-            'required' => "This field is required.",
-            'category.gte' => "Please choose a category.",
-            'name.min' => "Name must be between 5-25 characters.",
-            'name.max' => "Name must be between 5-25 characters.",
-            'description.min' => "Description must be between 10-100 characters.",
-            'description.max' => "Description must be between 10-100 characters.",
-            'price.gte' => "Price must be between Rp 1.000 and Rp 10.000.000.",
-            'price.lte' => "Price must be between Rp 1.000 and Rp 10.000.000.",
-            'stock.gte' => "Stock must be at least 1."
+            'required' => "All field must be filled.",
+            'item_name.min' => "Name must be between 5-25 characters.",
+            'item_name.max' => "Name must be between 5-25 characters.",
+            'item_description.min' => "Description must be between 10-250 characters.",
+            'item_description.max' => "Description must be between 10-250 characters.",
+            'item_price.gte' => "Price must be higher than Rp 1.000.",
+            'item_display_price.gt' => "Display Price must be higher than Item Price.",
+            'item_stock.gte' => "Stock must be at least 1.",
+            'item_weight.gte' => "Weight must be greater than 1."
         ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()){
+            return back()->withErrors($validator);
+        }
 
         $filename = $request->file('item_image')->getClientOriginalName();
         $generate_file = time().'_'.$filename;
@@ -254,7 +360,7 @@ class DashboardController extends Controller
         ->where('items.trip_id', $request->trip_id)
         ->first();
 
-        $total = $total_price->total_price_trip;
+        $total = 68000000;
         $kurs = 15000;
         $fob = 500 * $kurs;
         $tax = 0;
@@ -357,6 +463,22 @@ class DashboardController extends Controller
         return redirect('/dashboard');
     }
 
-    
+    function received(Request $request){
+        $find_transaction = DB::table('shippings')
+        ->select('transaction_id')
+        ->first();
+
+        $change_shipping_status = DB::table('shippings')
+        ->where('id', $request->shipping_id)
+        ->update([
+            'shipping_status' => 'received'
+        ]);
+
+        $change_transaction_status = DB::table('transactions')
+        ->where('id', $find_transaction->transaction_id)
+        ->update([
+            'transaction_status' => 'finished'
+        ]);
+    }
     
 }

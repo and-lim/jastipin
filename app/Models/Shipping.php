@@ -11,6 +11,7 @@ class Shipping extends Model
 
     protected $fillable = [
         'transaction_id',
+        'ship_time_limit',
         'shipping_receipt',
         'shipping_status'
     ];
