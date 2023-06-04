@@ -3,7 +3,7 @@
 @section('mainSection')
 <section class="py-5">
 
-    <div class="hero-header py-5" style="height: 75vh;">
+    <div class="hero-header py-5" style="height: 80vh;">
         <div class="container mt-4">
             <div class="row col-lg-10 mx-auto">
                 <div class="search-title my-3 text-center">
@@ -11,27 +11,28 @@
                 </div>
                 <form action="/search_trip" method="POST">
                     @csrf
-                    <div class="form-group mx-auto col-lg-8">
-                        <div class="row align-items-center justify-content-center">
+                    <div class="form-group mx-auto col-lg-8 p-3 rounded shadow-lg border border-light" style="background-color:rgba(255,255,255,0.7);">
+                        <div class="row pt-2 align-items-center gap-lg-0 gap-2 justify-content-center">
                             <div class="col-lg-5">
                                 <input type="text" name="destination" class="form-control" placeholder="Destination" value="{{ $destination }}" aria-label="First name">
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-1 d-lg-block d-none">
                                 <div class="bg-white" style="height: 5px;"></div>
                             </div>
                             <div class="col-lg-5">
                                 <input type="text" name="origin" class="form-control" placeholder="Origin" value="{{ $origin }}" aria-label="Last name">
                             </div>
                         </div>
-                        <div class="row mt-5 justify-content-center">
+                        <div class="row my-4 justify-content-center">
                             <div class="calendar-form col-lg-6 ">
-                                <input type="date" name="datenya" value="{{ $datenya }}" class="form-control form-input">
+                                <label for="" class="form-label text-center"> Choose date</label>
+                                <input type="date" name="datenya" value="{{ $datenya }}" class="form-control rounded-1 form-input">
                             </div>
                         </div>
                         {{-- category --}}
-                        <div class="category-list col-lg-5 mx-auto my-3 py-2">
+                        <div class="category-list col-lg-6 mx-auto my-3">
                             <div class="category-title">
-                                <h5 class="fw-bold text-white text-center">Category</h5>
+                                <label for="" class="form-label">Category</label>
                             </div>
                             <form action="/filter_category" method="POST">
                                 @csrf

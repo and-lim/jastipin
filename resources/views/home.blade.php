@@ -145,14 +145,14 @@
                 <a href="/trip" class="btn btn-primary float-end my-3">See more Trip</a>
             </div>
 
-            <div class="container mt-3 pt-5 pt-lg-0">
+            <div class="container mt-5 pt-5 pt-lg-4">
                 <div class="section-title text-center pt-5"></div>
-                <div class="row">
+                <div class="row mt-5">
                     <div class="col-lg-6">
                         <h3 class="text-primary">About us</h3>
                         <p>Jastipin adalah Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit earum repellat ratione, eos quo voluptatem excepturi, voluptate pariatur molestias quasi veniam, sit sapiente consequatur nihil totam sed itaque. Sequi, eum!</p>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <div class="img-about position-relative overflow-hidden p-5 pe-0">
                             <img class="img-fluid" src="img/jastip.jpg" style="width: 450px" alt="">
                         </div>
