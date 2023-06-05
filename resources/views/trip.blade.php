@@ -9,19 +9,35 @@
                 <div class="search-title my-3 text-center">
                     <h1 class="fw-bold text-white">Search your Trip</h1>
                 </div>
-                <form action="/search_trip" method="POST">
-                    @csrf
+                <form action="" method="GET">
                     <div class="form-group mx-auto col-lg-8 p-3 rounded shadow-lg border border-light" style="background-color:rgba(255,255,255,0.7);">
                         <div class="row pt-2 align-items-center gap-lg-0 gap-2 justify-content-center">
-                            <div class="col-lg-5">
-                                <input type="text" name="destination" class="form-control" placeholder="Destination" value="{{ $destination }}" aria-label="First name">
+                            <div class="dropdown-datalist">
+                                <input list="destinations" id="exampleDataList" name="destination" class="form-control" required placeholder="Destination" value="{{ $destination }}" aria-label="destination">
+
                             </div>
+                            <datalist id="destinations">
+                                @foreach ($destination_list as $destination)
+
+                                <option value="{{ $destination->name }}">
+
+                                    @endforeach
+                            </datalist>
                             <div class="col-lg-1 d-lg-block d-none">
                                 <div class="bg-white" style="height: 5px;"></div>
                             </div>
-                            <div class="col-lg-5">
-                                <input type="text" name="origin" class="form-control" placeholder="Origin" value="{{ $origin }}" aria-label="Last name">
+                            <div class="dropdown-datalist">
+                                <input list="origins" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" value="{{ $origin }}" aria-label="origin">
+
+
                             </div>
+                            <datalist id="origins">
+                                @foreach ($origin_list as $origin)
+
+                                <option value="{{ $origin->name }}">
+
+                                    @endforeach
+                            </datalist>
                         </div>
                         <div class="row my-4 justify-content-center">
                             <div class="calendar-form col-lg-6 ">
@@ -34,19 +50,17 @@
                             <div class="category-title">
                                 <label for="" class="form-label">Category</label>
                             </div>
-                            <form action="/filter_category" method="POST">
-                                @csrf
-                                <div class="select my-2">
-                                    <select class="form-select" name="category" aria-label="Default select example">
-                                        <option @if($selected_category == 'Food & Beverage') selected @endif value="Food & Beverage">Food & Beverage</option>
-                                        <option @if($selected_category == 'Electronic') selected @endif value="Electronic">Electronic</option>
-                                        <option @if($selected_category == 'Fashion') selected @endif value="Fashion">Fashion</option>
-                                        <option @if($selected_category == 'Accessories') selected @endif value="Accessories">Accessories</option>
-                                        <option @if($selected_category == 'Other') selected @endif value="Other">Other</option>
-                                      </select>
-                                </div>
-                            </form>
-        
+                            <div class="select my-2">
+                                <select class="form-select" name="category" aria-label="Default select example">
+                                    <option value="">Select Category</option>
+                                    <option @if($selected_category=='Food & Beverage' ) selected @endif value="Food & Beverage">Food & Beverage</option>
+                                    <option @if($selected_category=='Electronic' ) selected @endif value="Electronic">Electronic</option>
+                                    <option @if($selected_category=='Fashion' ) selected @endif value="Fashion">Fashion</option>
+                                    <option @if($selected_category=='Accessories' ) selected @endif value="Accessories">Accessories</option>
+                                    <option @if($selected_category=='Other' ) selected @endif value="Other">Other</option>
+                                </select>
+                            </div>
+
                         </div>
 
                         <div class="search-button d-flex justify-content-center mt-3">
@@ -106,42 +120,42 @@
                 <div id="adjusted_price"></div>
                 <input type="hidden" id="adjusted_price_field" name="adjusted_price" value="">
                 <div id="cart_box">
-                    
+
                 </div>
                 @foreach ($trip_list as $trip)
-                        <div class="trip-list mb-3">
-                            <div class="card rounded-4  shadow-sm">
-                                <div class="card-body">
-                                    <div class="row gap-lg-0 gap-3">
-                                        <div class="col-lg-3 text-center">
-                                            <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
-                                            <h5 class="text-center mt-3">{{ $trip->fullname }}</h5>
-                                            <a href="/traveler" class="btn btn-success mt-3"> See Profile</a>
-                                        </div>
-                                        <div class="col-lg-9 my-lg-0 my-2">
-                                            <h3 class="text-primary text-center text-lg-start fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>
-                                            <p class="text-center text-lg-start">{{ $trip->description }}</p>
-                                            <div class="row gap-1">
-                                                @foreach ($items as $item)
+                <div class="trip-list mb-3">
+                    <div class="card rounded-4  shadow-sm">
+                        <div class="card-body">
+                            <div class="row gap-lg-0 gap-3">
+                                <div class="col-lg-3 text-center">
+                                    <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
+                                    <h5 class="text-center mt-3">{{ $trip->fullname }}</h5>
+                                    <a href="/traveler" class="btn btn-success mt-3"> See Profile</a>
+                                </div>
+                                <div class="col-lg-9 my-lg-0 my-2">
+                                    <h3 class="text-primary text-center text-lg-start fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>
+                                    <p class="text-center text-lg-start">{{ $trip->description }}</p>
+                                    <div class="row gap-1">
+                                        @foreach ($items as $item)
 
-                                                @if ($item->trip_id == $trip->id)
-                                                <div class="col-lg-2 trip-item">
-                                                    <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 70px" class="img-fluid item-img" alt="">
-                                                    <div class="img-detail d-flex flex-column mt-1">
-                                                        <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
-                                                        <label for="" class="form-label mb-0">{{ $item->item_price }}</label>
-                                                    </div>
-                                                </div>
-                                                @endif
-                                                @endforeach
+                                        @if ($item->trip_id == $trip->id)
+                                        <div class="col-lg-2 trip-item">
+                                            <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 70px" class="img-fluid item-img" alt="">
+                                            <div class="img-detail d-flex flex-column mt-1">
+                                                <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
+                                                <label for="" class="form-label mb-0">{{ $item->item_price }}</label>
                                             </div>
-                                            <a href="/trip-detail/{{ $trip->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                         </div>
+                                        @endif
+                                        @endforeach
                                     </div>
+                                    <a href="/trip-detail/{{ $trip->id }}" class="btn btn-outline-primary float-end"> See Detail</a>
                                 </div>
                             </div>
-                        </div>        
-                        @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
 
 </section>
