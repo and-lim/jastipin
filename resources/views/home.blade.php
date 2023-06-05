@@ -9,7 +9,7 @@
                         <div class="col-lg-6 mx-auto text-center text-white text-lg-center">
                             <h1 class="mb-4 intro-title ">Jastipin</h1>
                             <h3 class="mb-2">Titip Barang dari Luar negeri dengan jastipin  </h3>
-                            <input type="text" id="price">
+                            {{-- <input type="text" id="price"> --}}
                         </div>
                     </div>
                     {{-- <div class="form-group mx-auto col-lg-8">
@@ -95,7 +95,7 @@
    
 
             <div class="container my-lg-3 pb-5 pb-lg-0">
-                <h1 class="title mb-lg-3 mb-5">Trip</h1>
+                <h1 class="title mb-lg-3 my-5">Trip</h1>
                 <div class="row ">
                     <div class="col-lg-10">
                         <div class="trip-list d-flex flex-column gap-2">
