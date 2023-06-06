@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use App\Models\Item;
+use App\Models\TransactionList;
 use App\Models\User;
 use App\Models\Wtb;
 use Carbon\Carbon;
@@ -32,18 +33,18 @@ class DashboardController extends Controller
             'start_date.after' => 'Start Date must be greater than today',
             'arrival_date.after' => 'Arrival Date must be greater than Start Date',
             'description.min' => 'Description must be between 10-250 characters.',
-            'description.max' => 'Description must be between 10-250 characters.', 
+            'description.max' => 'Description must be between 10-250 characters.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        
+
         $check_npwp = User::find(auth()->user()->id);
-        
-        if(!$check_npwp->npwp){
+
+        if (!$check_npwp->npwp) {
             return back()->withErrors(['msg' => 'You need to fill your NPWP in Dashboard > Profile before you make a trip!']);
         }
         // if($request->destination == $request->origin)
@@ -81,171 +82,208 @@ class DashboardController extends Controller
             ->get();
 
         $item_in_trip = DB::table('items')
-        ->join('trips', 'items.trip_id', 'trips.id')
-        ->select('items.*')
-        ->where('trips.user_id', auth()->user()->id)
-        ->get();
+            ->join('trips', 'items.trip_id', 'trips.id')
+            ->select('items.*')
+            ->where('trips.user_id', auth()->user()->id)
+            ->get();
 
         $wtb_item = DB::table('wtbs')
-        ->join('users', 'wtbs.user_id', 'users.id')
-        ->select('wtbs.*')
-        ->where('wtb_status', 'published')
-        ->get();
+            ->join('users', 'wtbs.user_id', 'users.id')
+            ->select('wtbs.*')
+            ->where('wtb_status', 'published')
+            ->get();
 
         $city = DB::table('cities')
-        ->select('*')
-        ->get();
+            ->select('name')
+            ->get();
 
         $user_profile = DB::table('users')
-        ->select('*')
-        ->where('id', auth()->user()->id)
-        ->first();
-        
-        
-        $countries = DB::table('countries')
-        ->select('countries.name')
-        ->where('name', '<>', 'Indonesia');
-        
-        $origins = $countries->get();
+            ->select('*')
+            ->where('id', auth()->user()->id)
+            ->first();
 
-        $destinations = DB::table('cities')
-        ->select('cities.name')
-        ->union($countries)
-        ->get();
+
+        // $countries = DB::table('countries')
+        // ->select('countries.name')
+        // ->where('name', '<>', 'Indonesia');
+
+        // $origins = $countries->get();
+
+        $destinations = DB::table('countries')
+            ->select('countries.name')
+            ->where('name', '<>', 'Indonesia')
+            ->get();
 
         $home = DB::table('cities')
-        ->select('name')
-        ->get();
+            ->select('name')
+            ->get();
 
         $ongoing_transaction = DB::table('transactions')
-        ->join('trips', 'transactions.trip_id', 'trips.id')
-        ->join('users', 'transactions.user_id','users.id')
-        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
-        ->where('transactions.user_id', auth()->user()->id)
-        ->where('transaction_status', 'ongoing')
-        ->get();
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('users', 'transactions.user_id', 'users.id')
+            ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+            ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
+            ->where('transactions.user_id', auth()->user()->id)
+            ->where('transaction_status', 'ongoing')
+            ->get();
 
         $transaction_detail_item = [];
         $transaction_detail_request = [];
-        foreach($ongoing_transaction as $header){
+        foreach ($ongoing_transaction as $header) {
             $id_transaction = $header->id;
             $detail_item =  DB::table('transaction_details')
-            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-            ->join('items', 'transaction_details.item_id', 'items.id')
-            ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
-            ->where('transaction_details.transaction_id', $id_transaction)
-            ->get();
+                ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+                ->join('items', 'transaction_details.item_id', 'items.id')
+                ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
+                ->where('transaction_details.transaction_id', $id_transaction)
+                ->get();
 
-            $transaction_detail_item = Arr::add($transaction_detail_item, $id_transaction , $detail_item );
+            $transaction_detail_item = Arr::add($transaction_detail_item, $id_transaction, $detail_item);
 
             $detail_request = DB::table('transaction_details')
-            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-            ->join('trips', 'transactions.trip_id', 'trips.id')
-            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
-            ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
-            ->where('transaction_details.transaction_id', $id_transaction)
-            ->get();
+                ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+                ->join('trips', 'transactions.trip_id', 'trips.id')
+                ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+                ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
+                ->where('transaction_details.transaction_id', $id_transaction)
+                ->get();
 
             $transaction_detail_request = Arr::add($transaction_detail_request, $id_transaction, $detail_request);
-
-            
         }
         $shipping_list = DB::table('shippings')
-        ->join('transactions', 'shippings.transaction_id', 'transactions.id')
-        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-        ->join('trips', 'transactions.trip_id','trips.id')
-        ->join('users as travelers', 'trips.user_id', 'travelers.id')
-        ->join('users as buyers', 'transactions.user_id', 'buyers.id')
-        ->select('shippings.*','shippings.ship_time_limit','shipping_types.shipping_name', 'buyers.fullname as buyer','buyers.address', 'travelers.fullname as traveller', )
-        ->where('transactions.user_id', auth()->user()->id)
-        ->where('shippings.shipping_status', 'waiting receive')
-        ->get();
-        
+            ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+            ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('users as travelers', 'trips.user_id', 'travelers.id')
+            ->join('users as buyers', 'transactions.user_id', 'buyers.id')
+            ->select('shippings.*', 'shippings.ship_time_limit', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
+            ->where('transactions.user_id', auth()->user()->id)
+            ->where('shippings.shipping_status', 'waiting receive')
+            ->get();
+
         $finished_transaction_list = DB::table('transactions')
-        ->join('trips', 'transactions.trip_id', 'trips.id')
-        ->join('users', 'transactions.user_id','users.id')
-        ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-        ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
-        ->where('transactions.user_id', auth()->user()->id)
-        ->where('transaction_status', 'finished')
-        ->get();
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('users', 'transactions.user_id', 'users.id')
+            ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
+            ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
+            ->where('transactions.user_id', auth()->user()->id)
+            ->where('transaction_status', 'finished')
+            ->get();
 
         $finished_detail_item = [];
         $finished_detail_request = [];
-        foreach($finished_transaction_list as $finished){
+        foreach ($finished_transaction_list as $finished) {
             $id_transaction = $finished->id;
             $detail_item =  DB::table('transaction_details')
-            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-            ->join('items', 'transaction_details.item_id', 'items.id')
-            ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
-            ->where('transaction_details.transaction_id', $id_transaction)
-            ->get();
+                ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+                ->join('items', 'transaction_details.item_id', 'items.id')
+                ->select('transaction_details.*', 'items.item_name', 'items.item_display_price')
+                ->where('transaction_details.transaction_id', $id_transaction)
+                ->get();
 
-            $finished_detail_item = Arr::add($finished_detail_item, $id_transaction , $detail_item );
+            $finished_detail_item = Arr::add($finished_detail_item, $id_transaction, $detail_item);
 
             $detail_request = DB::table('transaction_details')
-            ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
-            ->join('trips', 'transactions.trip_id', 'trips.id')
-            ->join('request_items', 'transaction_details.request_id', 'request_items.id')
-            ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
-            ->where('transaction_details.transaction_id', $id_transaction)
-            ->get();
+                ->join('transactions', 'transaction_details.transaction_id', 'transactions.id')
+                ->join('trips', 'transactions.trip_id', 'trips.id')
+                ->join('request_items', 'transaction_details.request_id', 'request_items.id')
+                ->select('transaction_details.*', 'request_items.request_name', 'request_items.request_price')
+                ->where('transaction_details.transaction_id', $id_transaction)
+                ->get();
 
             $finished_detail_request = Arr::add($finished_detail_request, $id_transaction, $detail_request);
-
-            
         }
 
 
-        return view('dashboard', compact('finished_detail_item','finished_detail_request','finished_transaction_list','home','origins','destinations','city','draft_trip', 'ongoing_trip', 'item_in_trip','wtb_item','user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request','shipping_list'));
+        return view('dashboard', compact('finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
     }
 
-    function autoFinish(Schedule $schedule): void{
-        $schedule->call(function(){
+    function autoFinish(Schedule $schedule): void
+    {
+        $schedule->call(function () {
 
             $now = Carbon::now();
-            
+
+
             $auto_finish = DB::table('shippings')
-            ->join('transactions', 'shippings.transaction_id', 'transactions.id')
-            ->where('shippings.ship_time_limit', '<', $now)
-            ->update([
-                'transactions.transaction_status' => 'finished'
-            ]);
-            })->daily();
+                ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+                ->select('shippings.*')
+                ->where('shippings.ship_time_limit', '<', $now)
+                ->get();
+
+            foreach ($auto_finish as $auto) {
+                $change_shipping_status = DB::table('shippings')
+                    ->where('id', $auto->id)
+                    ->update([
+                        'shipping_status' => 'received'
+                    ]);
+
+                $change_transaction_status = DB::table('transactions')
+                    ->where('id', $auto->transaction_id)
+                    ->update([
+                        'transaction_status' => 'finished'
+                    ]);
+
+                $get_balance_transaction = TransactionList::where('transaction_id', $auto->transaction_id)->first();
+                $refund_buyer = User::find(auth()->user()->id);
+                $refund_buyer->balance = $refund_buyer->balance + $get_balance_transaction->balance_to_buyer;
+                $refund_buyer->save();
+
+                $get_seller = DB::table('transactions')
+                    ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
+                    ->select('trips.user_id','transactions.trip_id')
+                    ->where('transactions.id', $auto->transaction_id)
+                    ->first();
+
+                $balance_to_seller = User::find($get_seller->user_id);
+                // dd($balance_to_seller);
+                $balance_to_seller->balance = $balance_to_seller->balance + $get_balance_transaction->hold_balance;
+                $balance_to_seller->save();
+
+                $status_trip = Trip::find($get_seller->trip_id);
+                $status_trip->status = 'finished';
+                $status_trip->save();
+            }
+
+
+            // $shipping_status = DB::table('shippings')
+            // ->where('shipping')
+        })->daily();
     }
-    
-    function editTrip($id){
+
+    function editTrip($id)
+    {
 
         $countries = DB::table('countries')
-        ->select('countries.name')
-        ->where('name', '<>', 'Indonesia');
-        
+            ->select('countries.name')
+            ->where('name', '<>', 'Indonesia');
+
         $origins = $countries->get();
 
         $destinations = DB::table('cities')
-        ->select('cities.name')
-        ->union($countries)
-        ->get();
+            ->select('cities.name')
+            ->union($countries)
+            ->get();
 
         $home = DB::table('cities')
-        ->select('name')
-        ->get();
+            ->select('name')
+            ->get();
 
         $edit_trip = DB::table('trips')
-        ->select('trips.*', 'luggage_limit.weight')
-        ->leftJoinSub(DB::table('items')->select(DB::raw('items.trip_id, SUM(items.item_weight * items.item_stock) as weight'))->where('items.trip_id',$id), 'luggage_limit', 'trips.id', 'luggage_limit.trip_id')
-        ->where('id',$id)
-        ->first();
+            ->select('trips.*', 'luggage_limit.weight')
+            ->leftJoinSub(DB::table('items')->select(DB::raw('items.trip_id, SUM(items.item_weight * items.item_stock) as weight'))->where('items.trip_id', $id), 'luggage_limit', 'trips.id', 'luggage_limit.trip_id')
+            ->where('id', $id)
+            ->first();
 
         $added_item = DB::table('items')
-        ->select('*')
-        ->where('trip_id', $id)
-        ->get();
-        return view('trip-draft', compact('destinations','home','edit_trip', 'added_item'));
+            ->select('*')
+            ->where('trip_id', $id)
+            ->get();
+        return view('trip-draft', compact('destinations', 'home', 'edit_trip', 'added_item'));
     }
-    
-    function updateTrip(Request $request){
+
+    function updateTrip(Request $request)
+    {
         $rules = [
             'destination' => 'required',
             'origin' => 'required',
@@ -260,29 +298,30 @@ class DashboardController extends Controller
             'start_date.after' => 'Start Date must be greater than today',
             'arrival_date.after' => 'Arrival Date must be greater than Start Date',
             'description.min' => 'Description must be between 10-250 characters.',
-            'description.max' => 'Description must be between 10-250 characters.', 
+            'description.max' => 'Description must be between 10-250 characters.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
         $update_trip = DB::table('trips')
-        ->where('id', $request->id)
-        ->update([
-            'destination' => $request->destination,
-            'origin' => $request->origin,
-            'start_date' => $request->start_date,
-            'arrival_date' => $request->arrival_date,
-            'request' => $request->request_other,
-            'luggage' => $request->luggage,
-            'description' => $request->description,
-        ]);
+            ->where('id', $request->id)
+            ->update([
+                'destination' => $request->destination,
+                'origin' => $request->origin,
+                'start_date' => $request->start_date,
+                'arrival_date' => $request->arrival_date,
+                'request' => $request->request_other,
+                'luggage' => $request->luggage,
+                'description' => $request->description,
+            ]);
         return redirect('/trip-draft/' . $request->id);
     }
 
-    function addItem(Request $request){
+    function addItem(Request $request)
+    {
         $rules = [
             'item_name' => 'required|min:5|max:25',
             'item_category' => 'required',
@@ -308,12 +347,12 @@ class DashboardController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $message);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
 
         $filename = $request->file('item_image')->getClientOriginalName();
-        $generate_file = time().'_'.$filename;
+        $generate_file = time() . '_' . $filename;
 
         $path = $request->file('item_image')->storeAs('public/', $generate_file);
 
@@ -345,27 +384,29 @@ class DashboardController extends Controller
         return redirect('/trip-draft/' . $request->trip_id);
     }
 
-    function removeItem(Request $request){
+    function removeItem(Request $request)
+    {
         $delete_item = DB::table('items')
-        ->where('id', $request->id)
-        ->delete();
+            ->where('id', $request->id)
+            ->delete();
 
         return back();
     }
 
-    function publishTrip(Request $request){
+    function publishTrip(Request $request)
+    {
 
         $total_price = DB::table('items')
-        ->select(DB::raw('SUM(item_price * item_stock) AS total_price_trip'))
-        ->where('items.trip_id', $request->trip_id)
-        ->first();
+            ->select(DB::raw('SUM(item_price * item_stock) AS total_price_trip'))
+            ->where('items.trip_id', $request->trip_id)
+            ->first();
 
-        $total = 68000000;
+        $total = $total_price->total_price_trip;
         $kurs = 15000;
         $fob = 500 * $kurs;
         $tax = 0;
 
-        if($total > $fob ){
+        if ($total > $fob) {
             $pabean = ($total - $fob);
             $beamasuk = 0.1 * $pabean;
             $nilaiimpor = $pabean + $beamasuk;
@@ -377,20 +418,21 @@ class DashboardController extends Controller
 
 
         $publish_trip = DB::table('trips')
-        ->where('id', $request->trip_id)
-        ->update([
-            'status' => 'ongoing',
-            'tax' => $tax,
-            'total_price' => $total
-        ]);
+            ->where('id', $request->trip_id)
+            ->update([
+                'status' => 'ongoing',
+                'tax' => $tax,
+                'total_price' => $total
+            ]);
         return redirect('/dashboard');
     }
 
-    function addWtbItem(Request $request){
+    function addWtbItem(Request $request)
+    {
 
-        
+
         $filename = $request->file('wtb_image')->getClientOriginalName();
-        $generate_file = time().'_'.$filename;
+        $generate_file = time() . '_' . $filename;
 
         $path = $request->file('wtb_image')->storeAs('public/', $generate_file);
 
@@ -408,12 +450,13 @@ class DashboardController extends Controller
         return redirect('/dashboard');
     }
 
-    function removeWtbItem(Request $request){
+    function removeWtbItem(Request $request)
+    {
         $delete_item = DB::table('Wtbs')
-        ->where('id', $request->id)
-        ->update([
-            'wtb_status' => 'deleted'
-        ]);
+            ->where('id', $request->id)
+            ->update([
+                'wtb_status' => 'deleted'
+            ]);
 
         return back();
     }
@@ -421,64 +464,90 @@ class DashboardController extends Controller
     function updateProfile(Request $request)
     {
         $search_city = DB::table('cities')
-        ->select('*')
-        ->where('name', $request->city)
-        ->first();
+            ->select('*')
+            ->where('name', $request->city)
+            ->first();
 
-        if(!$search_city) return back()->withErrors(['msg' => 'The city name is not a valid Indonesian city']);
+        if (!$search_city) return back()->withErrors(['msg' => 'The city name is not a valid Indonesian city']);
 
-        if($request->file('avatar')){
+        if ($request->file('avatar')) {
 
             $filename = $request->file('avatar')->getClientOriginalName();
-            $generate_file = time().'_'.$filename;
-    
+            $generate_file = time() . '_' . $filename;
+
             $path = $request->file('avatar')->storeAs('public/', $generate_file);
             $update_profile = DB::table('users')
-        ->where('id', $request->id )
-        ->update([
-            'fullname' => $request->fullname,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'city' => $request->city,
-            'NPWP' => $request->npwp,
-            'password' => Hash::make($request->password),
-            'avatar' => $generate_file,
-            'address' => $request->address
-        ]);
-        }else{
+                ->where('id', $request->id)
+                ->update([
+                    'fullname' => $request->fullname,
+                    'email' => $request->email,
+                    'phone_number' => $request->phone_number,
+                    'city' => $request->city,
+                    'NPWP' => $request->npwp,
+                    'password' => Hash::make($request->password),
+                    'avatar' => $generate_file,
+                    'address' => $request->address
+                ]);
+        } else {
 
             $update_profile = DB::table('users')
-            ->where('id', $request->id )
-            ->update([
-                'fullname' => $request->fullname,
-                'email' => $request->email,
-                'phone_number' => $request->phone_number,
-                'city' => $request->city,
-                'NPWP' => $request->npwp,
-                'password' => Hash::make($request->password),
-                'address' => $request->address
-            ]);
+                ->where('id', $request->id)
+                ->update([
+                    'fullname' => $request->fullname,
+                    'email' => $request->email,
+                    'phone_number' => $request->phone_number,
+                    'city' => $request->city,
+                    'NPWP' => $request->npwp,
+                    'password' => Hash::make($request->password),
+                    'address' => $request->address
+                ]);
         }
 
         return redirect('/dashboard');
     }
 
-    function received(Request $request){
+    function received(Request $request)
+    {
         $find_transaction = DB::table('shippings')
-        ->select('transaction_id')
-        ->first();
+            ->select('transaction_id')
+            ->where('id', $request->shipping_id)
+            ->first();
+
+        // $find_buyer = DB::table('transactions')
 
         $change_shipping_status = DB::table('shippings')
-        ->where('id', $request->shipping_id)
-        ->update([
-            'shipping_status' => 'received'
-        ]);
+            ->where('id', $request->shipping_id)
+            ->update([
+                'shipping_status' => 'received'
+            ]);
 
         $change_transaction_status = DB::table('transactions')
-        ->where('id', $find_transaction->transaction_id)
-        ->update([
-            'transaction_status' => 'finished'
-        ]);
+            ->where('id', $find_transaction->transaction_id)
+            ->update([
+                'transaction_status' => 'finished'
+            ]);
+
+        $get_balance_transaction = TransactionList::where('transaction_id', $find_transaction->transaction_id)->first();
+        $refund_buyer = User::find(auth()->user()->id);
+        $refund_buyer->balance = $refund_buyer->balance + $get_balance_transaction->balance_to_buyer;
+        $refund_buyer->save();
+
+        $get_seller = DB::table('transactions')
+            ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
+            ->select('trips.user_id', 'transactions.trip_id')
+            ->where('transactions.id', $find_transaction->transaction_id)
+            ->first();
+
+        $balance_to_seller = User::find($get_seller->user_id);
+        // dd($balance_to_seller);
+        $balance_to_seller->balance = $balance_to_seller->balance + $get_balance_transaction->hold_balance;
+        $balance_to_seller->save();
+
+        $status_trip = Trip::find($get_seller->trip_id);
+        $status_trip->status = 'finished';
+        $status_trip->save();
+
+
+        return back();
     }
-    
 }

@@ -325,11 +325,11 @@
         var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
         var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
         var sumTaxTrip = parseInt($('#sumTaxTrip' + number_id).val())
-        
+        // var sumBeacukaiPabean = parseInt($('#sumBeacukaiPabean' + number_id).val())
 
         $('#shipping_fee'+ number_id).text('Rp ' + regular);
 
-        var price = sumItemPriceTrip + sumRequestPriceTrip;
+        var price = sumItemPriceTrip + sumRequestPriceTrip + sumTaxTrip;
         var total_pay = price + regular;
 
         
@@ -355,10 +355,12 @@
         var sumItemPriceTrip = parseInt($('#sumItemPriceTrip'+ number_id).val());
         var sumRequestPriceTrip = parseInt($('#sumRequestPriceTrip'+ number_id).val());
         var sumTaxTrip = parseInt($('#sumTaxTrip' + number_id).val())
+        // var sumBeacukaiPabean = parseInt($('#sumBeacukaiPabean' + number_id).val())
+        
 
         $('#shipping_fee' + number_id).text('Rp ' + instant);
 
-        var price = sumItemPriceTrip + sumRequestPriceTrip;
+        var price = sumItemPriceTrip + sumRequestPriceTrip + sumTaxTrip;
         // console.log(price)
         var total_pay = price + instant;
 

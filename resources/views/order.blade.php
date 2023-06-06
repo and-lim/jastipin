@@ -44,26 +44,26 @@
                                 </button>
                             </div>
                         </form>
-                        
+
                         @else
 
-                            <div class="float-end d-flex gap-2">
-                                <form action="/acceptRequest" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="request_id" value="{{ $request->id }}">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                </form>
-                                <form action="/rejectRequest" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="request_id" value="{{ $request->id }}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        
+                        <div class="float-end d-flex gap-2">
+                            <form action="/acceptRequest" method="POST">
+                                @csrf
+                                <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </form>
+                            <form action="/rejectRequest" method="POST">
+                                @csrf
+                                <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </form>
+                        </div>
+
                         @endif
                     </div>
                 </div>
@@ -194,12 +194,18 @@
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Destination Plan Changed
                                                                         </label>
-                                                                        
+
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             @csrf
-                                                            <input type="hidden" name="item_id" value="{{ $order_item->item_id }}">
+                                                            <input type="hidden" name="transaction_detail_id" value="{{ $order_item->id }}">
+                                                            <input type="hidden" name="item_name" value="{{ $order_item->item_name }}">
+                                                            <input type="hidden" name="total" value="{{ $order_item->total }}">
+                                                            <input type="hidden" name="transaction_id" value="{{ $order_header->id }}">
+                                                            <input type="hidden" name="total_paid" value="{{ $order_header->total_paid }}">
+                                                            <input type="hidden" name="tax" value="{{ $order_header->beacukai_pabean }}">
+                                                            <input type="hidden" name="shipping_price" value="{{ $order_header->shipping_trip_price }}">
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                             </div>
@@ -213,7 +219,7 @@
                                         @if($order_item->item_status != 'cancelled')
                                         <form action="/itemBought" method="POST">
                                             @csrf
-                                            <input type="hidden" name="item_id" value="{{ $order_item->item_id }}">
+                                            <input type="hidden" name="transaction_detail_id" value="{{ $order_item->id }}">
                                             <button type="submit" @if($order_item->item_status == 'bought') disabled @endif class="btn btn-success">
                                                 <i class="fa fa-check"></i>
                                             </button>
@@ -274,17 +280,18 @@
                                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                                             Destination Plan Changed
                                                                         </label>
-                                                                        
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="form-group mb-3">
-                                                                    <label for="" class="form-label">reason</label>
-                                                                    <input type="text" class="form-control">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <input type="hidden" name="request_id" value="{{ $order_request->request_id }}">
+                                                                <input type="hidden" name="transaction_detail_id" value="{{ $order_request->id }}">
+                                                                <input type="hidden" name="request_name" value="{{ $order_request->request_name }}">
+                                                                <input type="hidden" name="total" value="{{ $order_request->total }}">
+                                                                <input type="hidden" name="transaction_id" value="{{ $order_header->id }}">
+                                                                <input type="hidden" name="total_paid" value="{{ $order_header->total_paid }}">
+                                                                <input type="hidden" name="tax" value="{{ $order_header->beacukai_pabean }}">
+                                                                <input type="hidden" name="shipping_price" value="{{ $order_header->shipping_trip_price }}">
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                             </div>
                                                         </form>
@@ -294,13 +301,15 @@
                                         </div>
                                     </td>
                                     <td scope="row" class="d-flex">
+                                        @if($order_request->item_status != 'cancelled')
                                         <form action="/requestBought" method="POST">
                                             @csrf
-                                            <input type="hidden" name="request_id" value="{{ $order_request->request_id }}">
+                                            <input type="hidden" name="transaction_detail_id" value="{{ $order_request->id }}">
                                             <button type="submit" @if($order_request->item_status == 'bought') disabled @endif class="btn btn-success">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </form>
+                                        @endif
                                         <div class="form-check">
                                             <label class="form-check-label" for="">
                                                 {{ $order_request->request_name }}
@@ -462,12 +471,12 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-    function clicked(radio){
-        if(radio.value == 'other'){
+    function clicked(radio) {
+        if (radio.value == 'other') {
             document.getElementById('reason_text').disabled = false
-        }else{
+        } else {
             document.getElementById('reason_text').disabled = true
-        } 
+        }
     }
     console.log($("input[type='radio'][name='reason']:checked").val());
 </script>
