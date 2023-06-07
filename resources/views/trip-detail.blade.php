@@ -49,7 +49,7 @@
                                     <div class="col-lg-2">
                                         <img src="{{ asset('/storage/' .$item->item_image) }}" class="img-fluid" alt="">
                                     </div>
-                                    <div class="col-lg-6 ms-lg-5">
+                                    <div class="col-lg-6 text-center text-lg-start ms-lg-5">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="item-name mb-3">
@@ -79,7 +79,7 @@
                                     </div>
 
                                     @if (Auth::user()->id != $trips->user_id)
-                                    <div class="col-lg-2 position-absolute" style="top: 45%; right: 0;">
+                                    <div class="col-lg-2 d-flex justify-content-lg-end justify-content-center align-items-center">
                                         <form action="/addToCart" method="POST">
                                             @csrf
                                             <div class="d-flex align-items-center gap-3">

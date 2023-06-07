@@ -132,11 +132,32 @@ h1.dashboard-title::after{
 
 
 .swiper-button-next, .swiper-button-prev{
-    width: 10vh !important; 
     top: 50% !important;
     color: #150ba0 !important;
     height: 5px !important;
     padding: 10px;
+}
+
+/* .swiper .review-card{
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+} */
+
+/* 
+.swiper [class^="swiper-button-"]{
+    width: 5px;
+} */
+
+
+.swiper [class^="swiper-button-"]{
+    top: initial !important;
+    bottom: 0 !important;
+    width: 500px !important;
+}
+.swiper [class^="swiper-button-"]::after{
+    font-size: 20px;
+    right: -10px;
 }
 
 .swiper-button-prev{
@@ -386,6 +407,13 @@ tr.table-padding>td {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 10px;
 }
+
+@media (max-width:576px) {
+    .dashboard-nav{
+        margin: 0 auto;
+    }
+}
+
 
 li.dashboard-nav a:hover,li.dashboard-nav button:hover{
     color: blue !important;

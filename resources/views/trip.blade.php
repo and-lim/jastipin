@@ -12,7 +12,7 @@
                 <form action="" method="GET">
                     <div class="form-group mx-auto col-lg-8 p-3 rounded shadow-lg border border-light" style="background-color:rgba(255,255,255,0.7);">
                         <div class="row pt-2 align-items-center gap-lg-0 gap-2 justify-content-center">
-                            <div class="dropdown-datalist">
+                            <div class="dropdown-datalist col-lg-5">
                                 <input list="destinations" id="exampleDataList" name="destination" class="form-control" required placeholder="Destination" value="{{ $destination }}" aria-label="destination">
 
                             </div>
@@ -26,7 +26,7 @@
                             <div class="col-lg-1 d-lg-block d-none">
                                 <div class="bg-white" style="height: 5px;"></div>
                             </div>
-                            <div class="dropdown-datalist">
+                            <div class="dropdown-datalist col-lg-5">
                                 <input list="origins" id="exampleDataList" name="origin" class="form-control" placeholder="Origin" value="{{ $origin }}" aria-label="origin">
 
 

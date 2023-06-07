@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="menu-header text-center mb-3">Menu</div>
-                <ul class="nav flex-column gap-2" id="nav-tab" role="tablist">
+                <ul class="nav d-flex flex-column gap-2" id="nav-tab" role="tablist">
                     <li class="dashboard-nav">
                         <a class="nav-link active d-flex align-items-center" id="nav-dashboard-tab" data-bs-toggle="tab" data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard" aria-selected="true">
                             <i class="fa fa-columns"></i>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row g-2">
                             <div class="col-lg-4">
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Balance</h2>
@@ -109,7 +109,7 @@
                                     <h2 class="text-dark fw-bold mt-1">Trip</h2>
                                     <a href="/trip" class="card-body dashboard-icon mt-0">
                                         <i class="fa fa-map-marker-alt fa-2x text-warning"></i>
-                                        <h2>40</h2>
+                                        <h2>1</h2>
                                     </a>
                                 </div>
                             </div>
@@ -118,6 +118,7 @@
                                     <h2 class="text-dark fw-bold mt-1">Item</h2>
                                     <a href="/item" class="card-body dashboard-icon mt-0">
                                         <i class="fa fa-shopping-cart fa-2x text-primary"></i>
+                                        <h2>1</h2>
                                     </a>
                                 </div>
                             </div>

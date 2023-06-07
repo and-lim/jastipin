@@ -31,8 +31,8 @@
         </div>
 
         <div class="row">
-            <div class="swiper pb-5">
-                <div class="swiper-wrapper">
+            <div class="swiper pb-2">
+                <div class="swiper-wrapper pb-5">
                     <div class="swiper-slide">
                         <div class="review-card p-3 border border-5 border-primary rounded-2">
                             <div class="d-flex align-items-center mb-3">
@@ -87,6 +87,8 @@
          
                 </div>
                 <div class="swiper-pagination "></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </div>
 

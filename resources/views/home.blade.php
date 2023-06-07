@@ -149,8 +149,10 @@
                 <div class="section-title text-center pt-5"></div>
                 <div class="row mt-5">
                     <div class="col-lg-6">
-                        <h3 class="text-primary">About us</h3>
-                        <p>Jastipin adalah Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit earum repellat ratione, eos quo voluptatem excepturi, voluptate pariatur molestias quasi veniam, sit sapiente consequatur nihil totam sed itaque. Sequi, eum!</p>
+                        <h3 class="text-primary mb-3">About us</h3>
+                        <p>Jastipin adalah aplikasi berbasis website yang bertujuan untuk memudahkan para pengguna dan penyedia jasa titip dalam melakukan proses jual beli di dalam satu aplikasi. <br> <br>
+                             Aplikasi Jastip ini memberikan informasi tentang jenis barang,harga,profil dari traveler kepada para pengguna aplikasi 
+                        </p>
                     </div>
                     <div class="col-lg-6">
                         <div class="img-about position-relative overflow-hidden p-5 pe-0">
