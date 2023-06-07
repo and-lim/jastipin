@@ -12,6 +12,7 @@ class RateReview extends Model
     protected $fillable = [
         'user_id',
         'reviewer_id',
+        'transaction_id',
         'rate',
         'review'
     ];

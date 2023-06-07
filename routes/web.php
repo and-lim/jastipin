@@ -38,6 +38,10 @@ Route::post('/addWtbItem', [DashboardController::class, 'addWtbItem']);
 Route::post('/removeWtbItem', [DashboardController::class, 'removeWtbItem']);
 Route::post('/trip-draft', [DashboardController::class, 'updateTrip']);
 Route::post('/received', [DashboardController::class, 'received']);
+Route::post('/rate_review', [DashboardController::class, 'rate_review']);
+Route::post('/top_up', [DashboardController::class, 'top_up']);
+Route::post('/withdraw', [DashboardController::class, 'withdraw']);
+
 Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
@@ -74,6 +78,11 @@ Route::post('/requestBought', [PageController::class, 'requestBought']);
 Route::post('/cancelBuyRequest', [PageController::class, 'cancelBuyRequest']);
 Route::post('/shipping', [PageController::class, 'shipping']);
 
+
+Route::get('/profile', [UserController::class, 'profile']);
+// Route::get('/profile', function () {
+//     return view('profile');
+// });
 
 //admin
 Route::get('/transaction-list', [PageController::class, 'transaction_list']);
@@ -133,9 +142,9 @@ Route::get('/approval', function () {
     return view('approval');
 });
 
-Route::get('/profile', function () {
-    return view('profile');
-});
+// Route::get('/profile', function () {
+//     return view('profile');
+// });
 
 
 

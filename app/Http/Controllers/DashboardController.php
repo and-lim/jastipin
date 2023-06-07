@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Trip;
 use App\Models\Item;
+use App\Models\RateReview;
 use App\Models\TransactionList;
 use App\Models\User;
 use App\Models\Wtb;
@@ -76,7 +78,7 @@ class DashboardController extends Controller
 
         $ongoing_trip = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
-            ->select('trips.*', 'users.fullname')
+            ->select('trips.*', 'users.fullname','users.avatar')
             ->where('status', 'ongoing')
             ->where('trips.user_id', auth()->user()->id)
             ->get();
@@ -138,6 +140,8 @@ class DashboardController extends Controller
                 ->where('transaction_details.transaction_id', $id_transaction)
                 ->get();
 
+                // dd($detail_item);
+
             $transaction_detail_item = Arr::add($transaction_detail_item, $id_transaction, $detail_item);
 
             $detail_request = DB::table('transaction_details')
@@ -156,7 +160,7 @@ class DashboardController extends Controller
             ->join('trips', 'transactions.trip_id', 'trips.id')
             ->join('users as travelers', 'trips.user_id', 'travelers.id')
             ->join('users as buyers', 'transactions.user_id', 'buyers.id')
-            ->select('shippings.*', 'shippings.ship_time_limit', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
+            ->select('shippings.*', 'shippings.ship_time_limit','shippings.transaction_id', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
             ->where('transactions.user_id', auth()->user()->id)
             ->where('shippings.shipping_status', 'waiting receive')
             ->get();
@@ -165,7 +169,8 @@ class DashboardController extends Controller
             ->join('trips', 'transactions.trip_id', 'trips.id')
             ->join('users', 'transactions.user_id', 'users.id')
             ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-            ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
+            ->leftJoin('rate_reviews', 'rate_reviews.transaction_id', 'transactions.id')
+            ->select('transactions.*','rate_reviews.id as rate_review_id','trips.user_id', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
             ->where('transactions.user_id', auth()->user()->id)
             ->where('transaction_status', 'finished')
             ->get();
@@ -196,6 +201,21 @@ class DashboardController extends Controller
 
 
         return view('dashboard', compact('finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
+    }
+
+    function rate_review(Request $request){
+        // dd($request);
+
+        $rate_review = RateReview::create([
+            'user_id' => $request->user_id,
+            'reviewer_id' => auth()->user()->id,
+            'transaction_id' => $request->transaction_id,
+            'rate' => $request->rate,
+            'review' => $request->review
+        ]);
+
+        return back()->withErrors('Review has been submitted');
+
     }
 
     function autoFinish(Schedule $schedule): void
@@ -231,7 +251,7 @@ class DashboardController extends Controller
 
                 $get_seller = DB::table('transactions')
                     ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
-                    ->select('trips.user_id','transactions.trip_id')
+                    ->select('trips.user_id', 'transactions.trip_id')
                     ->where('transactions.id', $auto->transaction_id)
                     ->first();
 
@@ -243,6 +263,10 @@ class DashboardController extends Controller
                 $status_trip = Trip::find($get_seller->trip_id);
                 $status_trip->status = 'finished';
                 $status_trip->save();
+
+                $delete_cart = DB::table('carts')
+                    ->where('trip_id', $get_seller->trip_id)
+                    ->delete();
             }
 
 
@@ -508,6 +532,8 @@ class DashboardController extends Controller
 
     function received(Request $request)
     {
+
+        // dd($request);
         $find_transaction = DB::table('shippings')
             ->select('transaction_id')
             ->where('id', $request->shipping_id)
@@ -547,7 +573,16 @@ class DashboardController extends Controller
         $status_trip->status = 'finished';
         $status_trip->save();
 
+        $delete_cart = DB::table('carts')
+            ->where('trip_id', $get_seller->trip_id)
+            ->where('cart_status', 'paid')
+            ->delete();
 
         return back();
+    }
+
+    function top_up(Request $request)
+    {
+        dd($request);
     }
 }
