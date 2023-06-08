@@ -4,9 +4,8 @@
 
 <section>
     <div class="container-xl mt-3 py-5">
+        <h1 class="title mt-3 pb-5">Cart</h1>
         <div class="row">
-            <h1 class="title mt-3 pb-5">Cart</h1>
-
             <div class="card col-lg-9 shadow-sm p-3">
                 @if ($errors->any())
                 <div class="alert alert-dark" role="alert" style="outline: none">
@@ -87,8 +86,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <p>Rp {{ $item->item_display_price }}</p>
-                                    <p>{{ $item->item_weight }} Kg</p>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Display Price</label>
+                                        <p>Rp {{ $item->item_display_price }}</p>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Weight</label>
+                                        <p>{{ $item->item_weight }} Kg</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -137,14 +142,32 @@
                         
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <p>Rp {{ $request->request_price }}</p>
-                                    <p>{{ $request->request_quantity }} PC/s</p>
-                                    <p>{{ $request->request_weight }} Kg</p>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Price</label>
+                                        <p>Rp {{ $request->request_price }}</p>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Quantity</label>
+                                        <p>{{ $request->request_quantity }} PC/s</p>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Weight</label>
+                                        <p>{{ $request->request_weight }} Kg</p>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <p>{{ $request->request_status }}</p>
-                                    <p>PPN : Rp {{ $request->request_price_ppn }}</p>
-                                    <p>Pabean : Rp {{ $request->request_price_pabean }}</p>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Status</label>
+                                        <p>{{ $request->request_status }}</p>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label text-primary">PPN</label>
+                                        <p>Rp {{ $request->request_price_ppn }}</p>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label text-primary">Pabean</label>
+                                        <p>Rp {{ $request->request_price_pabean }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

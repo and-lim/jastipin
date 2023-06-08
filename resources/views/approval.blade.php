@@ -22,7 +22,15 @@
                             <td>Nama User</td>
                             <td>Rp 100000</td>
                             <td>789</td>
-                            <td>Gambar Bukti Transfer</td>
+                            <td>
+                              <a
+                                href="img/laptop.jpg"
+                                data-fancybox="gallery"
+                                data-slug="dog"
+                              >
+                                <img src="img/laptop.jpg" style="width: 250px" />
+                              </a>
+                            </td>
                             <td>Top Up</td>
                             <td class="d-flex gap-2"> 
                                 <button class="btn btn-success">
