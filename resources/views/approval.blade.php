@@ -11,15 +11,19 @@
                           <tr>
                             <th scope="col">User</th>
                             <th scope="col">Balance</th>
+                            <th scope="col">Unique Code</th>
+                            <th scope="col">Transfer Receipt</th>
                             <th scope="col">Activity</th>
                             <th scope="col">Approval</th>
                           </tr>
                         </thead>
                         <tbody class="table-group-divider">
                           <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>Nama User</td>
+                            <td>Rp 100000</td>
+                            <td>789</td>
+                            <td>Gambar Bukti Transfer</td>
+                            <td>Top Up</td>
                             <td class="d-flex gap-2"> 
                                 <button class="btn btn-success">
                                     <i class="fa fa-check"></i></button>

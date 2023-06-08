@@ -260,7 +260,7 @@
                                                 <input type="hidden" id="sumTaxTrip{{ $trip->trip_id }}" value="{{ $sumTaxTrip[$trip->trip_id] }}">
                                             </table>
                                             @endforeach
-                                            <p id="total_all">Total Pay: {{ $sumItemPrice + $sumRequestPrice + $sumTaxTotal}}</p>
+                                            <p id="total_all">Total Pay: Rp {{ $sumItemPrice + $sumRequestPrice + $sumTaxTotal}}</p>
                                             <p>Your Balance</p>
                                             @auth
                                             <p>Rp {{ auth()->user()->balance }}</p>
@@ -378,7 +378,7 @@
     });
 
     function updateTotal(){
-        var total_all = "{{ $sumItemPrice + $sumRequestPrice }}"
+        var total_all = "{{ $sumItemPrice + $sumRequestPrice + $sumTaxTotal }}"
         total_all = parseInt(total_all)
 
         const total_shipping = document.getElementsByClassName("shipping_fee");
@@ -394,14 +394,8 @@
         }
 
 
-        $('#total_all').text('Rp ' + total_all)
+        $('#total_all').text('Total Pay: Rp ' + total_all)
         $('.total_all').val(total_all)
-        // $('.table-borderless > tbody > tr > td > p')
-        // {
-        //     console.log($('#shipping_id').attr('value')); 
-        // }
-
-
     }
 </script>
 

@@ -218,20 +218,20 @@
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Add Balance</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/top-up" method="POST" enctype="multipart/form-data">
-
+                                                <form action="/top_up" method="POST" enctype="multipart/form-data">
+                                                    @csrf
                                                     <div class="modal-body">
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Code</label>
-                                                            <input type="text" name="bank_code" class="form-control">
+                                                            <input type="text" required name="bank_code" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Account Number</label>
-                                                            <input type="text" name="account_number" class="form-control">
+                                                            <input type="text" required name="account_number" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Amount</label>
-                                                            <input type="text" id="topup_amount" name="amount" class="form-control">
+                                                            <input type="text" required id="topup_amount" name="amount" class="form-control">
                                                         </div>
                                                         <div class="d-flex gap-3">
                                                             <p>Unique Code :</p>
@@ -243,11 +243,14 @@
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Transfer Receipt</label>
-                                                            <input type="file" class="form-control">
+                                                            <input type="file" required class="form-control">
                                                         </div>
 
                                                     </div>
                                                     <div class="modal-footer text-center">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                                        <input type="hidden" name="unique_code" id="unique_code" value="">
+                                                        <input type="hidden" name="total_topup" id="total_topup" value="">
                                                         <button type="submit" class="btn btn-success">Add Balance</button>
                                                     </div>
                                                 </form>
@@ -516,7 +519,7 @@
                                         <div class="card-body">
                                             <div class="row gap-3">
                                                 <div class="col-lg-3">
-                                                    <img src="img/laptop.jpg" class="img-fluid" style="width: 200px" alt="">
+                                                    <img src="{{ $ot->avatar }}" class="img-fluid" style="width: 200px" alt="">
                                                     <h5 class="text-center">{{ $ot->fullname }}</h5>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -731,6 +734,7 @@
                                     <form action="/received" method="POST">
                                         @csrf
                                         <input type="hidden" name="shipping_id" value="{{ $shipping->id }}">
+                                        <!-- <input type="hidden" name="transaction_id" value="{{ $shipping->transaction_id }}"> -->
                                         <button type="submit" class="btn btn-outline-warning px-3">Item Received</button>
                                     </form>
                                 </div>
@@ -792,7 +796,7 @@
                                 </div>
                                 @endif
                                 <div class="button d-flex justify-content-between">
-                                    <button class="btn btn-outline-warning">Item Receive</button>
+                                    <!-- <button class="btn btn-outline-warning">Item Receive</button> -->
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#ongoing_transaction{{ $loop->iteration }}">
                                         See Detail
@@ -898,16 +902,21 @@
 
                                                                     @foreach($transaction_detail_request[$transaction->id] as $detail_request)
                                                                     <tr>
-                                                                        <td scope="row" colspan="2">
-                                                                            <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @if($detail_item->item_status == 'bought') checked @endif>
-                                                                                <label class="form-check-label" for="">
-                                                                                    {{ $detail_request->request_name }}
-                                                                                </label>
+                                                                    <td>
+                                                                            <div class="d-flex">
+                                                                                @if($detail_request->item_status == "bought")
+                                                                                <button type="submit" disabled class="btn btn-success px-2">
+                                                                                    <i class="fa fa-check"></i>
+                                                                                </button>
+                                                                                @endif
+                                                                                @if($detail_request->item_status == "cancelled")
+                                                                                <button type="submit" disabled class="btn btn-danger px-2">
+                                                                                    <i class="fa fa-times"></i>
+                                                                                </button>
+                                                                                @endif
                                                                             </div>
-
                                                                         </td>
-                                                                        <td></td>
+                                                                        <td> {{ $detail_request->request_name }}</td>
                                                                         <td>{{ $detail_request->quantity }}</td>
                                                                         <td>Rp {{ $detail_request->request_price }}</td>
 
@@ -967,34 +976,41 @@
                                     </div>
                                 </div>
                                 <div class="button-review">
+                                    @if(!$finished->rate_review_id)
                                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-review">
                                         Submit Review
                                     </button>
-                                    <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog ">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row mt-2">
-                                                        <div class="form-group d-flex gap-3 align-items-center">
-                                                            <label for="" class="form-label">Score</label>
-                                                            <input type="number" min="0" max="5" class="col-2">
-                                                        </div>
-                                                        <div class="form-group my-3">
-                                                            <label for="" class="form-label">Note</label>
-                                                            <textarea name="" class="form-control" id="" cols="20" rows="10"></textarea>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <button class="btn btn-success">Submit Review</button>
+                                    @endif
+                                    <form action="/rate_review" method="POST">
+                                        @csrf
+                                        <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row mt-2">
+                                                            <div class="form-group d-flex gap-3 align-items-center">
+                                                                <label for="" class="form-label">Score</label>
+                                                                <input type="number" name="rate" min="1" max="5" class="col-2">
+                                                            </div>
+                                                            <div class="form-group my-3">
+                                                                <label for="" class="form-label">Note</label>
+                                                                <textarea name="review" class="form-control" id="" cols="20" rows="10"></textarea>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <input type="hidden" name="transaction_id" value="{{ $finished->id }}">
+                                                                <input type="hidden" name="user_id" value="{{ $finished->user_id }}">
+                                                                <button type="submit" class="btn btn-success">Submit Review</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <div class="form-group mb-3 row">
                                         <div class="col-lg-2">
                                             <p>Address</p>
@@ -1056,6 +1072,8 @@
             amount = amount + random_code
             $('#unique_amount').text(random_code)
             $('#total_amount').text('Rp ' + amount)
+            $('#unique_code').val(random_code)
+            $('#total_topup').val(amount)
         }
     })
 </script>
