@@ -28,6 +28,9 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+
+Route::get('/', [PageController::class, 'home']);
+
 //dashboard
 Route::post('/updateProfile', [DashboardController::class, 'updateProfile']);
 Route::post('/addTrip', [DashboardController::class, 'makeTrip']);
@@ -47,13 +50,13 @@ Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
 
 
 //trip
-Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::post('/filter_category', [PageController::class, 'filter_category']);
 Route::post('/search_trip', [PageController::class, 'search_trip']);
-Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
 Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
 Route::post('/addToCart', [TransactionController::class, 'addToCart']);
-
+Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
+Route::get('/trip', [PageController::class, 'viewTripList']);
+Route::get('/traveler/{id}', [UserController::class, 'traveler']);
 
 
 
@@ -80,38 +83,27 @@ Route::post('/shipping', [PageController::class, 'shipping']);
 
 
 Route::get('/profile', [UserController::class, 'profile']);
-// Route::get('/profile', function () {
-//     return view('profile');
-// });
 
 //admin
 Route::get('/transaction-list', [PageController::class, 'transaction_list']);
-
-// Route::get('/transaction-list', function () {
-//     return view('transaction-list');
-// });
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/approval', [PageController::class, 'approval_list']);
+Route::get('/approve', [PageController::class, 'approve']);
+Route::get('/decline', [PageController::class, 'decline']);
 
 
-// Route::get('/item', function () {
-//     return view('item');
-// });
 
-
-Route::get('/ongoing-trip', function () {
-    return view('ongoing-trip-detail');
+// Route::get('/ongoing-trip', function () {
+//     return view('ongoing-trip-detail');
     // return view('trip');
-});
+// });
 
-Route::get('/item-detail', function () {
-    return view('item-detail');
-});
+// Route::get('/item-detail', function () {
+//     return view('item-detail');
+// });
 
-Route::get('/checkout', function () {
-    return view('checkout');
-});
+// Route::get('/checkout', function () {
+//     return view('checkout');
+// });
 
 // Route::get('/cart', function () {
 //     return view('cart');
@@ -121,26 +113,26 @@ Route::get('/checkout', function () {
 //     return view('trip');
 // });
 
-Route::get('/trip-detail', function () {
-    return view('trip-detail');
-});
+// Route::get('/trip-detail', function () {
+//     return view('trip-detail');
+// });
 
-Route::get('/traveler', function () {
-    return view('traveler-profile');
-});
+// Route::get('/traveler', function () {
+//     return view('traveler-profile');
+// });
 
 
-Route::get('/history', function () {
-    return view('transaction-history');
-});
+// Route::get('/history', function () {
+//     return view('transaction-history');
+// });
 
-Route::get('/trip-checkout', function () {
-    return view('trip-checkout');
-});
+// Route::get('/trip-checkout', function () {
+//     return view('trip-checkout');
+// });
 
-Route::get('/approval', function () {
-    return view('approval');
-});
+// Route::get('/approval', function () {
+//     return view('approval');
+// });
 
 // Route::get('/profile', function () {
 //     return view('profile');

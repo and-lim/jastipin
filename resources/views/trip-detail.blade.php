@@ -85,6 +85,7 @@
                                             <div class="d-flex align-items-center gap-3">
                                                 <input type="hidden" name="item_id" value="{{ $item->id }}">
                                                 <input type="hidden" name="trip_id" value="{{ $trips->id }}">
+                                                @if(!$can_buy)
                                                 <div class="input-number">
                                                     <input type="number" name="item_quantity" min="1" max="{{ $item->item_stock }}" value="{{ $item->cart_item_quantity }}" style="width: 50px">
                                                 </div>
@@ -93,6 +94,7 @@
                                                         <i class="fa fa-shopping-cart"></i>
                                                     </button>
                                                 </div>
+                                                @endif
                                             </div>
 
                                         </form>

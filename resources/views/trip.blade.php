@@ -116,12 +116,6 @@
             </div> --}}
 
             <div class="col-lg-10 mx-auto">
-                <div id="price">50000</div>
-                <div id="adjusted_price"></div>
-                <input type="hidden" id="adjusted_price_field" name="adjusted_price" value="">
-                <div id="cart_box">
-
-                </div>
                 @foreach ($trip_list as $trip)
                 <div class="trip-list mb-3">
                     <div class="card rounded-4  shadow-sm">
@@ -130,7 +124,7 @@
                                 <div class="col-lg-3 text-center">
                                     <img src="{{ asset('/storage/' .$trip->avatar) }}" class="img-fluid" style="width: 200px" alt="">
                                     <h5 class="text-center mt-3">{{ $trip->fullname }}</h5>
-                                    <a href="/traveler" class="btn btn-success mt-3"> See Profile</a>
+                                    <a href="/traveler/{{ $trip->user_id }}" class="btn btn-success mt-3"> See Profile</a>
                                 </div>
                                 <div class="col-lg-9 my-lg-0 my-2">
                                     <h3 class="text-primary text-center text-lg-start fw-bold">{{ $trip->destination }} - {{ $trip->origin }}</h3>

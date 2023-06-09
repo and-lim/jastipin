@@ -30,6 +30,26 @@ class PageController extends Controller
         return view('login');
     }
 
+    function home()
+    {
+        $now = Carbon::now();
+        $preview_trip_list = DB::table('trips')
+            ->join('users', 'trips.user_id', 'users.id')
+            ->select('trips.*', 'users.fullname', 'users.avatar')
+            ->where('trips.status', 'ongoing')
+            ->where('trips.start_date', '>', $now)
+            ->limit(3)
+            ->get();
+
+            // dd($preview_trip_list);
+
+        $items = DB::table('items')
+            ->join('trips', 'items.trip_id', 'trips.id')
+            ->select('items.*')
+            ->get();
+        return view('home', compact('preview_trip_list','items'));
+    }
+
     function viewTripList()
     {
         $selected_category = request('category');
@@ -43,7 +63,7 @@ class PageController extends Controller
         $category = $selected_category ? $selected_category : '%';
         $destination_chosen = $destination ? $destination : '%';
         $origin_chosen = $origin ? $origin : '%';
-        
+
         $trip_list = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
             ->rightJoinSub(DB::table('items')->select(DB::raw('items.trip_id, COUNT(*) AS jumlahItem'))->where('items.item_category', 'LIKE', $category)->groupBy('items.trip_id'), 'itemnya', 'itemnya.trip_id', 'trips.id')
@@ -53,10 +73,10 @@ class PageController extends Controller
             ->where('trips.destination', 'LIKE', $destination_chosen)
             ->where('trips.origin', 'LIKE', $origin_chosen);
 
-        if($datenya){
-            $trip_list = $trip_list->where('trips.start_date', '<=',$datenya)->where('trips.arrival_date', '>=',$datenya);
+        if ($datenya) {
+            $trip_list = $trip_list->where('trips.start_date', '<=', $datenya)->where('trips.arrival_date', '>=', $datenya);
         }
-            
+
         $trip_list = $trip_list->get();
 
         $items = DB::table('items')
@@ -69,13 +89,13 @@ class PageController extends Controller
             ->where('name', '<>', 'Indonesia')
             ->get();
 
-            // dd($destination_list);
+        // dd($destination_list);
 
         $origin_list = DB::table('cities')
             ->select('name')
             ->get();
 
-        return view('trip', compact('trip_list', 'items', 'selected_category', 'destination', 'origin', 'datenya','destination_list','origin_list'));
+        return view('trip', compact('trip_list', 'items', 'selected_category', 'destination', 'origin', 'datenya', 'destination_list', 'origin_list'));
     }
 
     function filter_category(Request $request)
@@ -136,7 +156,7 @@ class PageController extends Controller
             ->where('trips.id', $id)
             ->first();
 
-        $can_buy = $trips->start_date > $now;
+        $can_buy = $trips->start_date < $now;
 
         $items = DB::table('items')
             ->leftJoinSub(
@@ -364,7 +384,7 @@ class PageController extends Controller
         // dd($refund_balance);
         // $total_price = DB::table('transactions')
         // ->select('total_paid')
-        $tax_count = (int) (($request->total/($request->total_paid - $request->shipping_price - $request->tax)) * $request->tax);
+        $tax_count = (int) (($request->total / ($request->total_paid - $request->shipping_price - $request->tax)) * $request->tax);
         // dd($tax_count);
 
 
@@ -399,8 +419,8 @@ class PageController extends Controller
         $refund_balance = TransactionList::where('transaction_id', $request->transaction_id)->first();
 
         // dd($refund_balance);
-        $tax_count = (int) (($request->total/($request->total_paid - $request->shipping_price - $request->tax)) * $request->tax);
-        
+        $tax_count = (int) (($request->total / ($request->total_paid - $request->shipping_price - $request->tax)) * $request->tax);
+
         $refund_balance->balance_to_buyer = $refund_balance->balance_to_buyer + ($request->total + $tax_count);
         $refund_balance->hold_balance = $refund_balance->hold_balance - ($request->total + $tax_count);
         $refund_balance->save();
@@ -416,51 +436,51 @@ class PageController extends Controller
     function shipping(Request $request)
     {
         $check_status = DB::table('transactions')
-        ->leftJoin('transaction_details', 'transaction_details.transaction_id', 'transactions.id')
-        ->select(DB::raw('COUNT(*) as jumlahItem'),'transactions.user_id')
-        ->where('transaction_details.item_status', 'bought')
-        ->where('transactions.id', $request->transaction_id)
-        ->first();
-        
-        if($check_status->jumlahItem == 0){
+            ->leftJoin('transaction_details', 'transaction_details.transaction_id', 'transactions.id')
+            ->select(DB::raw('COUNT(*) as jumlahItem'), 'transactions.user_id')
+            ->where('transaction_details.item_status', 'bought')
+            ->where('transactions.id', $request->transaction_id)
+            ->first();
+
+        if ($check_status->jumlahItem == 0) {
             $no_shipping = DB::table('transactions')
-            ->where('id', $request->transaction_id)
-            ->update([
-                'transaction_status' => 'finished'
-            ]);
+                ->where('id', $request->transaction_id)
+                ->update([
+                    'transaction_status' => 'finished'
+                ]);
             // dd('lolololohe');
             $refund_all = TransactionList::where('transaction_id', $request->transaction_id)->first();
-            
+
             // dd($refund_all);
             $refund_all->balance_to_buyer = $refund_all->balance_to_buyer + $refund_all->hold_balance;
             $refund_all->hold_balance = 0;
-            $refund_all->save(); 
-            
+            $refund_all->save();
+
             $balance_buyer = User::find($check_status->user_id);
             $balance_buyer->balance = $balance_buyer->balance + $refund_all->balance_to_buyer;
             $balance_buyer->save();
             // dd($balance_buyer);
 
-        }else{
+        } else {
 
             $arrival_trip = DB::table('transactions')
                 ->join('trips', 'transactions.trip_id', 'trips.id')
                 ->select('trips.arrival_date')
                 ->where('transactions.id', $request->transaction_id)
                 ->first();
-    
+
             $time_limit = new Carbon($arrival_trip->arrival_date);
             $time_limit = $time_limit->addDay(2);
-    
+
             // $time_limit = $time_limit->toDayDateTimeString();
-    
+
             // dd($time_limit);
             $change_status_shipping = DB::table('transactions')
                 ->where('id', $request->transaction_id)
                 ->update([
                     'transaction_status' => 'shipping'
                 ]);
-    
+
             $create_shipping = Shipping::create([
                 'transaction_id' => $request->transaction_id,
                 'ship_time_limit' => $time_limit
@@ -546,5 +566,64 @@ class PageController extends Controller
             $request_list = Arr::add($request_list, $transaction->id, $request_transaction);
         }
         return view('transaction-list', compact('transaction_header', 'item_list', 'request_list'));
+    }
+
+    function approval_list()
+    {
+        $approval_list = DB::table('topup_withdraws')
+        ->join('users', 'topup_withdraws.user_id','users.id')
+        ->select('users.fullname', 'topup_withdraws.*')
+        ->get();
+
+        return view('approval', compact('approval_list'));
+    }
+
+    function approve(Request $request)
+    {
+        if($request->activity == 'top up')
+        {
+            $approve_topup = DB::table('topup_withdraws')
+            ->where('id', $request->approval_id)
+            ->update([
+                'approval_status' => 'approved'
+            ]);
+
+            $give_balance = User::find($request->user_id);
+            $give_balance->balance = $give_balance->balance + $request->amount;
+            $give_balance->save();
+
+        }else{
+            $approve_withdraw = DB::table('topup_withdraws')
+            ->where('id', $request->approval_id)
+            ->update([
+                'approval_status' => 'approved'
+            ]);
+
+            $withdraw_balance = User::find($request->user_id);
+            $withdraw_balance->balance = $withdraw_balance->balance - $request->amount;
+            $withdraw_balance->save();
+        }
+    }
+
+    function decline(Request $request)
+    {
+        if($request->activity == 'top up')
+        {
+            $approve_topup = DB::table('topup_withdraws')
+            ->where('id', $request->approval_id)
+            ->update([
+                'approval_status' => 'declined',
+                'decline_reason' => $request->decline_reason
+            ]);
+
+        }else{
+            $approve_withdraw = DB::table('topup_withdraws')
+            ->where('id', $request->approval_id)
+            ->update([
+                'approval_status' => 'declined',
+                'decline_reason' => $request->decline_reason
+            ]);
+
+        }
     }
 }

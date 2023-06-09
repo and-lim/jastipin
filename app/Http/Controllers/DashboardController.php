@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Trip;
 use App\Models\Item;
 use App\Models\RateReview;
+use App\Models\TopupWithdraw;
 use App\Models\TransactionList;
 use App\Models\User;
 use App\Models\Wtb;
@@ -78,7 +79,7 @@ class DashboardController extends Controller
 
         $ongoing_trip = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
-            ->select('trips.*', 'users.fullname','users.avatar')
+            ->select('trips.*', 'users.fullname', 'users.avatar')
             ->where('status', 'ongoing')
             ->where('trips.user_id', auth()->user()->id)
             ->get();
@@ -140,7 +141,7 @@ class DashboardController extends Controller
                 ->where('transaction_details.transaction_id', $id_transaction)
                 ->get();
 
-                // dd($detail_item);
+            // dd($detail_item);
 
             $transaction_detail_item = Arr::add($transaction_detail_item, $id_transaction, $detail_item);
 
@@ -160,7 +161,7 @@ class DashboardController extends Controller
             ->join('trips', 'transactions.trip_id', 'trips.id')
             ->join('users as travelers', 'trips.user_id', 'travelers.id')
             ->join('users as buyers', 'transactions.user_id', 'buyers.id')
-            ->select('shippings.*', 'shippings.ship_time_limit','shippings.transaction_id', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
+            ->select('shippings.*', 'shippings.ship_time_limit', 'shippings.transaction_id', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
             ->where('transactions.user_id', auth()->user()->id)
             ->where('shippings.shipping_status', 'waiting receive')
             ->get();
@@ -170,7 +171,7 @@ class DashboardController extends Controller
             ->join('users', 'transactions.user_id', 'users.id')
             ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
             ->leftJoin('rate_reviews', 'rate_reviews.transaction_id', 'transactions.id')
-            ->select('transactions.*','rate_reviews.id as rate_review_id','trips.user_id', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
+            ->select('transactions.*', 'rate_reviews.id as rate_review_id', 'trips.user_id', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
             ->where('transactions.user_id', auth()->user()->id)
             ->where('transaction_status', 'finished')
             ->get();
@@ -203,7 +204,8 @@ class DashboardController extends Controller
         return view('dashboard', compact('finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
     }
 
-    function rate_review(Request $request){
+    function rate_review(Request $request)
+    {
         // dd($request);
 
         $rate_review = RateReview::create([
@@ -215,7 +217,6 @@ class DashboardController extends Controller
         ]);
 
         return back()->withErrors('Review has been submitted');
-
     }
 
     function autoFinish(Schedule $schedule): void
@@ -583,6 +584,65 @@ class DashboardController extends Controller
 
     function top_up(Request $request)
     {
-        dd($request);
+        $rules = [
+            'amount' => 'gte:50000'
+        ];
+
+        $message = [
+            'amount.gte' => "Amount must be greater than Rp 50.000"
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $filename = $request->file('transfer_receipt')->getClientOriginalName();
+        $generate_file = time() . '_' . $filename;
+
+        $path = $request->file('transfer_receipt')->storeAs('public/', $generate_file);
+        // dd($request);
+
+        $top_up_balance = TopupWithdraw::create([
+            'user_id' => auth()->user()->id,
+            'bank_code' => $request->bank_code,
+            'account_number' => $request->account_number,
+            'amount' => $request->amount,
+            'unique_code' => $request->unique_code,
+            'transfer_receipt' => $generate_file,
+            'activity' => 'top up'
+        ]);
+
+        return back()->withErrors(['msg' => 'Your top-up request has been submitted, please wait for the admin approval']);
+    }
+
+    function withdraw(Request $request)
+    {
+        $rules = [
+            'amount' => 'gte:50000'
+        ];
+
+        $message = [
+            'amount.gte' => "Amount must be greater than Rp 50.000"
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        // dd($request);
+
+        $withdraw_balance = TopupWithdraw::create([
+            'user_id' => auth()->user()->id,
+            'bank_code' => $request->bank_code,
+            'account_number' => $request->account_number,
+            'amount' => $request->amount,
+            'activity' => 'withdraw'
+        ]);
+
+        return back()->withErrors(['msg' => 'Your withdraw request has been submitted, please wait for the admin approval']);
     }
 }
