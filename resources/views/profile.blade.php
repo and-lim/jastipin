@@ -51,46 +51,11 @@
                                 </div>
                             </div>
                             <div class="comment">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa illo aperiam sequi earum praesentium repudiandae, recusandae hic,</p>
+                                <p>{{ $review->review }}</p>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    <!-- <div class="swiper-slide">
-                        <div class="review-card p-3 border border-5 border-primary rounded-2">
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="img/laptop.jpg" alt="" class="img-fluid flex-shrink-0 rounded-circle" style="width: 65px;">
-                                <div class="ps-4">
-                                    <h5 class="mb-1">Client name</h5>
-                                    <span>profession</span>
-                                    <div class="star text-primary">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="comment">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa illo aperiam sequi earum praesentium repudiandae, recusandae hic,</p>    
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="review-card p-3 border border-5 border-primary rounded-2">
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="img/laptop.jpg" alt="" class="img-fluid flex-shrink-0 rounded-circle" style="width: 65px;">
-                                <div class="ps-4">
-                                    <h5 class="mb-1">Client name</h5>
-                                    <span>profession</span>
-                                    <div class="star text-primary">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="comment">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa illo aperiam sequi earum praesentium repudiandae, recusandae hic,</p>    
-                            </div> 
-                        </div>
-                    </div> -->
-
                 </div>
                 <div class="swiper-pagination "></div>
                 <div class="swiper-button-prev"></div>
@@ -115,15 +80,15 @@
                                 <div class="row gap-1">
                                     @foreach($item_in_trip as $item)
 
-                                        @if($item->trip_id == $ongoing->id)
-                                        <div class="col-lg-2 trip-item">
-                                            <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
-                                            <div class="img-detail d-flex flex-column mt-1">
-                                                <label for="" class="form-label mb-0">Snack</label>
-                                                <label for="" class="form-label mb-0">$30</label>
-                                            </div>
+                                    @if($item->trip_id == $ongoing->id)
+                                    <div class="col-lg-2 trip-item">
+                                        <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 70px" class="img-fluid item-img" alt="">
+                                        <div class="img-detail d-flex flex-column mt-1">
+                                            <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
+                                            <label for="" class="form-label mb-0">{{ $item->item_price }}</label>
                                         </div>
-                                        @endif
+                                    </div>
+                                    @endif
                                     @endforeach
                                 </div>
                                 <div class="float-end">
@@ -154,15 +119,15 @@
                             <p>{{ $finished->description }}</p>
                             <div class="row gap-1">
                                 @foreach($item_in_trip as $item)
-                                    @if($item->trip_id == $finished->id)
-                                    <div class="col-lg-2 trip-item">
-                                        <img src="img/snack.jpg" style="width: 70px" class="img-fluid item-img" alt="">
-                                        <div class="img-detail d-flex flex-column mt-1">
-                                            <label for="" class="form-label mb-0">Snack</label>
-                                            <label for="" class="form-label mb-0">$30</label>
-                                        </div>
+                                @if($item->trip_id == $finished->id)
+                                <div class="col-lg-2 trip-item">
+                                    <img src="{{ asset('/storage/' .$item->item_image) }}" style="width: 70px" class="img-fluid item-img" alt="">
+                                    <div class="img-detail d-flex flex-column mt-1">
+                                        <label for="" class="form-label mb-0">{{ $item->item_name }}</label>
+                                        <label for="" class="form-label mb-0">{{ $item->item_price }}</label>
                                     </div>
-                                    @endif
+                                </div>
+                                @endif
                                 @endforeach
                             </div>
                             <div class="float-end">

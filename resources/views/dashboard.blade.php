@@ -243,7 +243,7 @@
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Transfer Receipt</label>
-                                                            <input type="file" required class="form-control">
+                                                            <input type="file" name="transfer_receipt" required class="form-control">
                                                         </div>
 
                                                     </div>
@@ -266,28 +266,27 @@
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group my-3">
-                                                        <label for="" class="form-label">Amount</label>
-                                                        <input type="text" class="form-control">
+                                                <form action="/withdraw" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Amount</label>
+                                                            <input type="text" required name="amount" class="form-control">
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Bank Code</label>
+                                                            <input type="text" required name="bank_code" class="form-control">
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <label for="" class="form-label">Bank Account Number</label>
+                                                            <input type="text" required name="account_number" class="form-control">
+                                                        </div>
                                                     </div>
-                                                    <div class="d-flex gap-3">
-                                                        <p>Unique Code :</p>
-                                                        <p>123</p>
+                                                    <div class="modal-footer text-center">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                                        <button type="submit" class="btn btn-success">Withdraw</button>
                                                     </div>
-                                                    <div class="d-flex gap-3">
-                                                        <p>Total Amount :</p>
-                                                        <p>100123</p>
-                                                    </div>
-                                                    <div class="form-group my-3">
-                                                        <label for="" class="form-label">Transfer Receipt</label>
-                                                        <input type="file" class="form-control">
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer text-center">
-                                                    <button type="button" class="btn btn-success">Withdraw</button>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -885,9 +884,9 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                                <label class="form-check-label" for="">
-                                                                                    {{ $detail_item->item_name }}
-                                                                                </label>
+                                                                            <label class="form-check-label" for="">
+                                                                                {{ $detail_item->item_name }}
+                                                                            </label>
                                                                         </td>
                                                                         <td>{{ $detail_item->quantity }}</td>
                                                                         <td>Rp {{ $detail_item->item_display_price }}</td>
@@ -902,7 +901,7 @@
 
                                                                     @foreach($transaction_detail_request[$transaction->id] as $detail_request)
                                                                     <tr>
-                                                                    <td>
+                                                                        <td>
                                                                             <div class="d-flex">
                                                                                 @if($detail_request->item_status == "bought")
                                                                                 <button type="submit" disabled class="btn btn-success px-2">
@@ -967,9 +966,9 @@
                             @foreach($finished_transaction_list as $finished)
                             <div class="card shadow my-3 p-3" style="background-color: #bebebe">
                                 <div class="card-title d-flex justify-content-between">
-                                <h3 class="fw-bold mb-3">
-                                    <a href="/trip-detail/{{ $finished->trip_id }}">{{ $finished->destination }} - {{ $finished->origin }}</a>
-                                </h3>
+                                    <h3 class="fw-bold mb-3">
+                                        <a href="/trip-detail/{{ $finished->trip_id }}">{{ $finished->destination }} - {{ $finished->origin }}</a>
+                                    </h3>
                                     <div class="d-flex gap-2">
                                         <p>Status:</p>
                                         <p class="text-success">Complete</p>

@@ -1,51 +1,67 @@
 @extends('layout')
 
 <section class="py-5">
-    <div class="container py-5 pb-5" style="height: 100%;">
-        <h1 class="fw-bold mb-5">Approval</h1>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card p-3 table-responsive">
-                    <table class="table table-borderless">
-                        <thead class="border-3 border-bottom border-dark">
-                          <tr>
-                            <th scope="col">User</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Unique Code</th>
-                            <th scope="col">Transfer Receipt</th>
-                            <th scope="col">Activity</th>
-                            <th scope="col">Approval</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                          <tr>
-                            <td>Nama User</td>
-                            <td>Rp 100000</td>
-                            <td>789</td>
-                            <td>
-                              <a
-                                href="img/laptop.jpg"
-                                data-fancybox="gallery"
-                                data-slug="dog"
-                              >
-                                <img src="img/laptop.jpg" style="width: 250px" />
-                              </a>
-                            </td>
-                            <td>Top Up</td>
-                            <td class="d-flex gap-2"> 
-                                <button class="btn btn-success">
-                                    <i class="fa fa-check"></i></button>
-                                
-                                <button class="btn btn-danger">
-                                    <i class="fa fa-times"></i></button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                </div>
-                
-            </div>
+  <div class="container py-5 pb-5" style="height: 100%;">
+    <h1 class="fw-bold mb-5">Approval</h1>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card p-3 table-responsive">
+          <table class="table table-borderless">
+            <thead class="border-3 border-bottom border-dark">
+              <tr>
+                <th scope="col">User</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Unique Code</th>
+                <th scope="col">Transfer Receipt</th>
+                <th scope="col">Activity</th>
+                <th scope="col">Approval</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              @foreach($approval_list as $approval)
+              <tr>
+                <td>{{ $approval->fullname }}</td>
+                <td>Rp {{ $approval->amount }}</td>
+                <td>{{ $approval->unique_code }}</td>
+                <td>
+                  @if($approval->transfer_receipt)
+                  <a href="{{ asset('/storage/' .$approval->transfer_receipt) }}" data-fancybox="gallery" data-slug="dog">
+                    <img src="{{ asset('/storage/' .$approval->transfer_receipt) }}" style="width: 250px" />
+                  </a>
+                  @endif
+                </td>
+                <td>{{ $approval->activity }}</td>
+                <td class="d-flex gap-2">
+                  <form action="/approve" method="POST">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ $approval->user_id }}">
+                    <input type="hidden" name="approval_id" value="{{ $approval->id }}">
+                    <input type="hidden" name="amount" value="{{ $approval->amount }}">
+                    <input type="hidden" name="activity" value="{{ $approval->activity }}">
+                    <button type="submit" class="btn btn-success">
+                      <i class="fa fa-check"></i>
+                    </button>
+                  </form>
+
+                  <form action="/decline" method="POST">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ $approval->user_id }}">
+                    <input type="hidden" name="approval_id" value="{{ $approval->id }}">
+                    <input type="hidden" name="amount" value="{{ $approval->amount }}">
+                    <input type="hidden" name="activity" value="{{ $approval->activity }}">
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
+
+      </div>
     </div>
+  </div>
 
 </section>
