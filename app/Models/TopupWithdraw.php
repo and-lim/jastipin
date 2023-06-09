@@ -17,6 +17,7 @@ class TopupWithdraw extends Model
         'unique_code',
         'transfer_receipt',
         'activity',
-        'approval_status'
+        'approval_status',
+        'decline_reason'
     ];
 }

@@ -337,7 +337,8 @@
 
     
     $('.regular').click(function() {
-
+        $(this).addClass('ongkir')
+        $(this).siblings('.instant').removeClass('ongkir')
        
         var id = $(this).attr("id")
         var number_id = parseInt(id.replace("regular", ""));
@@ -369,8 +370,8 @@
     });
 
     $('.instant').click(function() {
-
-        $(this).toggleClass('ongkir')
+        $(this).addClass('ongkir')
+        $(this).siblings('.regular').removeClass('ongkir')
         var id = $(this).attr("id")
         var number_id = id.replace("instant", "")
         var instant = parseInt(document.getElementById('ongkir' + number_id).innerHTML)
