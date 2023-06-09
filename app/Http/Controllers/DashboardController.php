@@ -106,11 +106,10 @@ class DashboardController extends Controller
             ->first();
 
 
-        // $countries = DB::table('countries')
-        // ->select('countries.name')
-        // ->where('name', '<>', 'Indonesia');
-
-        // $origins = $countries->get();
+        $balance_history = DB::table('topup_withdraws')
+            ->select('*')
+            ->where('user_id', auth()->user()->id)
+            ->get();
 
         $destinations = DB::table('countries')
             ->select('countries.name')
@@ -201,7 +200,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('dashboard', compact('finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
+        return view('dashboard', compact('balance_history','finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
     }
 
     function rate_review(Request $request)
@@ -633,15 +632,23 @@ class DashboardController extends Controller
             return back()->withErrors($validator);
         }
 
+        $check_balance = User::find(auth()->user()->id);
+
+        if ($check_balance->balance < $request->amount) {
+            return back()->withErrors(['msg' => 'Your withdraw request is higher than your balance']);
+        } else {
+
+            $withdraw_balance = TopupWithdraw::create([
+                'user_id' => auth()->user()->id,
+                'bank_code' => $request->bank_code,
+                'account_number' => $request->account_number,
+                'amount' => $request->amount,
+                'activity' => 'withdraw'
+            ]);
+        }
+
         // dd($request);
 
-        $withdraw_balance = TopupWithdraw::create([
-            'user_id' => auth()->user()->id,
-            'bank_code' => $request->bank_code,
-            'account_number' => $request->account_number,
-            'amount' => $request->amount,
-            'activity' => 'withdraw'
-        ]);
 
         return back()->withErrors(['msg' => 'Your withdraw request has been submitted, please wait for the admin approval']);
     }

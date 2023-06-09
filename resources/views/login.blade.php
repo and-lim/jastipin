@@ -4,6 +4,11 @@
 <section class="mt-5">
     <div class="container py-5">
 
+        <!-- @if ($errors->any())
+        <div class="alert alert-dark" role="alert" style="outline: none">
+            <i class="text-danger mt-1">{{$errors->first()}}</i>
+        </div>
+        @endif -->
         <form action="/login" method="POST">
             @csrf
             <div class="row bg-dark mx-5 rounded-3 shadow-3" style="min-height: 75vh;">
@@ -13,7 +18,13 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email">
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" required value="{{ old('email') }}" id="email">
+                        @error('email')
+
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Password</label>

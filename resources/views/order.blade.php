@@ -170,7 +170,7 @@
                                                         </div>
                                                         <form action="/cancelBuyItem" method="POST">
                                                             <div class="modal-body">
-                                                                <h3 class="fw-bold mb-3">Why Cancel?</h3>
+                                                                <h3 class="fw-bold mb-3">Cancel Reason</h3>
                                                                 <div class="form-group">
                                                                     <label for="" class="form-label">Select reason</label>
                                                                     <div class="form-check">

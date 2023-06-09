@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //login register
-Route::get('/login', [PageController::class, 'login']);
-Route::get('/register', [PageController::class, 'register']);
+Route::get('/login', [PageController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/register', [PageController::class, 'register'])->middleware('guest');;
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
@@ -45,16 +45,16 @@ Route::post('/rate_review', [DashboardController::class, 'rate_review']);
 Route::post('/top_up', [DashboardController::class, 'top_up']);
 Route::post('/withdraw', [DashboardController::class, 'withdraw']);
 
-Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
-Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip']);
+Route::get('/dashboard', [DashboardController::class, 'viewDashboard'])->middleware('auth');
+Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip'])->middleware('auth');
 
 
 //trip
 Route::post('/filter_category', [PageController::class, 'filter_category']);
 Route::post('/search_trip', [PageController::class, 'search_trip']);
 Route::post('/addRequestItem', [TransactionController::class, 'addRequestItem']);
-Route::post('/addToCart', [TransactionController::class, 'addToCart']);
-Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail']);
+Route::post('/addToCart', [TransactionController::class, 'addToCart'])->middleware('auth');
+Route::get('/trip-detail/{id}', [PageController::class, 'viewTripDetail'])->middleware('auth');
 Route::get('/trip', [PageController::class, 'viewTripList']);
 Route::get('/traveler/{id}', [UserController::class, 'traveler']);
 
@@ -65,13 +65,13 @@ Route::get('/item-detail/{id}', [PageController::class, 'viewWtbDetail']);
 
 
 //cart
-Route::get('/cart', [TransactionController::class, 'viewCart']);
+Route::get('/cart', [TransactionController::class, 'viewCart'])->middleware('auth');
 Route::post('/deleteItemCart', [TransactionController::class, 'deleteItemCart']);
 Route::post('/deleteRequestCart', [TransactionController::class, 'deleteRequestCart']);
 Route::post('/pay', [TransactionController::class, 'pay']);
 
 //order
-Route::get('/order', [PageController::class, 'viewOrder']);
+Route::get('/order', [PageController::class, 'viewOrder'])->middleware('auth');
 Route::post('/send', [PageController::class, 'send']);
 Route::post('/acceptRequest', [PageController::class, 'acceptRequest']);
 Route::post('/rejectRequest', [PageController::class, 'rejectRequest']);
@@ -82,13 +82,13 @@ Route::post('/cancelBuyRequest', [PageController::class, 'cancelBuyRequest']);
 Route::post('/shipping', [PageController::class, 'shipping']);
 
 
-Route::get('/profile', [UserController::class, 'profile']);
+Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 
 //admin
 Route::get('/transaction-list', [PageController::class, 'transaction_list']);
 Route::get('/approval', [PageController::class, 'approval_list']);
-Route::get('/approve', [PageController::class, 'approve']);
-Route::get('/decline', [PageController::class, 'decline']);
+Route::post('/approve', [PageController::class, 'approve']);
+Route::post('/decline', [PageController::class, 'decline']);
 
 
 

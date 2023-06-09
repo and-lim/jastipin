@@ -290,45 +290,12 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    {{-- withdraw --}}
-                                    <div class="modal fade" id="withdraw" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group my-3">
-                                                        <label for="" class="form-label">Amount</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="d-flex gap-3">
-                                                        <p>Unique Code :</p>
-                                                        <p>123</p>
-                                                    </div>
-                                                    <div class="d-flex gap-3">
-                                                        <p>Total Amount :</p>
-                                                        <p>100123</p>
-                                                    </div>
-                                                    <div class="form-group my-3">
-                                                        <label for="" class="form-label">Transfer Receipt</label>
-                                                        <input type="file" class="form-control">
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer text-center">
-                                                    <button type="button" class="btn btn-success">Withdraw</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row my-4">
                             <h3 class="fw-bold">Balance History</h3>
+                            @foreach($balance_history as $history)
                             <div class="card col-lg-10 mx-auto shadow my-3 p-3" style="background-color: #bebebe">
                                 <div class="card-title border-bottom border-dark border-2 mb-3 d-flex justify-content-between">
                                     <h3 class="fw-bold mb-3">
@@ -336,30 +303,33 @@
                                     </h3>
                                     <div class="d-flex gap-2">
                                         <p>Status:</p>
-                                        <p class="text-success">Complete</p>
+                                        <p class="text-success">{{ $history->approval_status }}</p>
                                     </div>
                                 </div>
                                 <div class="content">
                                     <div class="d-flex justify-content-between">
                                         <p>Amount :</p>
-                                        <p >10000</p>
+                                        <p>Rp {{ $history->amount }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <p>Bank Code :</p>
-                                        <p >10000</p>
-                                    </div>
-                                   <div class="d-flex justify-content-between">
-                                        <p>Unique Code :</p>
-                                        <p >10000</p>
+                                        <p>{{ $history->bank_code }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <p>Transfer Receipt :</p>
-                                        <a href="img/laptop.jpg" data-fancybox="gallery" data-slug="dog">
-                                            <img src="img/laptop.jpg" style="width: 150px" />
-                                          </a>
+                                        <p>Unique Code :</p>
+                                        <p>{{ $history->unique_code }}</p>
                                     </div>
+                                    @if($history->transfer_receipt)
+                                    <div class="d-flex justify-content-between">
+                                        <p>Transfer Receipt :</p>
+                                        <a href="{{ asset('/storage/' .$history->transfer_receipt) }}" data-fancybox="gallery" data-slug="dog">
+                                            <img src="{{ asset('/storage/' .$history->transfer_receipt) }}" style="width: 150px" />
+                                        </a>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     {{-- tab item list --}}
@@ -393,7 +363,7 @@
                             <!-- Modal -->
                             <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <form action="/addWtbItem" method="POST" enctype="multipart/form-data"> -->
-                            @csrf
+
                             <!-- <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">

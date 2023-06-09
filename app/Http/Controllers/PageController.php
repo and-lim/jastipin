@@ -591,8 +591,10 @@ class PageController extends Controller
             $give_balance = User::find($request->user_id);
             $give_balance->balance = $give_balance->balance + $request->amount;
             $give_balance->save();
+            return back();
 
         }else{
+
             $approve_withdraw = DB::table('topup_withdraws')
             ->where('id', $request->approval_id)
             ->update([
@@ -602,11 +604,13 @@ class PageController extends Controller
             $withdraw_balance = User::find($request->user_id);
             $withdraw_balance->balance = $withdraw_balance->balance - $request->amount;
             $withdraw_balance->save();
+            return back();
         }
     }
 
     function decline(Request $request)
     {
+        // dd($request);
         if($request->activity == 'top up')
         {
             $approve_topup = DB::table('topup_withdraws')
@@ -615,6 +619,7 @@ class PageController extends Controller
                 'approval_status' => 'declined',
                 'decline_reason' => $request->decline_reason
             ]);
+            return back();
 
         }else{
             $approve_withdraw = DB::table('topup_withdraws')
@@ -623,6 +628,7 @@ class PageController extends Controller
                 'approval_status' => 'declined',
                 'decline_reason' => $request->decline_reason
             ]);
+            return back();
 
         }
     }
