@@ -109,7 +109,7 @@
                                     <h2 class="text-dark fw-bold mt-1">Trip</h2>
                                     <a href="/trip" class="card-body dashboard-icon mt-0">
                                         <i class="fa fa-map-marker-alt fa-2x text-warning"></i>
-                                        <h2>1</h2>
+                                        <h2>{{ $count_trip->total_trip }}</h2>
                                     </a>
                                 </div>
                             </div>
@@ -307,6 +307,10 @@
                                     </div>
                                 </div>
                                 <div class="content">
+                                    <div class="d-flex justify-content-between">
+                                        <p>Activity :</p>
+                                        <p>{{ $history->activity }}</p>
+                                    </div>
                                     <div class="d-flex justify-content-between">
                                         <p>Amount :</p>
                                         <p>Rp {{ $history->amount }}</p>

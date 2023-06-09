@@ -105,6 +105,11 @@ class DashboardController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
+        $count_trip = DB::table('users')
+        ->join('trips','trips.user_id', 'users.id')
+        ->select(DB::raw('COUNT(*) as total_trip'))
+        ->where('trips.user_id', auth()->user()->id)
+        ->first();
 
         $balance_history = DB::table('topup_withdraws')
             ->select('*')
@@ -200,7 +205,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('dashboard', compact('balance_history','finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
+        return view('dashboard', compact('count_trip','balance_history','finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
     }
 
     function rate_review(Request $request)
