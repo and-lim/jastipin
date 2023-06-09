@@ -327,6 +327,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row my-4">
+                            <h3 class="fw-bold">Balance History</h3>
+                            <div class="card col-lg-10 mx-auto shadow my-3 p-3" style="background-color: #bebebe">
+                                <div class="card-title border-bottom border-dark border-2 mb-3 d-flex justify-content-between">
+                                    <h3 class="fw-bold mb-3">
+                                        <a href="/trip-detail/"></a>
+                                    </h3>
+                                    <div class="d-flex gap-2">
+                                        <p>Status:</p>
+                                        <p class="text-success">Complete</p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <div class="d-flex justify-content-between">
+                                        <p>Amount :</p>
+                                        <p >10000</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p>Bank Code :</p>
+                                        <p >10000</p>
+                                    </div>
+                                   <div class="d-flex justify-content-between">
+                                        <p>Unique Code :</p>
+                                        <p >10000</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p>Transfer Receipt :</p>
+                                        <a href="img/laptop.jpg" data-fancybox="gallery" data-slug="dog">
+                                            <img src="img/laptop.jpg" style="width: 150px" />
+                                          </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {{-- tab item list --}}
 

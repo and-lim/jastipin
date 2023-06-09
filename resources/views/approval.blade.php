@@ -49,9 +49,45 @@
                     <input type="hidden" name="approval_id" value="{{ $approval->id }}">
                     <input type="hidden" name="amount" value="{{ $approval->amount }}">
                     <input type="hidden" name="activity" value="{{ $approval->activity }}">
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       <i class="fa fa-times"></i>
                     </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                            <h3 class="fw-bold my-3">Why reject?</h3>
+                            <div class="form-group">
+                              <label for="" class="form-label">Select reason :</label>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="reason" id="itemNotAvailable" value="Item Not Available">
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                      Wrong Unique Code
+                                  </label>
+                              </div>
+
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="reason" id="itemOutOfStock" value="Item Out of Stock">
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                    Account Number didn't match
+                                  </label>
+                              </div>
+
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="reason" id="destinationChange" value="Destination Plan Changed">
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                    Amount didn't match
+                                  </label>
+                              </div>
+                          </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </td>
               </tr>
@@ -59,7 +95,7 @@
             </tbody>
           </table>
         </div>
-
+             
       </div>
     </div>
   </div>
