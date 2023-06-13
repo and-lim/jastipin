@@ -64,8 +64,8 @@
                 $sumItemWeight = $sumItemWeight + $item->item_weight;
                 $sumItemPpn = $sumItemPpn + $item->item_price_ppn;
                 $sumItemPabean = $sumItemPabean + $item->item_price_pabean;
-                $sumItemPrice = $sumItemPrice + ($item->item_display_price * $item->cart_item_quantity) + $sumItemPpn + $sumItemPabean;
-                $contain_item_price = $contain_item_price + ($item->item_display_price * $item->cart_item_quantity) + $sumItemPpn + $sumItemPabean;
+                $sumItemPrice = $sumItemPrice + ($item->item_display_price * $item->cart_item_quantity);
+                $contain_item_price = $contain_item_price + ($item->item_display_price * $item->cart_item_quantity);
                 $contain_item_quantity = $contain_item_quantity + $item->cart_item_quantity;
                 $contain_beacukai_pabean = $contain_beacukai_pabean + $sumItemPpn + $sumItemPabean;
                 @endphp
@@ -195,8 +195,8 @@
                 $sumBeacukaiPabean[$trip->trip_id] = $contain_beacukai_pabean;
                 @endphp
 
-                <p>Total Item Price in this Trip: Rp {{ $contain_item_price }}</p>
-                <p>Total Request Price in this Trip: Rp {{ $contain_request_price }}</p>
+                <p>Total Item Price in this Trip: Rp {{ $sumItemPriceTrip[$trip->trip_id] }}</p>
+                <p>Total Request Price in this Trip: Rp {{ $sumRequestPriceTrip[$trip->trip_id] }}</p>
                 <p>Total tax in this trip: RP {{ $trip->tax }}</p>
 
                 @endforeach

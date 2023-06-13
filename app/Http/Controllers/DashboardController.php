@@ -106,10 +106,10 @@ class DashboardController extends Controller
             ->first();
 
         $count_trip = DB::table('users')
-        ->join('trips','trips.user_id', 'users.id')
-        ->select(DB::raw('COUNT(*) as total_trip'))
-        ->where('trips.user_id', auth()->user()->id)
-        ->first();
+            ->join('trips', 'trips.user_id', 'users.id')
+            ->select(DB::raw('COUNT(*) as total_trip'))
+            ->where('trips.user_id', auth()->user()->id)
+            ->first();
 
         $balance_history = DB::table('topup_withdraws')
             ->select('*')
@@ -167,7 +167,8 @@ class DashboardController extends Controller
             ->join('users as buyers', 'transactions.user_id', 'buyers.id')
             ->select('shippings.*', 'shippings.ship_time_limit', 'shippings.transaction_id', 'shipping_types.shipping_name', 'buyers.fullname as buyer', 'buyers.address', 'travelers.fullname as traveller',)
             ->where('transactions.user_id', auth()->user()->id)
-            ->where('shippings.shipping_status', 'waiting receive')
+            ->where('shippings.shipping_status', '<>', 'received')
+            ->where('shippings.shipping_status', '<>', 'cancelled')
             ->get();
 
         $finished_transaction_list = DB::table('transactions')
@@ -178,6 +179,7 @@ class DashboardController extends Controller
             ->select('transactions.*', 'rate_reviews.id as rate_review_id', 'trips.user_id', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
             ->where('transactions.user_id', auth()->user()->id)
             ->where('transaction_status', 'finished')
+            ->orWhere('transaction_status', 'cancelled')
             ->get();
 
         $finished_detail_item = [];
@@ -205,7 +207,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('dashboard', compact('count_trip','balance_history','finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
+        return view('dashboard', compact('count_trip', 'balance_history', 'finished_detail_item', 'finished_detail_request', 'finished_transaction_list', 'home', 'destinations', 'city', 'draft_trip', 'ongoing_trip', 'item_in_trip', 'wtb_item', 'user_profile', 'ongoing_transaction', 'transaction_detail_item', 'transaction_detail_request', 'shipping_list'));
     }
 
     function rate_review(Request $request)
@@ -221,63 +223,6 @@ class DashboardController extends Controller
         ]);
 
         return back()->withErrors('Review has been submitted');
-    }
-
-    function autoFinish(Schedule $schedule): void
-    {
-        $schedule->call(function () {
-
-            $now = Carbon::now();
-
-
-            $auto_finish = DB::table('shippings')
-                ->join('transactions', 'shippings.transaction_id', 'transactions.id')
-                ->select('shippings.*')
-                ->where('shippings.ship_time_limit', '<', $now)
-                ->get();
-
-            foreach ($auto_finish as $auto) {
-                $change_shipping_status = DB::table('shippings')
-                    ->where('id', $auto->id)
-                    ->update([
-                        'shipping_status' => 'received'
-                    ]);
-
-                $change_transaction_status = DB::table('transactions')
-                    ->where('id', $auto->transaction_id)
-                    ->update([
-                        'transaction_status' => 'finished'
-                    ]);
-
-                $get_balance_transaction = TransactionList::where('transaction_id', $auto->transaction_id)->first();
-                $refund_buyer = User::find(auth()->user()->id);
-                $refund_buyer->balance = $refund_buyer->balance + $get_balance_transaction->balance_to_buyer;
-                $refund_buyer->save();
-
-                $get_seller = DB::table('transactions')
-                    ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
-                    ->select('trips.user_id', 'transactions.trip_id')
-                    ->where('transactions.id', $auto->transaction_id)
-                    ->first();
-
-                $balance_to_seller = User::find($get_seller->user_id);
-                // dd($balance_to_seller);
-                $balance_to_seller->balance = $balance_to_seller->balance + $get_balance_transaction->hold_balance;
-                $balance_to_seller->save();
-
-                $status_trip = Trip::find($get_seller->trip_id);
-                $status_trip->status = 'finished';
-                $status_trip->save();
-
-                $delete_cart = DB::table('carts')
-                    ->where('trip_id', $get_seller->trip_id)
-                    ->delete();
-            }
-
-
-            // $shipping_status = DB::table('shippings')
-            // ->where('shipping')
-        })->daily();
     }
 
     function editTrip($id)
@@ -513,7 +458,6 @@ class DashboardController extends Controller
                     'phone_number' => $request->phone_number,
                     'city' => $request->city,
                     'NPWP' => $request->npwp,
-                    'password' => Hash::make($request->password),
                     'avatar' => $generate_file,
                     'address' => $request->address
                 ]);
@@ -527,7 +471,6 @@ class DashboardController extends Controller
                     'phone_number' => $request->phone_number,
                     'city' => $request->city,
                     'NPWP' => $request->npwp,
-                    'password' => Hash::make($request->password),
                     'address' => $request->address
                 ]);
         }
@@ -578,7 +521,12 @@ class DashboardController extends Controller
         $status_trip->status = 'finished';
         $status_trip->save();
 
+        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_balance_transaction->hold_balance + $get_balance_transaction->balance_to_buyer);
+        $reduce_admin_balance->save();
+
         $delete_cart = DB::table('carts')
+            ->where('carts.user_id', auth()->user()->id)
             ->where('trip_id', $get_seller->trip_id)
             ->where('cart_status', 'paid')
             ->delete();
@@ -656,5 +604,18 @@ class DashboardController extends Controller
 
 
         return back()->withErrors(['msg' => 'Your withdraw request has been submitted, please wait for the admin approval']);
+    }
+
+    function not_received(Request $request)
+    {
+
+        $not_received = DB::table('shippings')
+            ->leftJoin('transactions', 'shippings.transaction_id', 'transactions.id')
+            ->where('shippings.id', $request->shipping_id)
+            ->update([
+                'shippings.shipping_status' => 'not received',
+            ]);
+
+        return back()->withErrors(['msg' => 'Please contact our customer care number to solve this issue']);
     }
 }

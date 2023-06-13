@@ -44,6 +44,7 @@ Route::post('/received', [DashboardController::class, 'received']);
 Route::post('/rate_review', [DashboardController::class, 'rate_review']);
 Route::post('/top_up', [DashboardController::class, 'top_up']);
 Route::post('/withdraw', [DashboardController::class, 'withdraw']);
+Route::post('/not_received', [DashboardController::class, 'not_received']);
 
 Route::get('/dashboard', [DashboardController::class, 'viewDashboard'])->middleware('auth');
 Route::get('/trip-draft/{id}', [DashboardController::class, 'editTrip'])->middleware('auth');
@@ -89,6 +90,8 @@ Route::get('/transaction-list', [PageController::class, 'transaction_list']);
 Route::get('/approval', [PageController::class, 'approval_list']);
 Route::post('/approve', [PageController::class, 'approve']);
 Route::post('/decline', [PageController::class, 'decline']);
+Route::post('/item_received', [PageController::class, 'item_received']);
+Route::post('/item_not_received', [PageController::class, 'item_not_received']);
 
 
 

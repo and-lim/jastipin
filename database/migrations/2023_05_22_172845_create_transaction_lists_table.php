@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('transaction_id')->references('id')->on('transactions');
             $table->integer('hold_balance');
             $table->integer('balance_to_buyer')->default(0);
+            $table->string('confirmation')->nullable();
             $table->timestamps();
         });
     }
