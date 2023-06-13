@@ -316,8 +316,8 @@
                                         <p>Rp {{ $history->amount }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <p>Bank Code :</p>
-                                        <p>{{ $history->bank_code }}</p>
+                                        <p>Bank Name :</p>
+                                        <p>{{ $history->bank_name }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <p>Unique Code :</p>

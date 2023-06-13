@@ -132,6 +132,7 @@ class DashboardController extends Controller
             ->select('transactions.*', 'trips.destination', 'trips.origin', 'users.address', 'users.phone_number', 'shipping_types.shipping_name', 'shipping_types.shipping_price')
             ->where('transactions.user_id', auth()->user()->id)
             ->where('transaction_status', 'ongoing')
+            ->orWhere('transaction_status','hold')
             ->get();
 
         $transaction_detail_item = [];
@@ -558,7 +559,7 @@ class DashboardController extends Controller
 
         $top_up_balance = TopupWithdraw::create([
             'user_id' => auth()->user()->id,
-            'bank_code' => $request->bank_code,
+            'bank_name' => $request->bank_name,
             'account_number' => $request->account_number,
             'amount' => $request->amount,
             'unique_code' => $request->unique_code,
@@ -593,7 +594,7 @@ class DashboardController extends Controller
 
             $withdraw_balance = TopupWithdraw::create([
                 'user_id' => auth()->user()->id,
-                'bank_code' => $request->bank_code,
+                'bank_name' => $request->bank_name,
                 'account_number' => $request->account_number,
                 'amount' => $request->amount,
                 'activity' => 'withdraw'

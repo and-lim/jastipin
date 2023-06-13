@@ -24,7 +24,7 @@
               <tr>
                 <td>{{ $approval->fullname }}</td>
                 <td>Rp {{ $approval->amount }}</td>
-                <td>Rp {{ $approval->bank_name }}</td>
+                <td>{{ $approval->bank_name }}</td>
                 <td>Rp {{ $approval->account_number }}</td>
                 <td>{{ $approval->unique_code }}</td>
                 <td>
