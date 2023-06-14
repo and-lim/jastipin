@@ -100,7 +100,7 @@ class TransactionController extends Controller
 
     function addToCart(Request $request)
     {
-
+        // dd($request);
         $find = Cart::where('user_id', auth()->user()->id)->where('item_id', $request->item_id)->first();
         // $find_another_trip = DB::table('carts')
         //     ->join('items', 'carts.item_id', 'items.id')
@@ -224,7 +224,7 @@ class TransactionController extends Controller
                 ->where('carts.cart_status', 'unpaid')
                 ->where('carts.trip_id', $trip->trip_id)
                 ->get();
-
+            // dd($item);
 
             $request = DB::table('carts')
                 ->join('request_items', 'carts.request_id', 'request_items.id')
@@ -470,6 +470,6 @@ class TransactionController extends Controller
         //     'balance' => $request->total_pay,
         //     'description' => 'From Buyer to Admin'
         // ]);
-        return redirect('/dashboard');
+        return redirect('/dashboard')->withErrors(['msg' => 'Checkout Success! To check your transaction, go to Transaction menu']);
     }
 }

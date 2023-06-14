@@ -202,7 +202,7 @@
                                     <h3 class="fw-bold">Your Balance</h3>
                                     <h1 class="text-success text-center my-3 pb-3 mx-5">Rp {{ auth()->user()->balance }}</h1>
                                     <div class="button d-flex justify-content-center gap-3">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topup">
                                             Add balance
                                         </button>
                                         <button type="button" class="btn btn-warning " data-bs-toggle="modal" data-bs-target="#withdraw">
@@ -211,27 +211,27 @@
                                     </div>
 
                                     <!-- add balance Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="topup" tabindex="-1" aria-labelledby="addBalance" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Balance</h1>
+                                                    <h1 class="modal-title fs-5" id="addBalance">Add Balance</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <form action="/top_up" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="form-group my-3">
-                                                            <label for="" class="form-label">Bank Code</label>
-                                                            <input type="text" required name="bank_code" class="form-control">
+                                                            <label for="" class="form-label">Bank Name</label>
+                                                            <input type="text" required name="bank_name" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Account Number</label>
-                                                            <input type="text" required name="account_number" class="form-control">
+                                                            <input type="text" required name="account_number" oninput="validateInput(this)" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Amount</label>
-                                                            <input type="text" required id="topup_amount" name="amount" class="form-control">
+                                                            <input type="text" required id="topup_amount" oninput="validateInput(this)" name="amount" class="form-control">
                                                         </div>
                                                         <div class="d-flex gap-3">
                                                             <p>Unique Code :</p>
@@ -263,7 +263,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Withdraw</h1>
+                                                    <h1 class="modal-title fs-5" id="Label">Withdraw</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <form action="/withdraw" method="POST">
@@ -271,15 +271,15 @@
                                                     <div class="modal-body">
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Amount</label>
-                                                            <input type="text" required name="amount" class="form-control">
+                                                            <input type="text" required name="amount" oninput="validateInput(this)" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
-                                                            <label for="" class="form-label">Bank Code</label>
-                                                            <input type="text" required name="bank_code" class="form-control">
+                                                            <label for="" class="form-label">Bank Name</label>
+                                                            <input type="text" required name="bank_name"  class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Account Number</label>
-                                                            <input type="text" required name="account_number" class="form-control">
+                                                            <input type="text" required name="account_number" oninput="validateInput(this)" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer text-center">
@@ -316,8 +316,8 @@
                                         <p>Rp {{ $history->amount }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <p>Bank Code :</p>
-                                        <p>{{ $history->bank_code }}</p>
+                                        <p>Bank Name :</p>
+                                        <p>{{ $history->bank_name }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <p>Unique Code :</p>
@@ -705,7 +705,7 @@
                             </div>
                             @foreach($shipping_list as $shipping)
                             <div class="col-lg-12">
-                                <p>Transaction will automatically finished after {{ $shipping->ship_time_limit }} if you don't confirm your order</p>
+                                <p>Please confirm your transaction before time limit: {{ $shipping->ship_time_limit }}. You have two days after time limit ends to click the "Item Not Received" button if you have not received the items</p>
                                 <div class="card p-3">
                                     <div class="form-group mb-3 row">
                                         <label for="" class="col-sm-2 col-form-label">From</label>
@@ -738,12 +738,23 @@
                                             <input type="text" readonly class="form-control" value="{{ $shipping->shipping_receipt }}">
                                         </div>
                                     </div>
+                                    @if($shipping->shipping_status != 'not received')
                                     <form action="/received" method="POST">
                                         @csrf
                                         <input type="hidden" name="shipping_id" value="{{ $shipping->id }}">
                                         <!-- <input type="hidden" name="transaction_id" value="{{ $shipping->transaction_id }}"> -->
                                         <button type="submit" class="btn btn-outline-warning px-3">Item Received</button>
                                     </form>
+                                    @endif
+                                    @if($shipping->shipping_status == 'hold' || $shipping->shipping_status == 'not received')
+                                    <form action="/not_received" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="shipping_id" value="{{ $shipping->id }}">
+                                        <input type="hidden" name="transaction_id" value="{{ $shipping->transaction_id }}">
+                                        <!-- <input type="hidden" name="transaction_id" value="{{ $shipping->transaction_id }}"> -->
+                                        <button type="submit" @if($shipping->shipping_status == 'not received') disabled @endif class="btn btn-outline-danger px-3">Item Not Received</button>
+                                    </form>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -810,11 +821,11 @@
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="ongoing_transaction{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="ongoing_transaction{{ $loop->iteration }}" tabindex="-1" aria-labelledby="transactionDetail" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+                                                    <h1 class="modal-title fs-5" id="transactionDetail">Details</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -979,7 +990,7 @@
                                     </h3>
                                     <div class="d-flex gap-2">
                                         <p>Status:</p>
-                                        <p class="text-success">Complete</p>
+                                        <p class="text-success">{{ $finished->transaction_status }}</p>
                                     </div>
                                 </div>
                                 <div class="button-review">
@@ -990,11 +1001,11 @@
                                     @endif
                                     <form action="/rate_review" method="POST">
                                         @csrf
-                                        <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modal-review" tabindex="-1" aria-labelledby="rateReview" aria-hidden="true">
                                             <div class="modal-dialog ">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Review</h1>
+                                                        <h1 class="modal-title fs-5" id="rateReview">Review</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">

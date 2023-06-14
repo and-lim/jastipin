@@ -3,6 +3,11 @@
 <section class="py-5">
     <div class="container py-5 pb-5" style="height: 100%;">
         <h1 class="fw-bold mb-5">Transaction List</h1>
+        @if ($errors->any())
+        <div class="alert alert-dark" role="alert" style="outline: none">
+            <i class="text-danger mt-1">{{$errors->first()}}</i>
+        </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="card p-3 table-responsive">
@@ -16,7 +21,9 @@
                                 <th>Balance to Buyer</th>
                                 <th>Item</th>
                                 <th>Item Status</th>
+                                <th>Shipping Type</th>
                                 <th>Transaction Status</th>
+                                <th>Item Receive Confirmation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +65,38 @@
                                     </ul>
                                 </td>
                                 <td>
+                                    {{ $transaction->shipping_name }}
+                                </td>
+                                <td>
                                     {{ $transaction->transaction_status }}
                                 </td>
+
+                                <td class="d-flex gap-2">
+                                    @if($transaction->transaction_status == 'hold')
+                                    <form action="/item_received" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+                                        <input type="hidden" name="transaction_list_id" value="{{ $transaction->transaction_list_id }}">
+                                        <input type="hidden" name="buyer_id" value="{{ $transaction->buyer_id }}">
+                                        <input type="hidden" name="traveler_id" value="{{ $transaction->traveler_id }}">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </form>
+
+                                    <form action="/item_not_received" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+                                        <input type="hidden" name="transaction_list_id" value="{{ $transaction->transaction_list_id }}">
+                                        <input type="hidden" name="buyer_id" value="{{ $transaction->buyer_id }}">
+                                        <input type="hidden" name="traveler_id" value="{{ $transaction->traveler_id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+                                    @endif
+                                </td>
+
                             </tr>
                             @endforeach
                         </tbody>

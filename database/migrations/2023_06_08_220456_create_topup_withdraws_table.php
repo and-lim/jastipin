@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('bank_code');
+            $table->string('bank_name');
             $table->string('account_number');
             $table->integer('amount');
             $table->integer('unique_code')->nullable();

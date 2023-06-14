@@ -13,7 +13,7 @@ class UserController extends Controller
 
     function register(Request $request)
     {
-
+        // dd($request);
         $search_city = DB::table('cities')
             ->select('*')
             ->where('name', $request->city)
@@ -29,6 +29,7 @@ class UserController extends Controller
                 'phone_number' => $request->phone_number,
                 'city' => $request->city,
                 'is_admin' => false,
+                'npwp' =>$request->npwp,
                 'password' => Hash::make($request->password)
             ]);
         }
@@ -39,7 +40,7 @@ class UserController extends Controller
     function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
             'password' =>'required',
         ]);
 

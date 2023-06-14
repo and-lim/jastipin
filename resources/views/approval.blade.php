@@ -11,6 +11,8 @@
               <tr>
                 <th scope="col">User</th>
                 <th scope="col">Balance</th>
+                <th scope="col">Bank Name</th>
+                <th scope="col">Bank Account Number</th>
                 <th scope="col">Unique Code</th>
                 <th scope="col">Transfer Receipt</th>
                 <th scope="col">Activity</th>
@@ -22,6 +24,8 @@
               <tr>
                 <td>{{ $approval->fullname }}</td>
                 <td>Rp {{ $approval->amount }}</td>
+                <td>{{ $approval->bank_name }}</td>
+                <td>Rp {{ $approval->account_number }}</td>
                 <td>{{ $approval->unique_code }}</td>
                 <td>
                   @if($approval->transfer_receipt)

@@ -8,6 +8,7 @@ use App\Models\Shipping;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\TransactionList;
+use App\Models\Trip;
 use App\Models\User;
 use Carbon\Carbon;
 use DateInterval;
@@ -41,13 +42,13 @@ class PageController extends Controller
             ->limit(3)
             ->get();
 
-            // dd($preview_trip_list);
+        // dd($preview_trip_list);
 
         $items = DB::table('items')
             ->join('trips', 'items.trip_id', 'trips.id')
             ->select('items.*')
             ->get();
-        return view('home', compact('preview_trip_list','items'));
+        return view('home', compact('preview_trip_list', 'items'));
     }
 
     function viewTripList()
@@ -195,6 +196,7 @@ class PageController extends Controller
     function viewOrder()
     {
 
+
         $request_list = DB::table('request_items')
             ->join('users', 'request_items.requester_id', 'users.id')
             ->join('trips', 'request_items.trip_id', 'trips.id')
@@ -203,19 +205,22 @@ class PageController extends Controller
             ->where('trips.user_id', auth()->user()->id)
             ->get();
 
+        // dd($request_list);
+
         $interval_date = DateInterval::createFromDateString('2 day');
         // dd($interval_date);
         foreach ($request_list as $request) {
 
-            $request->limit = new Carbon($request->created_at);
+            $request->limit = (new Carbon($request->created_at))->setTimezone('Asia/Jakarta')->startOfDay();
             $request->limit = $request->limit->addDay(2);
 
             if ($request->limit > $request->start_date) {
 
-                $request->limit =  new Carbon($request->start_date);
+                $request->limit =  (new Carbon($request->start_date))->setTimezone('Asia/Jakarta')->startOfDay();
             }
 
-            $request->approvable = Carbon::now() < $request->limit;
+            $request->approvable = Carbon::now()->setTimezone('Asia/Jakarta') < $request->limit;
+            // dd($request->limit);
             $request->limit = $request->limit->toDayDateTimeString();
         }
 
@@ -312,36 +317,6 @@ class PageController extends Controller
         return view('order', compact('request_list', 'order_list_header', 'order_detail_item', 'order_detail_request', 'shipping_list', 'shipping_detail_item', 'shipping_detail_request'));
     }
 
-    function autoCancel(Schedule $schedule): void
-    {
-        $schedule->call(function () {
-            $now = Carbon::now();
-
-            $item_ship = DB::table('transaction_details')
-                ->leftJoin('transactions', 'transaction_details.transaction_id', 'transactions.id')
-                ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
-                ->leftJoin('shippings', 'shippings.transaction_id', 'transactions.id')
-                ->where('shippings.ship_time_limit', '<', $now)
-                ->update([
-                    'transaction_details.item_status' => 'cancelled',
-                    'transactions.transaction_status' => 'finished'
-                ]);
-
-            $get_hold_balance = DB::table('transaction_lists')
-                ->leftJoin('transactions', 'transaction_lists.transaction_id', 'transactions.id')
-                ->leftJoin('shippings', 'shippings.transaction_id', 'transactions.id')
-                ->select('transactions.user_id', 'transaction_lists.hold_balance')
-                ->where('shippings.ship_time_limit', '<', $now)
-                ->get();
-
-            foreach ($get_hold_balance as $hold_balance) {
-                $user_balance = User::find($hold_balance->user_id);
-                $user_balance->balance = $user_balance->balance + $hold_balance->hold_balance;
-                $user_balance->save();
-            }
-        })->daily();
-    }
-
     function acceptRequest(Request $request)
     {
         $accept_request = DB::table('request_items')
@@ -380,11 +355,11 @@ class PageController extends Controller
     {
         $refund_balance = TransactionList::where('transaction_id', $request->transaction_id)->first();
 
-        // dd($request);
         // dd($refund_balance);
         // $total_price = DB::table('transactions')
         // ->select('total_paid')
         $tax_count = (int) (($request->total / ($request->total_paid - $request->shipping_price - $request->tax)) * $request->tax);
+        // dd($request,$tax_count);
         // dd($tax_count);
 
 
@@ -437,7 +412,7 @@ class PageController extends Controller
     {
         $check_status = DB::table('transactions')
             ->leftJoin('transaction_details', 'transaction_details.transaction_id', 'transactions.id')
-            ->select(DB::raw('COUNT(*) as jumlahItem'), 'transactions.user_id')
+            ->select(DB::raw('COUNT(*) as jumlahItem'), 'transactions.user_id', 'transactions.trip_id')
             ->where('transaction_details.item_status', 'bought')
             ->where('transactions.id', $request->transaction_id)
             ->first();
@@ -459,6 +434,12 @@ class PageController extends Controller
             $balance_buyer = User::find($check_status->user_id);
             $balance_buyer->balance = $balance_buyer->balance + $refund_all->balance_to_buyer;
             $balance_buyer->save();
+
+            $delete_cart = DB::table('carts')
+                ->where('carts.user_id', $check_status->user_id)
+                ->where('trip_id', $check_status->trip_id)
+                ->where('cart_status', 'paid')
+                ->delete();
             // dd($balance_buyer);
 
         } else {
@@ -486,33 +467,70 @@ class PageController extends Controller
                 'ship_time_limit' => $time_limit
             ]);
         }
-
-
-
-
-
         return back();
+    }
+    public static function vincentyGreatCircleDistance(
+        $latitudeFrom,
+        $longitudeFrom,
+        $latitudeTo,
+        $longitudeTo,
+        $earthRadius = 6371000
+    ) {
+        // convert from degrees to radians
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $lonDelta = $lonTo - $lonFrom;
+        $a = pow(cos($latTo) * sin($lonDelta), 2) +
+            pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+        $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+
+        $angle = atan2(sqrt($a), $b);
+        return $angle * $earthRadius;
     }
 
     function send(Request $request)
     {
 
+
         $shipping = DB::table('shippings')
             ->join('transactions', 'shippings.transaction_id', 'transactions.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
             ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-            ->select('shippings.ship_time_limit', 'shipping_types.shipping_name')
+            ->select('shippings.ship_time_limit', 'shipping_types.shipping_name', 'transactions.user_id')
             ->where('transactions.id', $request->transaction_id)
             ->where('shippings.id', $request->shipping_id)
             ->first();
 
-        $user_acc_limit = Carbon::now();
+        $longlattraveler = DB::table('users')
+            ->join('cities', 'users.city', 'cities.name')
+            ->select('cities.longitude', 'cities.latitude')
+            ->where('users.id', auth()->user()->id)
+            ->first();
+
+        $longlatbuyer = DB::table('users')
+            ->join('cities', 'users.city', 'cities.name')
+            ->select('cities.longitude', 'cities.latitude')
+            ->where('users.id', $shipping->user_id)
+            ->first();
+
+        $shipping->distance = $this->vincentyGreatCircleDistance($longlatbuyer->latitude, $longlatbuyer->longitude, $longlattraveler->latitude, $longlattraveler->longitude);
+        $shipping->distance = ($shipping->distance / 1000);
+
+        // dd($longlatbuyer);
+
+        // dd($shipping->shipping_name);
+
+        $user_acc_limit = Carbon::now()->setTimezone('Asia/Jakarta');
 
         if ($shipping->shipping_name == 'regular') {
-            $user_acc_limit = $user_acc_limit->addDay(7);
+            $user_acc_limit = $user_acc_limit->addDay(7 + ((int) $shipping->distance / 500))->startOfDay();
         } else {
-            $user_acc_limit = $user_acc_limit->addDay(5);
+            $user_acc_limit = $user_acc_limit->addDay(5 + ((int) $shipping->distance / 500))->startOfDay();
         }
-        // dd($user_acc_limit);
+        // dd($user_acc_limit,$shipping->distance);
 
         $change_status_shipped = DB::table('transactions')
             ->where('id', $request->shipping_transaction_id)
@@ -521,6 +539,7 @@ class PageController extends Controller
             ]);
 
         $send = DB::table('shippings')
+            ->where('id', $request->shipping_id)
             ->update([
                 'shipping_receipt' => $request->shipping_receipt,
                 'ship_time_limit' => $user_acc_limit,
@@ -538,7 +557,7 @@ class PageController extends Controller
             ->join('users as travelers', 'trips.user_id', 'travelers.id')
             ->join('users as buyers', 'transactions.user_id', 'buyers.id')
             ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-            ->select('transaction_lists.hold_balance', 'transaction_lists.balance_to_buyer', 'transactions.*', 'trips.destination', 'trips.origin', 'travelers.fullname as traveler_fullname', 'buyers.fullname as buyer_fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name')
+            ->select('transaction_lists.hold_balance', 'transaction_lists.id as transaction_list_id', 'transaction_lists.balance_to_buyer', 'transactions.*', 'trips.destination', 'trips.origin', 'travelers.fullname as traveler_fullname', 'buyers.fullname as buyer_fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name', 'buyers.id as buyer_id', 'travelers.id as traveler_id')
             ->get();
 
         // dd($transaction_header);
@@ -571,35 +590,33 @@ class PageController extends Controller
     function approval_list()
     {
         $approval_list = DB::table('topup_withdraws')
-        ->join('users', 'topup_withdraws.user_id','users.id')
-        ->select('users.fullname', 'topup_withdraws.*')
-        ->get();
+            ->join('users', 'topup_withdraws.user_id', 'users.id')
+            ->select('users.fullname', 'topup_withdraws.*')
+            ->get();
 
         return view('approval', compact('approval_list'));
     }
 
     function approve(Request $request)
     {
-        if($request->activity == 'top up')
-        {
+        if ($request->activity == 'top up') {
             $approve_topup = DB::table('topup_withdraws')
-            ->where('id', $request->approval_id)
-            ->update([
-                'approval_status' => 'approved'
-            ]);
+                ->where('id', $request->approval_id)
+                ->update([
+                    'approval_status' => 'approved'
+                ]);
 
             $give_balance = User::find($request->user_id);
             $give_balance->balance = $give_balance->balance + $request->amount;
             $give_balance->save();
             return back();
-
-        }else{
+        } else {
 
             $approve_withdraw = DB::table('topup_withdraws')
-            ->where('id', $request->approval_id)
-            ->update([
-                'approval_status' => 'approved'
-            ]);
+                ->where('id', $request->approval_id)
+                ->update([
+                    'approval_status' => 'approved'
+                ]);
 
             $withdraw_balance = User::find($request->user_id);
             $withdraw_balance->balance = $withdraw_balance->balance - $request->amount;
@@ -611,25 +628,141 @@ class PageController extends Controller
     function decline(Request $request)
     {
         // dd($request);
-        if($request->activity == 'top up')
-        {
+        if ($request->activity == 'top up') {
             $approve_topup = DB::table('topup_withdraws')
-            ->where('id', $request->approval_id)
-            ->update([
-                'approval_status' => 'declined',
-                'decline_reason' => $request->decline_reason
-            ]);
+                ->where('id', $request->approval_id)
+                ->update([
+                    'approval_status' => 'declined',
+                    'decline_reason' => $request->decline_reason
+                ]);
             return back();
-
-        }else{
+        } else {
             $approve_withdraw = DB::table('topup_withdraws')
-            ->where('id', $request->approval_id)
-            ->update([
-                'approval_status' => 'declined',
-                'decline_reason' => $request->decline_reason
-            ]);
+                ->where('id', $request->approval_id)
+                ->update([
+                    'approval_status' => 'declined',
+                    'decline_reason' => $request->decline_reason
+                ]);
             return back();
-
         }
+    }
+
+    function item_received(Request $request)
+    {
+        // dd($request);
+        $find_transaction = DB::table('transactions')
+            ->select('id')
+            ->where('id', $request->transaction_id)
+            ->first();
+
+        // $find_buyer = DB::table('transactions')
+
+        $find_shipping = DB::table('transactions')
+            ->join('shippings', 'shippings.transaction_id', 'transactions.id')
+            ->select('shippings.id')
+            ->where('transactions.id', $request->transaction_id)
+            ->first();
+
+        $get_balance_transaction = TransactionList::find($request->transaction_list_id);
+        $refund_buyer = User::find($request->buyer_id);
+        $refund_buyer->balance = $refund_buyer->balance + $get_balance_transaction->balance_to_buyer;
+        // dd($refund_buyer->balance);
+        $refund_buyer->save();
+        $change_shipping_status = DB::table('shippings')
+            ->where('id', $find_shipping->id)
+            ->update([
+                'shipping_status' => 'received'
+            ]);
+        $change_transaction_status = DB::table('transactions')
+            ->where('id', $find_transaction->id)
+            ->update([
+                'transaction_status' => 'finished'
+            ]);
+
+
+        $get_seller = DB::table('transactions')
+            ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
+            ->select('trips.user_id as traveler_id', 'transactions.trip_id')
+            ->where('transactions.id', $find_transaction->id)
+            ->first();
+
+        $balance_to_seller = User::find($get_seller->traveler_id);
+        // dd($balance_to_seller);
+        $balance_to_seller->balance = $balance_to_seller->balance + $get_balance_transaction->hold_balance;
+        $balance_to_seller->save();
+
+        // $status_trip = Trip::find($get_seller->trip_id);
+        // $status_trip->status = 'finished';
+        // $status_trip->save();
+
+        $confirmation = TransactionList::find($request->transaction_list_id);
+        $confirmation->confirmation = 'received';
+        $confirmation->save();
+
+        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_balance_transaction->hold_balance + $get_balance_transaction->balance_to_buyer);
+        $reduce_admin_balance->save();
+
+        $delete_cart = DB::table('carts')
+            ->where('carts.user_id', $request->buyer_id)
+            ->where('trip_id', $get_seller->trip_id)
+            ->where('cart_status', 'paid')
+            ->delete();
+
+        return back()->withErrors(['msg' => 'Hold balance and balance to user has been given to traveler and buyer']);
+    }
+
+    function item_not_received(Request $request)
+    {
+        // dd($request);
+
+        $get_hold_balance = DB::table('transaction_lists')
+            ->leftJoin('transactions', 'transaction_lists.transaction_id', 'transactions.id')
+            ->leftJoin('shippings', 'shippings.transaction_id', 'transactions.id')
+            ->join('trips', 'transactions.trip_id', 'trips.id')
+            ->join('users as travelers', 'trips.user_id', 'travelers.id')
+            ->join('users as buyers', 'transactions.user_id', 'buyers.id')
+            ->select('transactions.user_id', 'transaction_lists.balance_to_buyer', 'transaction_lists.hold_balance', 'travelers.fullname as traveler_fullname', 'buyers.fullname as buyer_fullname')
+            ->where('transaction_lists.id', $request->transaction_list_id)
+            ->first();
+
+
+        $user_balance = User::find($get_hold_balance->user_id);
+        $user_balance->balance = $user_balance->balance + ($get_hold_balance->hold_balance + $get_hold_balance->balance_to_buyer);
+        // dd($user_balance->balance);
+        $user_balance->save();
+        $item_ship = DB::table('transaction_details')
+            ->leftJoin('transactions', 'transaction_details.transaction_id', 'transactions.id')
+            ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
+            ->leftJoin('shippings', 'shippings.transaction_id', 'transactions.id')
+            ->where('transactions.id', $request->transaction_id)
+            ->update([
+                'transaction_details.item_status' => 'cancelled',
+                'transactions.transaction_status' => 'cancelled',
+                'shippings.shipping_status' => 'cancelled'
+            ]);
+
+
+        $confirmation = TransactionList::find($request->transaction_list_id);
+        $confirmation->confirmation = 'not received';
+        $confirmation->save();
+
+        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_hold_balance->hold_balance + $get_hold_balance->balance_to_buyer);
+        $reduce_admin_balance->save();
+
+        $get_seller = DB::table('transactions')
+            ->leftJoin('trips', 'transactions.trip_id', 'trips.id')
+            ->select('trips.user_id', 'transactions.trip_id')
+            ->where('transactions.id', $request->transaction_id)
+            ->first();
+
+        $delete_cart = DB::table('carts')
+            ->where('carts.user_id', $request->buyer_id)
+            ->where('trip_id', $get_seller->trip_id)
+            ->where('cart_status', 'paid')
+            ->delete();
+
+        return back()->withErrors(['msg' => 'Balance hold to ' . $get_hold_balance->traveler_fullname . ' has been returned to' . $get_hold_balance->buyer_fullname]);
     }
 }

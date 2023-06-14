@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-                            <input type="tel" name="phone_number" class="form-control" id="phone_number">
+                            <input type="tel" name="phone_number" oninput="validateInput(this)" class="form-control" id="phone_number">
                         </div>
                         <div class="form-group d-flex flex-column mb-3">
                             <label for="destination" class="form-label">City</label>
@@ -40,6 +40,10 @@
                                 <option value="{{ $c->name }}">
                                     @endforeach
                             </datalist>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">NPWP</label>
+                            <input type="text" name="npwp" oninput="validateInput(this)" class="form-control" id="fullname">
                         </div>
                         <div class="form-group mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Password</label>
@@ -65,5 +69,10 @@
         </form>
     </div>
 </section>
-
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    function validateInput(input) {
+        input.value = input.value.replace(/\D/g, '');
+    }
+</script>
 @endsection

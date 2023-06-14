@@ -25,21 +25,22 @@
                 <p>Time limit to approve: {{ $request->limit }}</p>
                 <div class="row">
                     <div class="col-lg-2">
-                        <img src="img/laptop.jpg" class="img-fluid" alt="">
+                        <img src="{{ asset('/storage/' .$request->request_image) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-9">
                         <h1 class="mb-2">From: {{ $request->fullname }}</h1>
                         <p>Item Name: {{ $request->request_name }}</p>
                         <p>Quantity: {{ $request->request_quantity }}</p>
                         <p>Price: {{ $request->request_price }}</p>
-                        <p>Weight: {{ $request->request_weight }}</p>
+                        <p>Weight: {{ $request->request_weight }} Kg</p>
 
                         @if(!$request->approvable)
 
                         <form action="/deleteRequestCart" method="POST">
                             @csrf
                             <div class="float-end d-flex">
-                                <button class="btn btn-danger">
+                                <input type="hidden" name="request_id" value="{{ $request->id }}">
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>

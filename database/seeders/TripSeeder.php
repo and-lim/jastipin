@@ -20,8 +20,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Japan',
                 'origin' => 'Kota Bogor',
-                'start_date' => '2023-06-12',
-                'arrival_date' => '2023-06-13',
+                'start_date' => '2023-06-16',
+                'arrival_date' => '2023-06-20',
                 'request' => true,
                 'total_price' => 11000000,
                 'tax' => 1158500,
@@ -43,9 +43,9 @@ class TripSeeder extends Seeder
             ),
             array(
                 'destination' => 'Japan',
-                'origin' => 'Kota Langsa',
-                'start_date' => '2023-06-12',
-                'arrival_date' => '2023-06-13',
+                'origin' => 'Kota Bogor',
+                'start_date' => '2023-06-17',
+                'arrival_date' => '2023-06-21',
                 'request' => true,
                 'tax' => 20025500,
                 'total_price' => 68000000,
