@@ -97,7 +97,7 @@
     <div class="container my-lg-3 pb-5 pb-lg-0">
         <h1 class="title mb-lg-3 my-5">Trip</h1>
         @foreach($preview_trip_list as $trip)
-        <div class="row ">
+        <div class="row mb-3 ">
             <div class="col-lg-10">
                 <div class="trip-list d-flex flex-column gap-2">
                     <div class="card shadow-sm">
