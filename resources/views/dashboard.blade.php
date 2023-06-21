@@ -113,7 +113,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <!-- <div class="col-lg-4">
                                 <div class="card shadow-sm text-center">
                                     <h2 class="text-dark fw-bold mt-1">Item</h2>
                                     <a href="/item" class="card-body dashboard-icon mt-0">
@@ -121,7 +121,7 @@
                                         <h2>1</h2>
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -498,7 +498,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-2">
-                                                    <img src="img/laptop.jpg" class="img-fluid" alt="">
+                                                    <img src="{{ asset('/storage/' .$dt->avatar) }}" class="img-fluid" alt="">
                                                     <h5 class="text-center">{{ $dt->fullname }}</h5>
                                                 </div>
                                                 <div class="col-lg-9">
@@ -800,7 +800,7 @@
                                         <p>Total Price: </p>
                                     </div>
                                     <div class="col-lg-10">
-                                        <p>{{ $transaction->total_paid }}</p>
+                                        <p>Rp {{ $transaction->total_paid }}</p>
                                     </div>
                                 </div>
                                 @if($transaction->beacukai_pabean)
@@ -1058,7 +1058,7 @@
                                             <p>Total Price</p>
                                         </div>
                                         <div class="col-lg-10">
-                                            <p>{{ $finished->total_paid }}</p>
+                                            <p>Rp {{ $finished->total_paid }}</p>
                                         </div>
                                     </div>
                                     @if($finished->beacukai_pabean)

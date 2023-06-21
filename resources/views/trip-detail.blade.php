@@ -197,9 +197,9 @@
                         @endif
 
                         @if(Auth::user()->id != $trips->user_id)
-                        <div class="order-btn">
-                            <a href="/cart" class="btn btn-primary mt-3 px-5">Order</a>
-                        </div>
+                        <!-- <div class="order-btn">
+                            <a href="" class="btn btn-primary mt-3 px-5">Order</a>
+                        </div> -->
                         @endif
 
                     </div>

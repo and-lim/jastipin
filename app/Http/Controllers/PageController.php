@@ -699,7 +699,7 @@ class PageController extends Controller
         $confirmation->confirmation = 'received';
         $confirmation->save();
 
-        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance = User::where('is_admin', true)->first();
         $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_balance_transaction->hold_balance + $get_balance_transaction->balance_to_buyer);
         $reduce_admin_balance->save();
 
@@ -747,7 +747,7 @@ class PageController extends Controller
         $confirmation->confirmation = 'not received';
         $confirmation->save();
 
-        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance = User::where('is_admin', true)->first();
         $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_hold_balance->hold_balance + $get_hold_balance->balance_to_buyer);
         $reduce_admin_balance->save();
 

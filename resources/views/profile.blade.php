@@ -6,7 +6,7 @@
         <div class="row mb-5 justify-content-center">
             <div class="col-lg-3">
                 <div class="image-profile mb-3 d-flex flex-column justify-content-center align-items-center my-3">
-                    <img src="img/laptop.jpg" class="" alt="">
+                    <img src="{{ asset('/storage/' .auth()->user()->avatar) }}" class="" alt="">
                 </div>
                 <div class="traveler-profile text-center">
                     <h2 class="fw-bold mb-3">{{ auth()->user()->fullname }}</h2>
