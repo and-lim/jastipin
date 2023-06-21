@@ -315,8 +315,6 @@
                 </div>
             
             </div>
-        </div>
-    </div>
             <div class=" col-lg-3">
                 <div class="card p-3 shadow-sm">
                     <h3 class="text-primary fw-bold">Tax Note</h3>
@@ -328,9 +326,11 @@
                         <li>PPH dengan NPWP = 10%</li>
                         <li>Jika barang dikurangi nilai pabean > USD $500 = Bea cukai</li>
                     </ul>
-
+                    
                 </div>
             </div>
+        </div>
+    </div>
 </section>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>

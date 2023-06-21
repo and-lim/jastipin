@@ -25,7 +25,7 @@
                 <td>{{ $approval->fullname }}</td>
                 <td>Rp {{ $approval->amount }}</td>
                 <td>{{ $approval->bank_name }}</td>
-                <td>Rp {{ $approval->account_number }}</td>
+                <td>{{ $approval->account_number }}</td>
                 <td>{{ $approval->unique_code }}</td>
                 <td>
                   @if($approval->transfer_receipt)

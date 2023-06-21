@@ -522,7 +522,7 @@ class DashboardController extends Controller
         $status_trip->status = 'finished';
         $status_trip->save();
 
-        $reduce_admin_balance = User::where('is_admin', true);
+        $reduce_admin_balance = User::where('is_admin', true)->first();
         $reduce_admin_balance->balance = $reduce_admin_balance->balance - ($get_balance_transaction->hold_balance + $get_balance_transaction->balance_to_buyer);
         $reduce_admin_balance->save();
 
