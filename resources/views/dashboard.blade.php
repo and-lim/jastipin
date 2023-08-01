@@ -38,12 +38,12 @@
                         </a>
                     </li>
 
-                    <li class="dashboard-nav">
+                    <!-- <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-transaction-list" type="button" role="tab" aria-controls="nav-transaction-list" aria-selected="false">
                             <i class="fa fa-shopping-cart"></i>
                             <span>Transaction List</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="dashboard-nav ">
                         <a class="nav-link d-flex align-items-center" id="nav-trip-tab" data-bs-toggle="tab" data-bs-target="#nav-trip" type="button" role="tab" aria-controls="nav-trip" aria-selected="false">
@@ -51,12 +51,12 @@
                             <span>Trip</span>
                         </a>
                     </li>
-                    <li class="dashboard-nav">
+                    <!-- <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-request-tab" data-bs-toggle="tab" data-bs-target="#nav-request" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
                             <i class="fa fa-question-circle"></i>
                             <span>Request</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="dashboard-nav">
                         <a class="nav-link d-flex align-items-center" id="nav-transaction-tab" data-bs-toggle="tab" data-bs-target="#nav-transaction" type="button" role="tab" aria-controls="nav-request" aria-selected="false">
                             <i class="fa fa-money-bill"></i>
@@ -221,6 +221,14 @@
                                                 <form action="/top_up" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-body">
+                                                        <div class="d-flex gap-3">
+                                                            <p>Transfer to: </p>
+                                                            <p>BCA- 34982019</p>
+                                                        </div>
+                                                        <div class="d-flex gap-3">
+                                                            <p>Account name: </p>
+                                                            <p>PT Jastipin</p>
+                                                        </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Name</label>
                                                             <input type="text" required name="bank_name" class="form-control">
@@ -275,7 +283,7 @@
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Name</label>
-                                                            <input type="text" required name="bank_name"  class="form-control">
+                                                            <input type="text" required name="bank_name" class="form-control">
                                                         </div>
                                                         <div class="form-group my-3">
                                                             <label for="" class="form-label">Bank Account Number</label>

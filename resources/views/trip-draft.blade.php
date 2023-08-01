@@ -61,7 +61,7 @@
                                                 </div>
                                                 <div class="col-lg-5 d-flex flex-column">
                                                     <label for="origin" class="form-label">Origin</label>
-                                                    <input type="text" disabled class="form-control" id="" value="{{ auth()->user()->city }}">
+                                                    <input type="text" name="origin" class="form-control" id="" value="{{ auth()->user()->city }}">
                                                 </div>
                                             </div>
                                         </div>

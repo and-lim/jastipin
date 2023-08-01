@@ -20,8 +20,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Japan',
                 'origin' => 'Kota Bogor',
-                'start_date' => '2023-06-30',
-                'arrival_date' => '2023-07-05',
+                'start_date' => '2023-07-30',
+                'arrival_date' => '2023-08-05',
                 'request' => true,
                 'total_price' => 11000000,
                 'tax' => 1158500,
@@ -32,8 +32,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'United States',
                 'origin' => 'Kabupaten Banjarnegara',
-                'start_date' => '2023-07-01',
-                'arrival_date' => '2023-07-06',
+                'start_date' => '2023-08-15',
+                'arrival_date' => '2023-08-18',
                 'request' => true,
                 'description' => 'deskripsi nih',
                 'status' => 'ongoing',
@@ -44,8 +44,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Japan',
                 'origin' => 'Kota Bogor',
-                'start_date' => '2023-07-05',
-                'arrival_date' => '2023-07-10',
+                'start_date' => '2023-08-05',
+                'arrival_date' => '2023-08-10',
                 'request' => true,
                 'tax' => 20025500,
                 'total_price' => 68000000,
@@ -56,8 +56,8 @@ class TripSeeder extends Seeder
             array(
                 'destination' => 'Brazil',
                 'origin' => 'Kota Dumai',
-                'start_date' => '2023-06-01',
-                'arrival_date' => '2023-06-03',
+                'start_date' => '2023-07-01',
+                'arrival_date' => '2023-07-03',
                 'request' => true,
                 'tax' => 20025500,
                 'total_price' => 68000000,

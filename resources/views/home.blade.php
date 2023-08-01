@@ -146,6 +146,10 @@
                 <p>Jastipin adalah aplikasi berbasis website yang bertujuan untuk memudahkan para pengguna dan penyedia jasa titip dalam melakukan proses jual beli di dalam satu aplikasi. <br> <br>
                     Aplikasi Jastip ini memberikan informasi tentang jenis barang,harga,profil dari traveler kepada para pengguna aplikasi
                 </p>
+                <div class="d-flex gap-3">
+                    <p class="text-success">Contact Admin: </p>
+                    <p>021-123456</p>
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="img-about position-relative overflow-hidden p-5 pe-0">

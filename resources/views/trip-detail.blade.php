@@ -178,7 +178,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="quantity d-flex flex-column">
                                                                 <label for="weight" class="form-label">Weight</label>
-                                                                <input type="number" name="request_weight" style="width: 50px">
+                                                                <input type="number" name="request_weight" style="width: 50px">Kg
                                                             </div>
                                                         </div>
                                                     </div>
@@ -187,7 +187,7 @@
                                             <div class="modal-footer">
                                                 <input type="hidden" name="trip_id" value="{{ $trips->id }}">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
                                     </div>

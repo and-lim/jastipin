@@ -72,10 +72,12 @@ class DashboardController extends Controller
         // view draft trip
         $draft_trip = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
-            ->select('trips.*', 'users.fullname')
+            ->select('trips.*', 'users.fullname', 'users.avatar')
             ->where('status', 'draft')
             ->where('trips.user_id', auth()->user()->id)
             ->get();
+
+            // dd($draft_trip);
 
         $ongoing_trip = DB::table('trips')
             ->join('users', 'trips.user_id', 'users.id')
@@ -171,6 +173,7 @@ class DashboardController extends Controller
             ->where('shippings.shipping_status', '<>', 'received')
             ->where('shippings.shipping_status', '<>', 'cancelled')
             ->get();
+            // dd($shipping_list);
 
         $finished_transaction_list = DB::table('transactions')
             ->join('trips', 'transactions.trip_id', 'trips.id')
