@@ -234,7 +234,7 @@
                                     </td>
                                     <td>{{ $order_item->quantity }}</td>
                                     <td>Rp {{ $order_item->item_display_price }}</td>
-                                    <td>RP {{ $order_item->profit }}</td>
+                                    <td>Rp {{ $order_item->profit }}</td>
                                     <td>Rp {{ $order_item->total }}</td>
                                 </tr>
                                 @endforeach
@@ -331,7 +331,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{ $sum_profit }}</td>
+                                    <td>Rp {{ $sum_profit }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -408,7 +408,7 @@
                     <div class="form-group mb-3 row">
                         <label for="" class="col-sm-2 col-form-label">Shipping Price</label>
                         <div class="col-lg-10">
-                            <input type="text" readonly class="form-control-plaintext " id="" value="{{ $shipping->shipping_trip_price }}">
+                            <input type="text" readonly class="form-control-plaintext " id="" value="Rp {{ $shipping->shipping_trip_price }}">
                         </div>
                     </div>
 

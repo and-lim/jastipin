@@ -42,7 +42,7 @@
                 @if(auth()->user()->is_admin == false)
                 <li class="nav-item position-relative">
                     <a class="nav-link" href="/order">Order
-                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span>
+                        <!-- <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span> -->
                     </a>
                 </li>
                 @endif
@@ -50,11 +50,12 @@
                 <li class="nav-item dropdown position-relative">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
-                        <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span>
+                        <!-- <span class="bg-danger position-absolute top-0 ms-1" style="font-size: 10px;">10</span> -->
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item position-relative" href="/approval">Approval
-                                <span class="bg-danger position-absolute end-1 ms-3 text-white" style="font-size: 15px;">10</span></a></li>
+                                <!-- <span class="bg-danger position-absolute end-1 ms-3 text-white" style="font-size: 15px;">10</span> -->
+                            </a></li>
                         <li><a class="dropdown-item" href="/transaction-list">Transaction List</a></li>
                     </ul>
                 </li>

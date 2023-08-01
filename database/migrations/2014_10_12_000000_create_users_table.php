@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('city');
             $table->text('address')->nullable();
-            $table->integer('balance')->nullable();
+            $table->integer('balance')->default(0);
             $table->integer('npwp')->nullable();
             $table->string('password');
             $table->text('avatar')->nullable();
