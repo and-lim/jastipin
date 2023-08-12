@@ -1,6 +1,6 @@
 @extends('layout')
 
-<section class="py-5" style="height: 100%;">
+<section class="py-5">
   <div class="container py-5 pb-5">
     <h1 class="fw-bold mb-5">Approval</h1>
     <div class="row">
