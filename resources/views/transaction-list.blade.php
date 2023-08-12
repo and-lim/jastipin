@@ -9,6 +9,25 @@
         </div>
         @endif
         <div class="row">
+            <div class="form-group mb-3">
+                <div class="align-items-center">
+
+                    <form action="" method="GET">
+                        
+                        <div class="col-lg-2 p-3">
+                            <label for="start_date" class="form-label">Start Date</label>
+                            <input id="start_date_recap" name="start_date_recap" required class="form-control" type="date" />
+                        </div>
+                        <div class="col-lg-2 p-3">
+                            <label for="arrival_date" class="form-label">End Date</label>
+                            <input id="end_date_recap" name="end_date_recap" required class="form-control" type="date" />
+                        </div>
+                        <div class="text-center mt-5 p-4">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="col-lg-12">
                 <div class="card p-3 table-responsive">
                     <table class="table table-borderless">
