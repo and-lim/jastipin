@@ -28,6 +28,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
                 'city' => $request->city,
+                'address' => $request->address,
                 'is_admin' => false,
                 'npwp' =>$request->npwp,
                 'password' => Hash::make($request->password)
