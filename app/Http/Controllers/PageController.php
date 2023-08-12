@@ -557,8 +557,15 @@ class PageController extends Controller
             ->join('users as travelers', 'trips.user_id', 'travelers.id')
             ->join('users as buyers', 'transactions.user_id', 'buyers.id')
             ->join('shipping_types', 'transactions.shipping_type_id', 'shipping_types.id')
-            ->select('transaction_lists.hold_balance', 'transaction_lists.id as transaction_list_id', 'transaction_lists.balance_to_buyer', 'transactions.*', 'trips.destination', 'trips.origin', 'travelers.fullname as traveler_fullname', 'buyers.fullname as buyer_fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name', 'buyers.id as buyer_id', 'travelers.id as traveler_id')
-            ->get();
+            ->select('transaction_lists.hold_balance', 'transaction_lists.id as transaction_list_id', 'transaction_lists.balance_to_buyer', 'transactions.*', 'trips.destination', 'trips.origin','trips.start_date','trips.arrival_date', 'travelers.fullname as traveler_fullname', 'buyers.fullname as buyer_fullname', 'buyers.address', 'buyers.phone_number', 'shipping_types.shipping_name', 'buyers.id as buyer_id', 'travelers.id as traveler_id');
+            
+        if(request('start_date_recap')){
+            $transaction_header = $transaction_header->where('trips.start_date','>=', request('start_date_recap'));
+        }
+        if(request('end_date_recap')){
+            $transaction_header = $transaction_header->where('trips.arrival_date','<=', request('end_date_recap'));
+        }
+        $transaction_header = $transaction_header->orderBy('trips.start_date','desc')->get();
 
         // dd($transaction_header);
         $item_list = [];
