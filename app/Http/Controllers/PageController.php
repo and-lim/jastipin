@@ -565,6 +565,7 @@ class PageController extends Controller
         if(request('end_date_recap')){
             $transaction_header = $transaction_header->where('trips.arrival_date','<=', request('end_date_recap'));
         }
+        $total_transaction = $transaction_header->count();
         $transaction_header = $transaction_header->orderBy('trips.start_date','desc')->get();
 
         // dd($transaction_header);
@@ -591,7 +592,7 @@ class PageController extends Controller
 
             $request_list = Arr::add($request_list, $transaction->id, $request_transaction);
         }
-        return view('transaction-list', compact('transaction_header', 'item_list', 'request_list'));
+        return view('transaction-list', compact('transaction_header', 'item_list', 'request_list','total_transaction'));
     }
 
     function approval_list()
