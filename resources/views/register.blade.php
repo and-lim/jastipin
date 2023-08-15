@@ -42,8 +42,12 @@
                             </datalist>
                         </div>
                         <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Address</label>
+                            <input type="text" name="address" class="form-control" id="address">
+                        </div>
+                        <div class="form-group mb-3">
                             <label for="exampleFormControlInput1" class="form-label">NPWP</label>
-                            <input type="text" name="npwp" oninput="validateInput(this)" class="form-control" id="fullname">
+                            <input type="text" name="npwp" oninput="validateInput(this)" class="form-control" id="npwp">
                         </div>
                         <div class="form-group mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Password</label>

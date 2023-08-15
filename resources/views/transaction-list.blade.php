@@ -24,8 +24,11 @@
                             <div class="col-lg-2 p-3 mt-lg-4 pt-lg-4">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
+                        </form>
+                            <div class="col-lg-2 p-3">
+                                <h5>Total Transaction: {{ $total_transaction }}</h5>
+                            </div>
                         </div>
-                    </form>
             </div>
             <div class="col-lg-12">
                 <div class="card p-3 table-responsive">
